@@ -22,7 +22,7 @@ The recognition phase has been carried out based on two kinds of procedures:
 ## Outputs obtained
 
 1.	An XML file for every text with detected and tagged entities.
-2.	A Jcsv and JSON files for each document processed with the list of terms identified. These files are located in the output folder. The files with AllTerms suffix contain all the terms, for both place names and, also, entities and people's names; and the one with the prefix named Placenames, which contains only the place names found and/or proposed.
+2.	A csv and JSON files for each document processed with the list of terms identified. These files are located in the output folder. The files with AllTerms suffix contain all the terms, for both place names and, also, entities and people's names; and the one with the prefix named Placenames, which contains only the place names found and/or proposed.
 3.	The new generated terms are incorporated into the medieval gazetteer. The Medieval gazetteer is in the resources/dataFiles folder called medieval-data.txt. A new-medieval-data file that contains the terms proposed, according to the context but they have not localized in any gazetteer or dictionary.
 4.	A medieval-gazeteer.csv file, which contains all the terms that they have currently been identified in the texts.
 5.	The list of new names found or proposed are incorporated to the new-proper-names.txt file, and a list of names of found saints (that allow us to resolve the ambiguity of place names), in the saint-names.txt file. Both of them are located at the resources/dataFiles folder.
