@@ -7,9 +7,9 @@ package rest;
  
 /**
 *
-* @author Rodrigo
+* @author mluisadiez
 */
-import clases.Numeros;
+
 import com.google.gson.Gson;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -25,27 +25,21 @@ import MedievalTextLexer.Main;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
  
-@Path("/suma")
-public class SumaRestService {
+@Path("/process")
+public class ProcessRestService {
  
-/*@GET
-@Path("/sumar/{param}/{param2}")
-public int sumarNumerosGet(@PathParam("param") int msg, @PathParam("param2") int msg2) {
- 
-return msg+msg2;
- 
-}*/
+
     
-/*@GET
-@Path("/sumar/text/{param}")*/
+
  @POST
-@Path("/sumapost")
+@Path("/processpost")
 @Produces("text/txt")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-public String sumarNumerosGet(@FormParam("texto") String name) {
+public String processTextPost(@FormParam("texto") String name) {
  String finalRes=MedievalTextLexer.Main.ejecutar(name);
  name="";
 return finalRes;
 }
-    
+
+}
 
