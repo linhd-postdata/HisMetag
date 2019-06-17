@@ -48,32 +48,4 @@ public String sumarNumerosGet(@FormParam("texto") String name) {
 return finalRes;
 }
     
- 
-@POST
-@Path("/sumar")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.TEXT_PLAIN)
-public String sumarNumerosPost(String json) throws FileNotFoundException{
-Gson gson = new Gson();
-Numeros nums = gson.fromJson(json, Numeros.class);
-String responseString = String.valueOf(nums.getNro1()+nums.getNro2());
- final PrintWriter writer=new PrintWriter("la salida");
-writer.println("adios");
-return responseString;
- 
-}
- 
-@PUT
-@Path("/sumar")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.TEXT_PLAIN)
-public String sumarNumerosPut(String json) {
-Gson gson = new Gson();
-Numeros nums = gson.fromJson(json, Numeros.class);
-String responseString = String.valueOf(nums.getNro1()+nums.getNro2());
- 
-return responseString;
- 
-}
- 
-}
+
