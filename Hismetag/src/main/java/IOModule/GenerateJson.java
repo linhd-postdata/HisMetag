@@ -34,23 +34,20 @@ public class GenerateJson {
       
        representacionJSON += generateJson(Jsonlist.get(i))+",";
        }
-      representacionJSON=representacionJSON .substring(0, representacionJSON.length())+"]";
+      representacionJSON=representacionJSON .substring(0, representacionJSON.length()-1)+"]";
+    
       return representacionJSON;
     }
     
     public static String generateJson(JsonClass jsonObj){
         Gson gson = new Gson();
+        
         return gson.toJson(jsonObj);
        
     }
     
-    public static String xmlStringToJSONString(String xmlString) {
-        /*xmlString = "<?xml version='1.0' encoding='UTF-8'?>"+
-                "<student>"+
-                "<age>11</age>"+
-                "<id>12</id>"+
-                "<name>JavaInterviewPoint</name>"+
-             "</student>";;*/
+  /*  public static String xmlStringToJSONString(String xmlString) {
+        
 	try
         {
             // Create a new XmlMapper to read XML tags
@@ -76,14 +73,15 @@ public class GenerateJson {
             return "";
         }
         
-    }
+    }*/
     
     public static String finalJSON(ArrayList<JsonClass> jsonlist,String xml){
         
         String data=generateJsonList(jsonlist);
-        String xmldata=xmlStringToJSONString(xml);
         
-        String finalj="{"+"\"entities\": "+data+","+"\"XML\":"+xml+"}";
+        
+        String finalj="{"+"\"entities\": "+data+","+"\"XML\":"+xml.toString()+"}";
+        System.out.println("el json final es "+finalj);
         return finalj;
     }
         
