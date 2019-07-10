@@ -14,9 +14,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import java.io.FileWriter;
 
 
 import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 
@@ -46,43 +52,22 @@ public class GenerateJson {
        
     }
     
-  /*  public static String xmlStringToJSONString(String xmlString) {
-        
-	try
-        {
-            // Create a new XmlMapper to read XML tags
-            XmlMapper xmlMapper = new XmlMapper();
-            
-            //Reading the XML
-            JsonNode jsonNode = xmlMapper.readTree(xmlString.getBytes());
-            
-            //Create a new ObjectMapper
-            ObjectMapper objectMapper = new ObjectMapper();
-            
-            //Get JSON as a string
-            String value = objectMapper.writeValueAsString(jsonNode);
-            
-            System.out.println("*** Converting XML to JSON ***");
-            System.out.println(value);
-            return value;
-
-        } 
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return "";
-        }
-        
-    }*/
-    
-    public static String finalJSON(ArrayList<JsonClass> jsonlist,String xml){
+    public static String finalJSON(ArrayList<JsonClass> jsonlist,String xml)throws Exception{
         
         String data=generateJsonList(jsonlist);
         
+       JsonXMLClass jsonobject=new JsonXMLClass(jsonlist,xml);
+        Gson gson = new Gson();
         
-        String finalj="{"+"\"entities\": "+data+","+"\"XML\":"+xml.toString()+"}";
-        System.out.println("el json final es "+finalj);
-        return finalj;
+        String jsonFinal= gson.toJson(jsonobject);
+      
+ 
+       
+    
+        
+ 
+      
+        return jsonFinal;
     }
         
     
