@@ -1,6 +1,6 @@
 FROM maven:3.6 AS builder
 RUN mkdir -p /app
-COPY Hismetag /app
+COPY hismetag /app
 WORKDIR /app
 RUN mvn package
 
