@@ -1,3 +1,5 @@
-
 .DS_Store
-Hismetag/.DS_Store
+.settings
+.classpath
+.project
+nb-configuration.xml
