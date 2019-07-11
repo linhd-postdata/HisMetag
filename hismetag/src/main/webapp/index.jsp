@@ -27,7 +27,7 @@
         <div style="width:100%; borde:1px solid #e0922e;padding-top: 25px"><img src="/ServicioWebRest-1.0-SNAPSHOT/images/logodos.png" width="150"/></div>
         <span style="text-align: center">
             <h1>HisMetag</h1>
-        <form method="post" action="rest/suma/sumapost"  id="form">
+        <form method="post" action="rest/process/processpost"  id="form">
         <fieldset>
             <legend>Insert text</legend>
             <textarea  id="texto" name="texto" cols="200" rows="20" style="resize: both;"></textarea>
