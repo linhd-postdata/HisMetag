@@ -50,16 +50,14 @@ public class Main {
 	
 	private String run_program( String name){
 		 try{
-                     
                 String inputfile=name;
 		
 		
         String newString=inputfile.replaceAll("\\s+", " ");
                 WordList wordList=new WordList(inputfile);
                 System.out.println("la lista tiene "+wordList.wordList.size());
-         
-        
-              
+
+
         
          
 
@@ -162,7 +160,6 @@ public class Main {
 
             archivo = new File (this.getClass().getResource( "/new-ambiguous-terms-found.txt" ).toURI());
             Data.AmbiguousTermsFoundTable.createTable(archivo);
-            
            
              //System.out.println("cuatro esta aqui"+inputfile);
             String newfile=inputfile.substring(0, inputfile.length()-3)+"xml";
@@ -195,7 +192,7 @@ public class Main {
             
              */
              
-          new Output(); 
+          Output output = new Output();
              
       /*        BufferedReader buffer = new BufferedReader(stream);
            //System.out.println("el texto leido es "+buffer);*/
@@ -211,33 +208,13 @@ public class Main {
              //System.out.println("la lematizacion"+WordTransformations.lemmVerbs("dizen"));  
             
         Token token;
-            
-         do{
-                
-                 
-             //   System.out.println("estOy por aqui");
-            //    System.out.println(Lexer.fin);
+        while(!lexer.isFin()) {
+            // Obtener el token analizado y mostrar su información
+            token = lexer.yylex();
 
-            		// Obtener el token analizado y mostrar su información
-            if (Lexer.fin) {//System.out.println("EL final");
-            
-            break;}
-                 else  {
-                
-                token = lexer.yylex();
             }
-                
-               
-              
-               
-            	
-            	if (Lexer.fin==true){
-                    
-            		break;
-                }
-            }while (true);
             
-            IOModule.JsonClass objeto=new IOModule.JsonClass("dolores","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
+        IOModule.JsonClass objeto=new IOModule.JsonClass("dolores","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
            IOModule.JsonClass objeto1=new IOModule.JsonClass("tela","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
            ArrayList<IOModule.JsonClass> JsonList=new ArrayList<IOModule.JsonClass>();
                    
@@ -251,7 +228,7 @@ public class Main {
 
            
           //  System.out.println("no se por qué no sale ");
-          Output.writeSalida();
+          output.writeSalida();
          //   for (int i=0; i<Output.salida.size(); i++)
           
            // System.out.println("EL OUTPUT  "+Output.salida.get(i).root.string+ " "+Output.salida.get(i).root.type);
@@ -303,8 +280,9 @@ public class Main {
             wordList.updateJsonList(Output.JsonList);
             String fileXml=TextCleaning.XMLClean.cleaning(Output.output);
             
-                String salida=GenerateJson.finalJSON(Output.JsonList, fileXml);
-            
+            String salida=GenerateJson.finalJSON(Output.JsonList, fileXml);
+
+
             return salida;
 
 		}
@@ -328,7 +306,10 @@ public class Main {
     	}
     	else{*/
     		Main m=new Main();
-    		return 	m.run_program(args);
+            System.out.println("Entra main");
+    		String salida = m.run_program(args);
+    		System.out.println("Sale main");
+    		return 	salida;
     		
     	
         

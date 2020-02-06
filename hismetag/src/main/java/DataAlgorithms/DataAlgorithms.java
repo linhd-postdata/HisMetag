@@ -5,7 +5,6 @@
 package DataAlgorithms;
 
 import DataStructures.*;
-import MedievalTextLexer.Lexer;
 import Recognition.ElementsRecognition;
 import Recognition.Terms;
 

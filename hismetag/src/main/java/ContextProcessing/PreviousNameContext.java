@@ -30,10 +30,13 @@ import WordProcessing.WordTransformations;
  * @author M Luisa Díez Platas
  */
 public class PreviousNameContext extends SemanticContext {
-    public PreviousNameContext(){
-    		
+    public PreviousNameContext(Lexer lexer){
+        super(lexer);
     }
-    public PreviousNameContext(SemanticContext previous){super(previous);}
+
+    public PreviousNameContext(SemanticContext previous, Lexer lexer){
+        super(previous, lexer);
+    }
   
     
     public ContextualList getContext(){
@@ -43,91 +46,91 @@ public class PreviousNameContext extends SemanticContext {
     
     public SemanticContext checkLowerCaseWord(String word){
         try{
-           // System.out.println("entro por minusculas orden "+word+" "+Lexer.lastToken);
-            //Lexer.wbag.escribir();
+           // System.out.println("entro por minusculas orden "+word+" "+this.lexer.getLastToken());
+            //this.lexer.wbag.escribir();
             
             if (ElementsRecognition.isDeterminantPrep(word)){
           	  //System.out.println("he entrado por el determinante");
                 BagData ultimo=new BagData();
         	//System.out.println("estoy entramdopor family minusculas"+word);
-        if (Lexer.lastToken!=""){
+        if (this.lexer.getLastToken()!=""){
          
-            if (Lexer.wbag.tam()>0){
-              ultimo=Lexer.wbag.get(Lexer.wbag.tam()-1);
+            if (this.lexer.wbag.tam()>0){
+              ultimo=this.lexer.wbag.get(this.lexer.wbag.tam()-1);
               if (ultimo.type==Terms.SALTO){
-                  Lexer.wbag.wbag.remove(Lexer.wbag.wbag.size()-1);
+                  this.lexer.wbag.wbag.remove(this.lexer.wbag.wbag.size()-1);
           
-            Lexer.wbag.put(new OrgBagData(Lexer.lastToken+ultimo.string,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length()-1,Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
-            	Lexer.lastToken="";
+            this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken()+ultimo.string,TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length()-1,this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
+            	this.lexer.setLastToken("");
               }
         else{
-            Lexer.wbag.put(new OrgBagData(Lexer.lastToken,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length(),Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
-            	Lexer.lastToken="";
+            this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken(),TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length(),this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
+            	this.lexer.setLastToken("");
             }
         }else {
-              Lexer.wbag.put(new OrgBagData(Lexer.lastToken,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length(),Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
-            	Lexer.lastToken="";  
+              this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken(),TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length(),this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
+            	this.lexer.setLastToken("");  
             }
-          	  // System.out.println(Lexer.wbag.get(0).type);
-          	  Lexer.wbag.put(new DeBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                Lexer.lastToken=word;
-                return Lexer.context;
+          	  // System.out.println(this.lexer.wbag.get(0).type);
+          	  this.lexer.wbag.put(new DeBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                this.lexer.setLastToken(word);
+                return this.lexer.context;
             }
             }
             
-            if (ElementsRecognition.isDeterminantPrep(Lexer.lastToken)){
+            if (ElementsRecognition.isDeterminantPrep(this.lexer.getLastToken())){
           	 // System.out.println("he entrado por el determinante2");
-          	  Lexer.lastToken="";
-          	  BagData bgd=new BagData(word,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext());
+          	  this.lexer.setLastToken("");
+          	  BagData bgd=new BagData(word,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext());
           	  bgd.type=Terms.AON;
-          	  Lexer.wbag.put(bgd);
-          	  return Lexer.context;
+          	  this.lexer.wbag.put(bgd);
+          	  return this.lexer.context;
             }
             
-            if (Lexer.lastToken!=""){ Output.write(new DataStructures.RoleTreeNode(Lexer.lastToken));
+            if (this.lexer.getLastToken()!=""){ Output.write(new DataStructures.RoleTreeNode(this.lexer.getLastToken()));
             
-            Lexer.lastToken="";
+            this.lexer.setLastToken("");
             }
             if (checkSpecialContext(word)){ 
-          	 Lexer.previousContextStack.clear();
-          	  return Lexer.context.changeContext(ContextualList.INITIAL, null, " "," ");
+          	 this.lexer.clearPreviousContext();
+          	  return this.lexer.context.changeContext(ContextualList.INITIAL, null, " "," ");
             }
             
             Output.write(new DataStructures.RoleTreeNode(word));
-             return Lexer.context.changeContext(ContextualList.INITIAL, null, " "," ");
-        }catch(Exception e){return Lexer.context;}
+             return this.lexer.context.changeContext(ContextualList.INITIAL, null, " "," ");
+        }catch(Exception e){return this.lexer.context;}
       }
       public ContextualList checkCapitalLettersWord(String word){
         try{
             
-      	//  System.out.println("entro por mayusculas buillding "+word+" "+Lexer.lastToken);
-           // Lexer.wbag.escribir();
+      	//  System.out.println("entro por mayusculas buillding "+word+" "+this.lexer.getLastToken());
+           // this.lexer.wbag.escribir();
             if (ElementsRecognition.isDeterminantPrep(word.toLowerCase())){
           	//  System.out.println("he entrado por el determinante");
-          	  if (Lexer.lastToken!="")
-          	  Lexer.wbag.put(new OrgBagData(Lexer.lastToken,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length(),Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
-          	 // System.out.println(Lexer.wbag.get(0).type);
-          	  Lexer.wbag.put(new DeBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                Lexer.lastToken=word;
-                return Lexer.context.getContext();
+          	  if (this.lexer.getLastToken()!="")
+          	  this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken(),TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length(),this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
+          	 // System.out.println(this.lexer.wbag.get(0).type);
+          	  this.lexer.wbag.put(new DeBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                this.lexer.setLastToken(word);
+                return this.lexer.context.getContext();
             }
             
-            if (ElementsRecognition.isDeterminantPrep(Lexer.lastToken)){
+            if (ElementsRecognition.isDeterminantPrep(this.lexer.getLastToken())){
           	 // System.out.println("he entrado por el determinante2"+word);
-          	  Lexer.lastToken="";
-          	  BagData bgd=new BagData(word,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext());
+          	  this.lexer.setLastToken("");
+          	  BagData bgd=new BagData(word,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext());
           	  bgd.type=Terms.AON;
-          	  Lexer.wbag.put(bgd);
-          	  return Lexer.context.getContext();
+          	  this.lexer.wbag.put(bgd);
+          	  return this.lexer.context.getContext();
             }
             
-            Lexer.wbag.put(new OrgBagData(Lexer.lastToken,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length(),Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
+            this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken(),TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length(),this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
       	  
-            BagData bgd=new BagData(word,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext());
+            BagData bgd=new BagData(word,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext());
       	  bgd.type=Terms.AON;
-      	  Lexer.wbag.put(bgd);
-      	  Lexer.lastToken="";
-             return Lexer.context.getContext();
+      	  this.lexer.wbag.put(bgd);
+      	  this.lexer.setLastToken("");
+             return this.lexer.context.getContext();
         }catch(Exception e){return this.getContext();}
       
       }
@@ -136,13 +139,13 @@ public class PreviousNameContext extends SemanticContext {
          try{
              
       	  // System.out.println("la lista de geog"+string);
-      	   if (Lexer.lastToken!="")
-        	 Lexer.wbag.put(new OrgBagData(Lexer.lastToken,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length(),Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
+      	   if (this.lexer.getLastToken()!="")
+        	 this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken(),TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length(),this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
        	  
-             BagData bgd=new BagData(string,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
+             BagData bgd=new BagData(string,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
        	  bgd.type=Terms.AON;
-       	  Lexer.wbag.put(bgd);
-               return Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), this, " "," ").getContext();
+       	  this.lexer.wbag.put(bgd);
+               return this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this, " "," ").getContext();
              
          }catch(Exception e){return ContextualList.INITIAL;}
       }
@@ -150,13 +153,13 @@ public class PreviousNameContext extends SemanticContext {
       public ContextualList nounPhraseProcessing(String string){
            try{
           	// System.out.println("la noun de geog"+string);
-          	 if (Lexer.lastToken!="")
-          	 Lexer.wbag.put(new OrgBagData(Lexer.lastToken,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length(),Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
+          	 if (this.lexer.getLastToken()!="")
+          	 this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken(),TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length(),this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
          	  
-               BagData bgd=new BagData(string,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
+               BagData bgd=new BagData(string,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
          	  bgd.type=Terms.AON;
-         	  Lexer.wbag.put(bgd);
-                 return Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), this, " "," ").getContext();
+         	  this.lexer.wbag.put(bgd);
+                 return this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this, " "," ").getContext();
                
                
            }catch(Exception e){return ContextualList.INITIAL;}
@@ -168,21 +171,21 @@ public class PreviousNameContext extends SemanticContext {
        
            public ContextualList prepositionalSyntagmsListProcessing(String string){
             try{
-          	//  System.out.println("entro por prepositional buillding "+string+" "+Lexer.lastToken);
-           //     Lexer.wbag.escribir();
+          	//  System.out.println("entro por prepositional buillding "+string+" "+this.lexer.getLastToken());
+           //     this.lexer.wbag.escribir();
                 
-                if (Lexer.lastToken!="")
+                if (this.lexer.getLastToken()!="")
               	  
-                Lexer.wbag.put(new OrgBagData(Lexer.lastToken,TypesTerms.FT,Lexer.numCh-Lexer.lastToken.length(),Lexer.numWord-1,Lexer.numCh-1,new InfoFound(),Lexer.context.getContext(),false));
+                this.lexer.wbag.put(new OrgBagData(this.lexer.getLastToken(),TypesTerms.FT,this.lexer.numCh-this.lexer.getLastToken().length(),this.lexer.numWord-1,this.lexer.numCh-1,new InfoFound(),this.lexer.context.getContext(),false));
           	  
                 
-                BagData bgd=new BagData(string,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
+                BagData bgd=new BagData(string,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
           	  bgd.type=Terms.AON;
-          	  Lexer.wbag.put(bgd);
-          	  Lexer.lastToken="";
-                return Lexer.context.getContext();
+          	  this.lexer.wbag.put(bgd);
+          	  this.lexer.setLastToken("");
+                return this.lexer.context.getContext();
       
-      }catch(Exception e){return Lexer.context.getContext();}
+      }catch(Exception e){return this.lexer.context.getContext();}
        
                
                

@@ -27,10 +27,13 @@ import StringNgramms.NgrammsInfo;
  * @author M Luisa Díez Platas
  */
 public class TreatmentContext extends SemanticContext {
-    public TreatmentContext(){
-    	
-   }
-    public TreatmentContext(SemanticContext previous){super(previous);}
+    public TreatmentContext(Lexer lexer){
+        super(lexer);
+    }
+
+    public TreatmentContext(SemanticContext previous, Lexer lexer){
+        super(previous, lexer);
+    }
    
     public ContextualList getContext(){
         return ContextualList.TREATMENT;
@@ -38,11 +41,11 @@ public class TreatmentContext extends SemanticContext {
     
     public SemanticContext checkLowerCaseWord(String word){
       try{
-    	 //System.out.println("LA BOLSA ANTES DE NETRAR EN MINUSCULAS TREATMENT"+Lexer.wbag.tam()+word+" "+Lexer.numCh+" "+Lexer.numWord);
+    	 //System.out.println("LA BOLSA ANTES DE NETRAR EN MINUSCULAS TREATMENT"+this.lexer.wbag.tam()+word+" "+this.lexer.numCh+" "+this.lexer.numWord);
           BagData ultimo=new BagData();
            
-        // Lexer.wbag.escribir();
-      //System.out.println("edtoy leyendo esta palabra "+word+"   "+ Lexer.context.getContext()+ Lexer.numCh+Lexer.numWord);
+        // this.lexer.wbag.escribir();
+      //System.out.println("edtoy leyendo esta palabra "+word+"   "+ this.lexer.context.getContext()+ this.lexer.numCh+this.lexer.numWord);
           
         ContextualList context=determineContext(word,this);
        
@@ -52,34 +55,34 @@ public class TreatmentContext extends SemanticContext {
         if (context!=ContextualList.TREATMENT){
         	if (context==ContextualList.FAMILY){
                   //  System.out.println("estanos entrando por la opcion de cambio ");
-             //       Lexer.wbag.escribir();
-        		Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-        		Lexer.wbag.get(Lexer.wbag.tam()-1).type=Terms.NPD;
-        	//	System.out.println("el tipo de la ultima family"+Lexer.wbag.get(Lexer.wbag.tam()-1).type);
-        	// Lexer.wbag.escribir();
-                 Lexer.lastToken="";
+             //       this.lexer.wbag.escribir();
+        		this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+        		this.lexer.wbag.get(this.lexer.wbag.tam()-1).type=Terms.NPD;
+        	//	System.out.println("el tipo de la ultima family"+this.lexer.wbag.get(this.lexer.wbag.tam()-1).type);
+        	// this.lexer.wbag.escribir();
+                 this.lexer.setLastToken("");
                 }else{
         		//System.out.println("he entrado por este contexto");
-                Lexer.context.changeContext(context, Lexer.context," ", word);
-             //   Lexer.wbag.escribir();
+                this.lexer.context.changeContext(context, this.lexer.context," ", word);
+             //   this.lexer.wbag.escribir();
         	}
         	
             //System.out.println("hes salido despues del ambio");
-            return Lexer.context;
-        }else return Lexer.context;
+            return this.lexer.context;
+        }else return this.lexer.context;
       //  System.out.println("HE COMPROBADO" +word);
         if (Data.FamilyNamesTable.contains(word)){
-        	Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-    		Lexer.wbag.get(Lexer.wbag.tam()-1).type=Terms.NPD;
-    		//System.out.println("el tipo de la ultima family"+Lexer.wbag.get(Lexer.wbag.tam()-1).type);
-    		return Lexer.context;
+        	this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+    		this.lexer.wbag.get(this.lexer.wbag.tam()-1).type=Terms.NPD;
+    		//System.out.println("el tipo de la ultima family"+this.lexer.wbag.get(this.lexer.wbag.tam()-1).type);
+    		return this.lexer.context;
         }
-        if (checkVerb(word)){  Lexer.context.changeContext(ContextualList.INITIAL, Lexer.context," ", word);
-            return Lexer.context;}
+        if (checkVerb(word)){  this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
+            return this.lexer.context;}
         
         if (check(word)){ 
-            Lexer.context.changeContext(ContextualList.INITIAL, Lexer.context," ", word);
-        return Lexer.context;}
+            this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
+        return this.lexer.context;}
         //System.out.println ("LA BOLSAAAAAAA "+Output.dataOut);
       
         
@@ -105,9 +108,9 @@ public class TreatmentContext extends SemanticContext {
                 ultimo.string+=" "+word;
                 ultimo.type=Terms.NPN;
                 
-              //  System.out.println("PINTAME EL ULTIMO "+Lexer.wbag.get(Lexer.wbag.tam()-1).string);
+              //  System.out.println("PINTAME EL ULTIMO "+this.lexer.wbag.get(this.lexer.wbag.tam()-1).string);
             }else{*/
-            Lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+            this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
           
            // }
         } 
@@ -120,51 +123,51 @@ public class TreatmentContext extends SemanticContext {
                 
                 if (infoAprox!=null){
                    // System.out.println("estoy entrando por el 0");
-                    if (infoAprox.uri=="proper") Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                else if (infoAprox.uri=="nick") Lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                    if (infoAprox.uri=="proper") this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                else if (infoAprox.uri=="nick") this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 else {
-                    if (Lexer.articleFlag!=""){Lexer.wbag.restart();Lexer.articleFlag="";}
-                	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
-                        Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), this, "", "");
+                    if (this.lexer.articleFlag!=""){this.lexer.wbag.restart();this.lexer.articleFlag="";}
+                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                        this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this, "", "");
                 	//Output.write(word);
                 }
                 } else {
-                    if (Lexer.articleFlag!=""){Lexer.wbag.restart();Lexer.articleFlag="";}
-                    Lexer.context.changeContext(ContextualList.INITIAL, Lexer.context," ", word);
-                    Lexer.wbag.restart();
-                	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
+                    if (this.lexer.articleFlag!=""){this.lexer.wbag.restart();this.lexer.articleFlag="";}
+                    this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
+                    this.lexer.wbag.restart();
+                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                    // Output.write(word);
                 }
                
             }/* buscar una variante */;
             case 1: {
                // System.out.println("El caracter = es "+resultado.charAt(2));
-                if (resultado.charAt(0)=='1') Lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),info,Lexer.context.getContext(),false));
-                if (resultado.charAt(1)=='1') Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                if (resultado.charAt(0)=='1') this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),false));
+                if (resultado.charAt(1)=='1') this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 if (resultado.charAt(2)=='1') {
                    // System.out.println("he entrado por aqui en el case 1 "+word);
-                    Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
+                    Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                    // Output.write(word);
                 }
             break;
             }
             case 2:{
                 if (resultado.charAt(0)=='1' && resultado.charAt(1)=='1') {
-                    if (info.gazetteer.contains("Geonames"))  Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                    else Lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),info,Lexer.context.getContext(),true));
+                    if (info.gazetteer.contains("Geonames"))  this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                    else this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),true));
                 }
                 if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                 	
-                    	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
+                    	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                       //  Output.write(word);
                      }
-              //Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));  
+              //this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));  
             break;
             }
             case 3:{
                 
-                    if (info.gazetteer.contains("Geonames"))  Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                    else Lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),info,Lexer.context.getContext(),true));
+                    if (info.gazetteer.contains("Geonames"))  this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                    else this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),true));
             break;
             }
         }
@@ -172,8 +175,8 @@ public class TreatmentContext extends SemanticContext {
         
        
      
-           return Lexer.context;
-      }catch(Exception e){return Lexer.context;}
+           return this.lexer.context;
+      }catch(Exception e){return this.lexer.context;}
     }
     
     public ContextualList checkCapitalLettersWord(String word){
@@ -186,49 +189,49 @@ public class TreatmentContext extends SemanticContext {
           if (context!=ContextualList.SAME)
           if (context!=ContextualList.TREATMENT){
           	//System.out.println("he entrado por este contexto");
-              Lexer.context.changeContext(context, Lexer.context," ", word);
+              this.lexer.context.changeContext(context, this.lexer.context," ", word);
              // System.out.println("hes salido despues del ambio");
-              return Lexer.context.getContext();
-          }else return Lexer.context.getContext();
+              return this.lexer.context.getContext();
+          }else return this.lexer.context.getContext();
           //System.out.println("HE COMPROBADO" +word);
            if (checkVerb(word)){ 
-        	  Lexer.context.changeContext(ContextualList.INITIAL, this, " "," ");
-        	  return Lexer.context.getContext();}
+        	  this.lexer.context.changeContext(ContextualList.INITIAL, this, " "," ");
+        	  return this.lexer.context.getContext();}
          // System.out.println("entro por capital letters "+word);
-        if (Lexer.previousContextStack.peek() instanceof ContextProcessing.PlaceContext){
+        if (this.lexer.peekPreviousContext() instanceof ContextProcessing.PlaceContext){
         }
         else if (check(word)){ 
-        	  Lexer.context.changeContext(ContextualList.INITIAL, this, " "," ");
-        	  return Lexer.context.getContext();}
+        	  this.lexer.context.changeContext(ContextualList.INITIAL, this, " "," ");
+        	  return this.lexer.context.getContext();}
          // System.out.println("entro por capital letters "+word);
-        if (Lexer.previousContextStack.peek() instanceof ContextProcessing.PlaceContext){
+        if (this.lexer.peekPreviousContext() instanceof ContextProcessing.PlaceContext){
         }else{
         	InfoFound info=TermsRecognition.existMedievalPlaceName(word);
             
             boolean isProperName=TermsRecognition.isProperName(word.toLowerCase());
             boolean isCommonName=TermsRecognition.isCommonName(word.toLowerCase());
             if (isProperName){
-            	Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-            //	Lexer.wbag.escribir();
-                return  Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), this, " "," ").getContext();
+            	this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+            //	this.lexer.wbag.escribir();
+                return  this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this, " "," ").getContext();
             }else if (isCommonName){
-            	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
-            	return  Lexer.context.changeContext(Lexer.context.getContext(), this, " "," ").getContext();
+            	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+            	return  this.lexer.context.changeContext(this.lexer.context.getContext(), this, " "," ").getContext();
             }else {
             	
-            	if (Lexer.isTheFirst){
-            		Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
-            		return  Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), this, " "," ").getContext();
+            	if (this.lexer.isTheFirst()){
+            		Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+            		return  this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this, " "," ").getContext();
                 	
             	}else{
-            	Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-            	Lexer.wbag.get(Lexer.wbag.tam()-1).type=Terms.PPN;
-            	return  Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), this, " "," ").getContext();
+            	this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+            	this.lexer.wbag.get(this.lexer.wbag.tam()-1).type=Terms.PPN;
+            	return  this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this, " "," ").getContext();
             	}
             }
         }
         
-        return  Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), this, " "," ").getContext();
+        return  this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this, " "," ").getContext();
     	
 
       }catch(Exception e){return ContextualList.INITIAL;}
@@ -236,26 +239,26 @@ public class TreatmentContext extends SemanticContext {
     
     public ContextualList wordListProcessing(String string){
     	try{
-        //    System.out.println("ESTIY ENTRANDO POR LISTA inicial tratamiento "+string+Lexer.prepositionFlag+" "+Lexer.verbsFlag.verb);
+        //    System.out.println("ESTIY ENTRANDO POR LISTA inicial tratamiento "+string+this.lexer.prepositionFlag+" "+this.lexer.verbsFlag.verb);
              
-                if (Lexer.previousContextStack.peek().getContext()==ContextualList.PLACE){
-               BagData bgd=new PlaceNameBagData(string,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext(),false);
+                if (this.lexer.peekPreviousContext().getContext()==ContextualList.PLACE){
+               BagData bgd=new PlaceNameBagData(string,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext(),false);
          	  
-         	  Lexer.wbag.put(bgd);
-            	 }else if (Lexer.prepositionFlag.toLowerCase().equals("en") && !(Lexer.verbsFlag.complement.contains("en"))){
-            		 BagData bgd=new PlaceNameBagData(string,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext(),false);
+         	  this.lexer.wbag.put(bgd);
+            	 }else if (this.lexer.prepositionFlag.toLowerCase().equals("en") && !(this.lexer.verbsFlag.complement.contains("en"))){
+            		 BagData bgd=new PlaceNameBagData(string,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext(),false);
                 	  
-                	  Lexer.wbag.put(bgd);
+                	  this.lexer.wbag.put(bgd);
             	 }
             	 else{
                      
                 //     System.out.println("el nombre de la lista encontrada ABDUL");
-            		BagData bgd=new ProperNameBagData(string,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
+            		BagData bgd=new ProperNameBagData(string,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
                	  
-               	  Lexer.wbag.put(bgd);
+               	  this.lexer.wbag.put(bgd);
             	 }
-            	 Lexer.lastToken="";
-                return Lexer.context.getContext();
+            	 this.lexer.setLastToken("");
+                return this.lexer.context.getContext();
           
       }
 
@@ -267,18 +270,18 @@ public class TreatmentContext extends SemanticContext {
          //    System.out.println("noun frase treatment");
              String newString=string.replaceAll("\\s+", " ");
              String stringInProcess="";
-          //  System.out.println("ha entrado ppor NOUNPORCES"+string+Lexer.context.getContext());
+          //  System.out.println("ha entrado ppor NOUNPORCES"+string+this.lexer.context.getContext());
             String de=TermsRecognition.findApposition(newString);
           //  System.out.println("EL DE "+de);
             
             //tokenize the stirng
-            Lexer.currentString=new TokenizedString(newString);
-            String firstWord=Lexer.currentString.tokenList.get(0).word;
+            this.lexer.currentString=new TokenizedString(newString);
+            String firstWord=this.lexer.currentString.tokenList.get(0).word;
            
-           for (int i=0; i<Lexer.currentString.tokenList.size();i++){
-             //  System.out.println("las palabaras de token "+Lexer.currentString.tokenList.get(i).word);
+           for (int i=0; i<this.lexer.currentString.tokenList.size();i++){
+             //  System.out.println("las palabaras de token "+this.lexer.currentString.tokenList.get(i).word);
            }
-            //if (check(firstWord)){ return Lexer.context.getContext();}
+            //if (check(firstWord)){ return this.lexer.context.getContext();}
           
            int res=0;
            String resultado="";
@@ -304,36 +307,36 @@ public class TreatmentContext extends SemanticContext {
                case 0: break;
                case 1:{
                    if (resultado.charAt(0)=='1') {
-                       BagData bgd=new PlaceNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),info,Lexer.context.getContext(),false);
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new PlaceNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),info,this.lexer.context.getContext(),false);
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                    if (resultado.charAt(1)=='1') {
-                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                    if (resultado.charAt(2)=='1') {
-                        BagData bgd=new SaintNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),info,Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                        BagData bgd=new SaintNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),info,this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                }
                case 2:{
                    if (resultado.charAt(0)=='1' && resultado.charAt(1)=='1'){
-                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                    if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1'){
-                       BagData bgd=new SaintNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),info,Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new SaintNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),info,this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                }
            }
-           // System.out.println("la bag "+Lexer.wbag.tam());
-           // System.out.println("la bolsa ");Lexer.wbag.escribir();
+           // System.out.println("la bag "+this.lexer.wbag.tam());
+           // System.out.println("la bolsa ");this.lexer.wbag.escribir();
                           
            String tosplitedString=newString.replaceAll(" "+de+" ", "_"+de+"_");
                  ContextualList context=null;
@@ -349,7 +352,7 @@ public class TreatmentContext extends SemanticContext {
                for (int i=0; i<izda.length; i++){
             	 // System.out.println("llll"+izda[i]);
                    context=determineContext(izda[i],this);
-                   //Lexer.wbag.clean();
+                   //this.lexer.wbag.clean();
                    recognized=izda[i]+" ";
              if (context!=ContextualList.SAME)
              if (context!=ContextualList.TREATMENT) {
@@ -358,31 +361,31 @@ public class TreatmentContext extends SemanticContext {
                break;
                }
               }
-           //System.out.println("la palabra encontrada "+Lexer.context.getContext());
+           //System.out.println("la palabra encontrada "+this.lexer.context.getContext());
                if (encontrada!=-1){
                    if (izda.length==1) {
                        stringInProcess=newString.substring(stringArray[0].length()+1);
                        
-                       Lexer.context.changeContext(context,Lexer.context,stringInProcess,izda[0]);
-                       return Lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
+                       this.lexer.context.changeContext(context,this.lexer.context,stringInProcess,izda[0]);
+                       return this.lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
                    }
                    if (izda.length==2){
                        if (encontrada==1){
                            stringInProcess=newString.substring(stringArray[0].length()+1);
                            //System.out.println("vamos a mandar una substring "+stringInProcess);
-                           //System.out.println("vamos a usar "+izda[0]+" "+izda[1]+" "+Lexer.context);
-                           Lexer.context.checkCapitalLettersWord(izda[0]);
+                           //System.out.println("vamos a usar "+izda[0]+" "+izda[1]+" "+this.lexer.context);
+                           this.lexer.context.checkCapitalLettersWord(izda[0]);
                            
-                           Lexer.context.changeContext(context,Lexer.context,stringInProcess,izda[1]);
-                           //System.out.println("la bag "+Lexer.wbag.tam()+Lexer.wbag.get(0).string);
-                           return Lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
+                           this.lexer.context.changeContext(context,this.lexer.context,stringInProcess,izda[1]);
+                           //System.out.println("la bag "+this.lexer.wbag.tam()+this.lexer.wbag.get(0).string);
+                           return this.lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
                        }else {
                            stringInProcess=newString.substring(izda[0].length()+1);
                            
-                           Lexer.context.changeContext(context, Lexer.context, stringInProcess,izda[0]);
-                           //System.out.println("vamos a mandar una substring del final"+stringInProcess+Lexer.wbag.tam());
+                           this.lexer.context.changeContext(context, this.lexer.context, stringInProcess,izda[0]);
+                           //System.out.println("vamos a mandar una substring del final"+stringInProcess+this.lexer.wbag.tam());
                           
-                           return Lexer.context.nounPhraseProcessing(stringInProcess);
+                           return this.lexer.context.nounPhraseProcessing(stringInProcess);
                        }
                    }
                    if (izda.length>2){
@@ -393,14 +396,14 @@ public class TreatmentContext extends SemanticContext {
                            for (int j=1; j<izda.length-1; j++){
                                inicio+=" "+izda[j];
                            }
-                         //  System.out.println("he entrado por la leng 4 "+inicio+" "+stringInProcess+" "+Lexer.context.getContext());
-                           Lexer.context.wordListProcessing(inicio);
-                         //  System.out.println ("El tamaño de la bolsa es "+Lexer.wbag.tam());
-                           Lexer.context.changeContext(context, Lexer.context, stringInProcess,izda[izda.length-1]);
-                           for (int k=0;k<Lexer.wbag.tam();k++){
-                          // System.out.println ("la vida es "+Lexer.wbag.get(k).string);
+                         //  System.out.println("he entrado por la leng 4 "+inicio+" "+stringInProcess+" "+this.lexer.context.getContext());
+                           this.lexer.context.wordListProcessing(inicio);
+                         //  System.out.println ("El tamaño de la bolsa es "+this.lexer.wbag.tam());
+                           this.lexer.context.changeContext(context, this.lexer.context, stringInProcess,izda[izda.length-1]);
+                           for (int k=0;k<this.lexer.wbag.tam();k++){
+                          // System.out.println ("la vida es "+this.lexer.wbag.get(k).string);
                            }
-                           return Lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
+                           return this.lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
                        
                            
                        }else{
@@ -411,16 +414,16 @@ public class TreatmentContext extends SemanticContext {
                                inicio+=" "+izda[j];
                            }
                            stringInProcess=newString.substring(inicio.length()+1);
-                           Lexer.context.wordListProcessing(inicio);
-                           //System.out.println("he entrado por la leng 7"+inicio+"TTTT"+stringInProcess+" "+Lexer.context.getContext());
+                           this.lexer.context.wordListProcessing(inicio);
+                           //System.out.println("he entrado por la leng 7"+inicio+"TTTT"+stringInProcess+" "+this.lexer.context.getContext());
                            
-                           //System.out.println ("El tamaño de la bolsa es "+Lexer.wbag.tam());
-                           Lexer.context.changeContext(context, Lexer.context, stringInProcess,izda[izda.length-1]);
-                           for (int k=0;k<Lexer.wbag.tam();k++){
-                          // System.out.println ("la vida es "+Lexer.wbag.get(k).string);
+                           //System.out.println ("El tamaño de la bolsa es "+this.lexer.wbag.tam());
+                           this.lexer.context.changeContext(context, this.lexer.context, stringInProcess,izda[izda.length-1]);
+                           for (int k=0;k<this.lexer.wbag.tam();k++){
+                          // System.out.println ("la vida es "+this.lexer.wbag.get(k).string);
                            }
                           // System.out.println("la verdad"+izda.length);
-                           return Lexer.context.nounPhraseProcessing(stringInProcess);
+                           return this.lexer.context.nounPhraseProcessing(stringInProcess);
                        
                            
                            
@@ -435,20 +438,20 @@ public class TreatmentContext extends SemanticContext {
                //System.out.println("escribeme "+izda.length+" "+dcha.length);
               
               if (izda.length>1)
-               Lexer.context.wordListProcessing(stringArray[0]);
+               this.lexer.context.wordListProcessing(stringArray[0]);
               else{//System.out.println("CHECK CAPIRAL ");
-                  Lexer.context.checkCapitalLettersWord(stringArray[0]);
+                  this.lexer.context.checkCapitalLettersWord(stringArray[0]);
               }
-              // System.out.println("LA BOSLA DE "+Lexer.wbag.tam());
+              // System.out.println("LA BOSLA DE "+this.lexer.wbag.tam());
               // System.out.println("he entrado por de baga data general 2");
-               Lexer.wbag.put(new DeBagData(de,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh,new InfoFound(),Lexer.context.getContext()));
+               this.lexer.wbag.put(new DeBagData(de,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh,new InfoFound(),this.lexer.context.getContext()));
                if (dcha.length>1)
-               Lexer.context.wordListProcessing(stringArray[1]);
+               this.lexer.context.wordListProcessing(stringArray[1]);
                else
-               Lexer.context.checkCapitalLettersWord(stringArray[1]);
+               this.lexer.context.checkCapitalLettersWord(stringArray[1]);
                
-               //for (int i=0;i<Lexer.wbag.tam();i++)
-               //System.out.println("LA BOSLA DE FINAL ES"+Lexer.wbag.get(i).string+" "+Lexer.wbag.get(i).type);
+               //for (int i=0;i<this.lexer.wbag.tam();i++)
+               //System.out.println("LA BOSLA DE FINAL ES"+this.lexer.wbag.get(i).string+" "+this.lexer.wbag.get(i).type);
                     
             return ContextualList.INITIAL;         
             

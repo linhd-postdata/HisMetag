@@ -9,7 +9,6 @@ import WordProcessing.*;
 
 import Data.GeositesData;
 import Data.PleiadesData;
-import MedievalTextLexer.Lexer;
 import DataStructures.*;
 import Recognition.Terms;
 import Recognition.TypesTerms;
@@ -323,7 +322,7 @@ public class Output {
     	salida.add(rtn);
         
         
-        System.out.println ("estamos vendo que se envía a la salida "+rtn.root.position+"RRR"+rtn.root.string+" "+rtn.root.nword+" "+Lexer.context);
+        //System.out.println ("estamos vendo que se envía a la salida "+rtn.root.position+"RRR"+rtn.root.string+" "+rtn.root.nword+" "+Lexer.context);
         
         //System.out.println("otra vez");
     	//output.write(dataOut);
