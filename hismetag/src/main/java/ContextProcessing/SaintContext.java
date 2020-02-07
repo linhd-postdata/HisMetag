@@ -16,7 +16,6 @@ import Recognition.Terms;
 import Recognition.TermsRecognition;
 import Recognition.TypesTerms;
 import Recognition.VerificationInfo;
-import StringInProcess.TokenizedString;
 import WordProcessing.WordTransformations;
 
 /**
@@ -25,8 +24,8 @@ import WordProcessing.WordTransformations;
  */
 public class SaintContext extends SemanticContext {
     
-    public SaintContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    public SaintContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
   
     public ContextualList getContext(){
@@ -75,9 +74,9 @@ public class SaintContext extends SemanticContext {
             return this.lexer.context;
         }else return this.lexer.context;
            
-          if (checkVerb(word)){ return new GeneralContext(null);}
+          if (checkVerb(word)){ return new GeneralContext(null, this.lexer, this.output);}
            
-           if (check(word)){ return new GeneralContext(null);}
+           if (check(word)){ return new GeneralContext(null, this.lexer, this.output);}
             
         	//  System.out.println("entro por minusculas saint "+word+" "+this.lexer.getLastToken());
             //  this.lexer.wbag.escribir();
@@ -127,11 +126,11 @@ public class SaintContext extends SemanticContext {
                   }else if (checkVerb(word)){
            		//System.out.println("el contexto anterior");
                             this.lexer.clearPreviousContext();
-                            return new GeneralContext(null);
+                            return new GeneralContext(null, this.lexer, this.output);
                   }else if (check(word)){
            		//System.out.println("el contexto anterior");
                             this.lexer.clearPreviousContext();
-                            return new GeneralContext(null);
+                            return new GeneralContext(null, this.lexer, this.output);
                   }else{
                    BagData bgd=new PlaceNameBagData(word,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext(),false);
         	  this.lexer.setLastToken("");
@@ -309,7 +308,7 @@ public class SaintContext extends SemanticContext {
                         	bgd.type=Terms.ARNS;
                         	this.lexer.wbag.put(bgd);
                         	
-                           // Output.write(word);
+                           // this.output.write(word);
                         }
                     }/* buscar una variante */;
                     case 1: {
@@ -328,7 +327,7 @@ public class SaintContext extends SemanticContext {
                         	bgd.type=Terms.ARNS;
                         	this.lexer.wbag.put(bgd);
                             
-                           // Output.write(word);
+                           // this.output.write(word);
                         }
                     break;
                     }
@@ -341,7 +340,7 @@ public class SaintContext extends SemanticContext {
                         	bgd=new PlaceNameBagData(stringArray[1],TypesTerms.FT,numCh,numW,end,info,this.lexer.context.getContext(),true);
                         	this.lexer.wbag.put(bgd);
                             	
-                              //  Output.write(word);
+                              //  this.output.write(word);
                              
                         }
                         if (resultado.charAt(1)=='1' && resultado.charAt(2)=='1') {
@@ -349,7 +348,7 @@ public class SaintContext extends SemanticContext {
                         	bgd.type=Terms.ARNS;
                         	this.lexer.wbag.put(bgd);
                             	
-                              //  Output.write(word);
+                              //  this.output.write(word);
                              
                         }
                       //this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));  

@@ -7,13 +7,11 @@ package ContextProcessing;
 
 import Data.MedievalNewPlaceNamesTable;
 import DataStructures.*;
-import Data.NewProperNamesTable;
 import Data.Verbs;
 import IOModule.Input;
 import IOModule.Output;
 import MedievalTextLexer.Lexer;
 import Recognition.InfoFound;
-import Recognition.NewTermsIdentification;
 import Recognition.Terms;
 import Recognition.TermsRecognition;
 import Recognition.TypesTerms;
@@ -27,12 +25,12 @@ import StringNgramms.NgrammsInfo;
  * @author M Luisa Díez Platas
  */
 public class PosessiveContext extends SemanticContext {
-    public PosessiveContext(Lexer lexer){
-    	super(lexer);
+    public PosessiveContext(Lexer lexer, Output output){
+        super(lexer, output);
     }
    
-    public PosessiveContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    public PosessiveContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
    
     public ContextualList getContext(){
@@ -104,14 +102,14 @@ public class PosessiveContext extends SemanticContext {
             }
            }
            this.lexer.context.changeContext(ContextualList.INITIAL,this," "," ");
-           Output.write(new RoleTreeNode(this.lexer.getWordBag()));
+           this.output.write(new RoleTreeNode(this.lexer.getWordBag()));
            return this.lexer.context.checkLowerCaseWord(word).getContext();
       }catch(Exception e){return ContextualList.INITIAL;}
     }
     
     public ContextualList nounPhraseProcessing(String word){
     	try{
-    		this.lexer.currentString=new TokenizedString(word);
+    		this.lexer.currentString=new TokenizedString(word, this.lexer);
             String firstWord=this.lexer.currentString.tokenList.get(0).word;
           //	 System.out.println("minusculas>>>>posesivo "+word);
                if (Data.NickNamesTable.contains(firstWord.toLowerCase())){ 
@@ -139,7 +137,7 @@ public class PosessiveContext extends SemanticContext {
                }
               }
               this.lexer.context.changeContext(ContextualList.INITIAL,this," "," ");
-              Output.write(new RoleTreeNode(this.lexer.getWordBag()));
+              this.output.write(new RoleTreeNode(this.lexer.getWordBag()));
               return this.lexer.context.checkLowerCaseWord(word).getContext();
          }catch(Exception e){return ContextualList.INITIAL;}
     }

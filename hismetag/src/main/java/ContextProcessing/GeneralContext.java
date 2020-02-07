@@ -32,14 +32,13 @@ import WordProcessing.WordTransformations;
 public class GeneralContext extends SemanticContext {
     //TokenizedString this.lexer.currentString;
     
-    public GeneralContext(Lexer lexer){
-    	super(lexer);
+    public GeneralContext(Lexer lexer, Output output){
+        super(lexer, output);
     }
-public GeneralContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    
+    public GeneralContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
-
-
     
     public ContextualList getContext(){
         return ContextualList.INITIAL;
@@ -48,7 +47,6 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
     public void setContext(){
         this.lexer.context=this.lexer.getPreviousContext();
     }
-   
     
     public String determineFirstWord(){
         return this.lexer.currentString.stringInProcess.substring(0,this.lexer.currentString.stringInProcess.indexOf(" "));
@@ -154,15 +152,15 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                 else {
                 	
                 	this.lexer.wbag.restart();
-                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 	
                 	
                 }
                 } else {
                 	this.lexer.wbag.restart();
-                       Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                       this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 	
-                   // Output.write(word);
+                   // this.output.write(word);
                 }
             }/* buscar una variante */;
             case 1: {
@@ -188,9 +186,9 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                 if (resultado.charAt(2)=='1') {
                  
                 	this.lexer.wbag.restart();
-                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     
-                   // Output.write(word);
+                   // this.output.write(word);
                 }
             break;
             }
@@ -202,11 +200,11 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                 if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                 	if (info.gazetteer.contains("Geonames")){ 
                 	this.lexer.wbag.restart();
-                    	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));} else
+                    	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));} else
                         this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),true));
                
                     	
-                      //  Output.write(word);
+                      //  this.output.write(word);
                      
                 }
                  if (resultado.charAt(1)=='1' && resultado.charAt(2)=='1') {
@@ -221,7 +219,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                                 bd.type=Terms.APN;
                             this.lexer.wbag.put(bd);
                         }
-                      //  Output.write(word);
+                      //  this.output.write(word);
                      else {
                          BagData bd=new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext());
                                 bd.type=Terms.APN;
@@ -333,7 +331,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                 	if (this.lexer.isTheFirst()) {
                 		//System.out.println("el grado es este "+word);
                              
-                    	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     	this.lexer.setTheFirst(false);
                     	break;
                     }else{
@@ -352,7 +350,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                 if (resultado.charAt(0)=='1'){
                     if (this.lexer.isTheFirst() && info.gazetteer.contains("Geonames")){
                         this.lexer.wbag.restart();
-                        Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                        this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     } else{
                         String typeg=Data.MedievalPlaceNamesTable.contains(WordTransformations.capitalize(word)).get(0).typeg;
                         
@@ -374,7 +372,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                 
                 }else {
                     if (this.lexer.articleFlag!="")this.lexer.wbag.restart();
-                    Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 }
                 }
             break;
@@ -432,7 +430,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
          
          //tokenize the string
          
-         TokenizedString token=new TokenizedString(newString);
+         TokenizedString token=new TokenizedString(newString, this.lexer);
          //token.countWordChar();
         
          this.lexer.currentString=token;
@@ -773,7 +771,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                         }else{
                             this.lexer.currentString.ngramms.removeNString(stringRE);
              		this.lexer.currentString.tokenList.remove(0);
-             		Output.write(new RoleTreeNode(stringRE));
+             		this.output.write(new RoleTreeNode(stringRE));
                         }
              	}
               } 
@@ -882,7 +880,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
        //  System.out.println("EL DE "+de);
          
          //tokenize the stirng
-         this.lexer.currentString=new TokenizedString(newString);
+         this.lexer.currentString=new TokenizedString(newString, this.lexer);
          String firstWord=this.lexer.currentString.tokenList.get(0).word;
          
         
@@ -1089,7 +1087,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
          newString=WordProcessing.WordTransformations.replaceGuion(newString);
        
          //tokenize the stirng
-         this.lexer.currentString=new TokenizedString(newString);
+         this.lexer.currentString=new TokenizedString(newString, this.lexer);
          
          for (int i=0; i<this.lexer.currentString.tokenList.size();i++){
              Token token=this.lexer.currentString.tokenList.get(i);
@@ -1305,7 +1303,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                    // System.out.println("he entrado por aqui en el case 1 "+word);
                    // System.out.println("ENTRO POR EL ELSE 1");
                     this.lexer.wbag.restart();
-                    Output.write(new RoleTreeNode(aux));
+                    this.output.write(new RoleTreeNode(aux));
                     this.lexer.numCh=this.lexer.numCh+aux.length();
                     //this.lexer.numWord++;
                 }
@@ -1335,7 +1333,7 @@ public GeneralContext(SemanticContext previous, Lexer lexer){
                   
                     if (info.gazetteer.contains("Geonames"))  {
                        this.lexer.wbag.restart();
-                        Output.write(new RoleTreeNode(aux));
+                        this.output.write(new RoleTreeNode(aux));
                         this.lexer.numCh=this.lexer.numCh+aux.length();
                         //this.lexer.numWord++;
                     }

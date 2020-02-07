@@ -8,10 +8,8 @@ package ContextProcessing;
 import Data.*;
 import IOModule.Input;
 import IOModule.Output;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import MedievalTextLexer.Lexer;
 import Recognition.ElementsRecognition;
 import Recognition.InfoFound;
@@ -32,23 +30,19 @@ import DataStructures.*;
  * @author M Luisa Díez Platas
  */
 public class AuthorityContext extends SemanticContext {
-    
-      
-    public AuthorityContext(Lexer lexer){
-        super(lexer);
+
+    public AuthorityContext(Lexer lexer, Output output){
+        super(lexer, output);
     }	
-    
-    
-    public AuthorityContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+
+    public AuthorityContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
 
     public ContextualList getContext(){
         return ContextualList.AUTHORITY;
     }
-    
- 
-    
+
     public SemanticContext checkLowerCaseWord(String wordProcess){
       try{
           //System.out.println("PROQUE NO VA EL LOWWR"+wordProcess);
@@ -81,28 +75,25 @@ public class AuthorityContext extends SemanticContext {
             return this.lexer.context;
         }
         
-       if (check(word)){
-           if (Recognition.ElementsRecognition.isCopulativeConjunction(word.toLowerCase()).size()>0)
-               return this.lexer.context;
-           this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
+        if (check(word)){
+            if (Recognition.ElementsRecognition.isCopulativeConjunction(word.toLowerCase()).size()>0)
+                return this.lexer.context;
+            this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
             
-           return this.lexer.context;}
-        
-        
-        
-        
-       InfoFound info=TermsRecognition.existMedievalPlaceName(WordProcessing.WordTransformations.capitalize(word));
+            return this.lexer.context;}
+
+        InfoFound info=TermsRecognition.existMedievalPlaceName(WordProcessing.WordTransformations.capitalize(word));
        
         boolean isProperName=TermsRecognition.isProperName(word.toLowerCase());
         boolean isCommonName=TermsRecognition.isCommonName(word.toLowerCase());
         String resultado="";
         int res=0;
-       
+
         if (info!=null){resultado+="1";res++;} else resultado+="0";
         if (isProperName){resultado+="1";res++;} else resultado+="0";
         if (isCommonName){resultado+="1";res++;} else resultado+="0";
-        
-        
+
+
         if (Data.NickNamesTable.contains(word)){
            
             if (ultimo.type==Terms.PSS){
@@ -134,9 +125,9 @@ public class AuthorityContext extends SemanticContext {
                           ultimoTerm=this.lexer.wbag.get(this.lexer.wbag.tam()-1).string;
                     }
                         this.lexer.wbag.restart();
-                       if (ultimoTerm!=null) Output.write(new RoleTreeNode(ultimoTerm));
+                       if (ultimoTerm!=null) this.output.write(new RoleTreeNode(ultimoTerm));
                       
-                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));}
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));}
                 } else {
                     
                     if (this.lexer.wbag.tam()>0 && this.lexer.wbag.get(this.lexer.wbag.tam()-1).type==Terms.DE){
@@ -166,9 +157,9 @@ public class AuthorityContext extends SemanticContext {
                           
                     }
                         this.lexer.wbag.restart();
-                       if (ultimoTerm!=null) Output.write(new RoleTreeNode(ultimoTerm));
+                       if (ultimoTerm!=null) this.output.write(new RoleTreeNode(ultimoTerm));
                       
-                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                  
                     
                 }
@@ -188,9 +179,9 @@ public class AuthorityContext extends SemanticContext {
                           
                     }
                         this.lexer.wbag.restart();
-                       if (ultimoTerm!=null) Output.write(new RoleTreeNode(ultimoTerm));
+                       if (ultimoTerm!=null) this.output.write(new RoleTreeNode(ultimoTerm));
                       
-                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));}
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));}
                break;
             }
             case 3:{
@@ -275,7 +266,7 @@ public class AuthorityContext extends SemanticContext {
                     if (infoAprox.uri=="proper") this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 else if (infoAprox.uri=="nick") this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 else{
-                	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 }
                
                 } else {
@@ -291,8 +282,8 @@ public class AuthorityContext extends SemanticContext {
                
                 if (resultado.charAt(1)=='1') this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 if (resultado.charAt(2)=='1') {
-                   	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
-                    Output.write(word);
+                   	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    this.output.write(word);
                 }
             break;
             }
@@ -308,7 +299,7 @@ public class AuthorityContext extends SemanticContext {
                 }
                 if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                     this.lexer.wbag.restart();
-                    Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord)); 
+                    this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord)); 
                 	
                 }
                 break;
@@ -343,7 +334,7 @@ public class AuthorityContext extends SemanticContext {
          
          //tokenize the string
          
-         TokenizedString token=new TokenizedString(newString);
+         TokenizedString token=new TokenizedString(newString, this.lexer);
          //token.countWordChar();
         
          this.lexer.currentString=token;
@@ -592,7 +583,7 @@ public class AuthorityContext extends SemanticContext {
              		String stringRE=this.lexer.currentString.tokenList.get(0).word;
              		this.lexer.currentString.ngramms.removeNString(stringRE);
              		this.lexer.currentString.tokenList.remove(0);
-             		Output.write(new RoleTreeNode(stringRE));
+             		this.output.write(new RoleTreeNode(stringRE));
              	}
               } 
              boolean encontrado=false;
@@ -686,7 +677,7 @@ public class AuthorityContext extends SemanticContext {
             String newString=string.replaceAll("\\s+", " ");
           
             //tokenize the stirng
-            this.lexer.currentString=new TokenizedString(newString);
+            this.lexer.currentString=new TokenizedString(newString, this.lexer);
             
             for (int i=0; i<this.lexer.currentString.tokenList.size();i++){
                 Token token=this.lexer.currentString.tokenList.get(i);
@@ -848,8 +839,8 @@ public class AuthorityContext extends SemanticContext {
                    if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                      
                        if (info.gazetteer.contains("Geonames"))  {
-                    	   Output.write(new RoleTreeNode(aux));
-                           Output.write(aux);
+                    	   this.output.write(new RoleTreeNode(aux));
+                           this.output.write(aux);
                            this.lexer.numCh=this.lexer.numCh+aux.length();
                            //this.lexer.numWord++;
                        }
@@ -912,7 +903,7 @@ public class AuthorityContext extends SemanticContext {
              String stringInProcess="";
          //   System.out.println("ha entrado ppor NOUNPORCES"+this.lexer.context.getContext());
             String de=TermsRecognition.findApposition(newString);
-            this.lexer.currentString=new TokenizedString(newString);
+            this.lexer.currentString=new TokenizedString(newString, this.lexer);
             String firstWord=this.lexer.currentString.tokenList.get(0).word;
            
           

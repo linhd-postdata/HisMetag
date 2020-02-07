@@ -5,19 +5,16 @@
  */
 package ContextProcessing;
 
-import Data.MedievalPlaceNamesTable;
 import DataStructures.*;
 import IOModule.Input;
 import IOModule.Output;
 import MedievalTextLexer.Lexer;
 import Recognition.ElementsRecognition;
 import Recognition.InfoFound;
-import Recognition.NewTermsIdentification;
 import Recognition.Terms;
 import Recognition.TermsRecognition;
 import Recognition.TypesTerms;
 import Recognition.VerificationInfo;
-import StringInProcess.TokenizedString;
 import StringNgramms.NgrammsInfo;
 import WordProcessing.WordTransformations;
 
@@ -27,8 +24,8 @@ import WordProcessing.WordTransformations;
  */
 public class BuildingsContext extends SemanticContext {
     
-    public BuildingsContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    public BuildingsContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
    
     public ContextualList getContext(){
@@ -71,9 +68,9 @@ public class BuildingsContext extends SemanticContext {
                  
                   this.lexer.setLastToken("");
                   this.lexer.wbag.restart();
-                  //Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                  //this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                   this.lexer.clearPreviousContext();
-        	  return this.lexer.context.changeContext(ContextualList.INITIAL, new GeneralContext(null), " "," ");
+        	  return this.lexer.context.changeContext(ContextualList.INITIAL, new GeneralContext(null, this.lexer, this.output), " "," ");
           }
           
          
@@ -92,7 +89,7 @@ public class BuildingsContext extends SemanticContext {
         //  this.lexer.wbag.escribir();
               this.lexer.wbag.restart();
               	this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
-              Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+              this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
           }
     	   
     	  this.lexer.setLastToken("");

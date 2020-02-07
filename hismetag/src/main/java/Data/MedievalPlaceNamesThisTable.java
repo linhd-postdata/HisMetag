@@ -7,7 +7,7 @@ package Data;
 
 import IOModule.Input;
 import DataStructures.*;
-import static IOModule.Output.outputMedieval;
+import IOModule.Output;
 import java.util.*;
 import java.io.*;
 import Recognition.*;
@@ -104,7 +104,7 @@ public static void putNewPlace(String place, String actual, String plename, Stri
       }catch(Exception e){;}
 }
 
-public static void updateFile(){
+public static void updateFile(Output output){
     try{
         File newfile=new File(path+"dataFiles/medieval-data.txt");
         BufferedWriter file = new BufferedWriter(new FileWriter(newfile)); 
@@ -123,7 +123,7 @@ public static void updateFile(){
             MedievalData md=t.get(element);
             file.write(element+';'+md.currentname+';'+md.pleiadesname+';'+md.geoname+';'+md.description+';'+md.type+';'+md.document+';'+md.provenance+';'+md.typeg);
             file.write("\n");
-            outputMedieval.write(element+";"+md.currentname+";"+md.pleiadesname+";"+md.geoname+";"+md.description+";"+md.type+";"+md.document+";"+md.provenance+';'+md.typeg+"\n");
+            output.outputMedieval.write(element+";"+md.currentname+";"+md.pleiadesname+";"+md.geoname+";"+md.description+";"+md.type+";"+md.document+";"+md.provenance+';'+md.typeg+"\n");
 
         }
         

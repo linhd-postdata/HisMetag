@@ -6,7 +6,6 @@
 package ContextProcessing;
 
 import Data.MedievalNewPlaceNamesTable;
-import Data.NewProperNamesTable;
 import DataStructures.*;
 import DataStructures.ProperNameBagData;
 import IOModule.Input;
@@ -30,12 +29,12 @@ import WordProcessing.WordTransformations;
  * @author M Luisa Díez Platas
  */
 public class FamiliyContext extends SemanticContext {
-    public FamiliyContext(Lexer lexer){
-    	super(lexer);
+    public FamiliyContext(Lexer lexer, Output output){
+        super(lexer, output);
     }
    
-    public FamiliyContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    public FamiliyContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
    
     public ContextualList getContext(){
@@ -143,7 +142,7 @@ public class FamiliyContext extends SemanticContext {
                             this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                                 Data.ProperNamesTable.putNewName(word.toLowerCase(), Input.name, "Hismetag", "person");
                         }else{
-                    	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     	this.lexer.setTheFirst(false);
                         }
                     	break;
@@ -173,7 +172,7 @@ public class FamiliyContext extends SemanticContext {
                 else this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),false));
                 
                 }else {
-                    Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 }
                 }
             break;
@@ -297,7 +296,7 @@ public class FamiliyContext extends SemanticContext {
                 } else {
                 	if (this.lexer.isTheFirst()) {
                 		//System.out.println("el grado es este "+word);
-                    	Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     	this.lexer.setTheFirst(false);
                     	break;
                     }else{
@@ -326,7 +325,7 @@ public class FamiliyContext extends SemanticContext {
                 else this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),false));
                 
                 }else {
-                    Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 }
                 }
             break;
@@ -393,7 +392,7 @@ public class FamiliyContext extends SemanticContext {
          
          
          
-         TokenizedString token=new TokenizedString(newString);
+         TokenizedString token=new TokenizedString(newString, this.lexer);
          
         
          this.lexer.currentString=token;
@@ -684,7 +683,7 @@ public class FamiliyContext extends SemanticContext {
              		String stringRE=this.lexer.currentString.tokenList.get(0).word;
              		this.lexer.currentString.ngramms.removeNString(stringRE);
              		this.lexer.currentString.tokenList.remove(0);
-             		Output.write(new RoleTreeNode(stringRE));
+             		this.output.write(new RoleTreeNode(stringRE));
              	}
               } 
              boolean encontrado=false;
@@ -844,7 +843,7 @@ public class FamiliyContext extends SemanticContext {
                         	bgd.type=Terms.ARNS;
                         	this.lexer.wbag.put(bgd);
                         	
-                           // Output.write(word);
+                           // this.output.write(word);
                         }
                     }/* buscar una variante */;
                     case 1: {
@@ -863,7 +862,7 @@ public class FamiliyContext extends SemanticContext {
                         	bgd.type=Terms.ARNS;
                         	this.lexer.wbag.put(bgd);
                             
-                           // Output.write(word);
+                           // this.output.write(word);
                         }
                     break;
                     }
@@ -876,7 +875,7 @@ public class FamiliyContext extends SemanticContext {
                         	bgd=new PlaceNameBagData(stringArray[1],TypesTerms.FT,numCh,numW,end,info,this.lexer.context.getContext(),true);
                         	this.lexer.wbag.put(bgd);
                             	
-                              //  Output.write(word);
+                              //  this.output.write(word);
                              
                         }
                         if (resultado.charAt(1)=='1' && resultado.charAt(2)=='1') {
@@ -884,7 +883,7 @@ public class FamiliyContext extends SemanticContext {
                         	bgd.type=Terms.ARNS;
                         	this.lexer.wbag.put(bgd);
                             	
-                              //  Output.write(word);
+                              //  this.output.write(word);
                              
                         }
                        break;
@@ -934,7 +933,7 @@ public class FamiliyContext extends SemanticContext {
          newString=WordProcessing.WordTransformations.replaceGuion(newString);
        
          //tokenize the stirng
-         this.lexer.currentString=new TokenizedString(newString);
+         this.lexer.currentString=new TokenizedString(newString, this.lexer);
          
          for (int i=0; i<this.lexer.currentString.tokenList.size();i++){
              Token token=this.lexer.currentString.tokenList.get(i);
@@ -1150,7 +1149,7 @@ public class FamiliyContext extends SemanticContext {
                    // System.out.println("he entrado por aqui en el case 1 "+word);
                    // System.out.println("ENTRO POR EL ELSE 1");
                     this.lexer.wbag.restart();
-                    Output.write(new RoleTreeNode(aux));
+                    this.output.write(new RoleTreeNode(aux));
                     this.lexer.numCh=this.lexer.numCh+aux.length();
                     //this.lexer.numWord++;
                 }
@@ -1180,7 +1179,7 @@ public class FamiliyContext extends SemanticContext {
                   
                     if (info.gazetteer.contains("Geonames"))  {
                        this.lexer.wbag.restart();
-                        Output.write(new RoleTreeNode(aux));
+                        this.output.write(new RoleTreeNode(aux));
                         this.lexer.numCh=this.lexer.numCh+aux.length();
                         //this.lexer.numWord++;
                     }

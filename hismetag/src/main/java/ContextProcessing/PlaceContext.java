@@ -35,12 +35,12 @@ import WordProcessing.WordTransformations;
  */
 public class PlaceContext extends SemanticContext {
     
-    public PlaceContext(Lexer lexer){
-    	super(lexer);
+    public PlaceContext(Lexer lexer, Output output){
+        super(lexer, output);
     }
     
-    public PlaceContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    public PlaceContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
   
     public ContextualList getContext(){
@@ -147,7 +147,7 @@ public class PlaceContext extends SemanticContext {
                   }else{
                      // System.out.println("entro por aqui en el verbo de place no verb"+this.lexer.context+this.lexer.verbsFlag);
                       this.lexer.wbag.restart();
-                      Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                      this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                       return this.lexer.context;
                   }
                 }
@@ -171,7 +171,7 @@ public class PlaceContext extends SemanticContext {
                    
                     this.lexer.wbag.restart();
                   //  System.out.println("he entrado por aqui en el case 1 "+word);
-                    Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     return this.lexer.context.changeContext(ContextualList.INITIAL, this," ", " ");
                 }
             break;
@@ -184,7 +184,7 @@ public class PlaceContext extends SemanticContext {
                 }
                 if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                     if (info.gazetteer.contains("Geonames") || info.gazetteer.contains("Pleiades"))  {
-                       Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                       this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     }
                     else this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),true));
               
@@ -196,7 +196,7 @@ public class PlaceContext extends SemanticContext {
                     else {
                         this.lexer.wbag.restart();
                         
-                        Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                        this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     }
               
                 }
@@ -206,7 +206,7 @@ public class PlaceContext extends SemanticContext {
             case 3:{
                 
                     if (info.gazetteer.contains("Geonames"))  this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
-                    else Output.writePlaceName(word, info.gazetteer, Terms.CN);
+                    else this.output.writePlaceName(word, info.gazetteer, Terms.CN);
             break;
             }
         }
@@ -300,7 +300,7 @@ public class PlaceContext extends SemanticContext {
                 if (resultado.charAt(0)=='1'){
                     if (this.lexer.isTheFirst() && info.gazetteer.contains("Geonames")){
                         this.lexer.wbag.restart();
-                        Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                        this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                     } else
                     this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),false));
                 }
@@ -318,7 +318,7 @@ public class PlaceContext extends SemanticContext {
                 
                 }else {
                     if (this.lexer.articleFlag!="")this.lexer.wbag.restart();
-                    Output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 }
                 }
             break;
@@ -568,10 +568,10 @@ public class PlaceContext extends SemanticContext {
                       System.out.println("estoy entrando por el 0");
                       if (infoAprox.uri=="proper") this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                   else if (infoAprox.uri=="nick") this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
-                  else Output.write(word);
+                  else this.output.write(word);
                   } else {
                       
-                      Output.write(word);
+                      this.output.write(word);
                   }*/
           /*    }
                    
@@ -722,7 +722,7 @@ public class PlaceContext extends SemanticContext {
                		String stringRE=this.lexer.currentString.tokenList.get(0).word;
                		this.lexer.currentString.ngramms.removeNString(stringRE);
                		this.lexer.currentString.tokenList.remove(0);
-               		Output.write(new RoleTreeNode(stringRE));
+               		this.output.write(new RoleTreeNode(stringRE));
                	}
                 } 
                boolean encontrado=false;
@@ -834,7 +834,7 @@ public class PlaceContext extends SemanticContext {
         // System.out.println("EL DE "+de);
          
          //tokenize the stirng
-         this.lexer.currentString=new TokenizedString(newString);
+         this.lexer.currentString=new TokenizedString(newString, this.lexer);
          String firstWord=this.lexer.currentString.tokenList.get(0).word;
          
         
@@ -1033,7 +1033,7 @@ public class PlaceContext extends SemanticContext {
          
          //tokenize the string
          
-         TokenizedString token=new TokenizedString(newString);
+         TokenizedString token=new TokenizedString(newString, this.lexer);
          //token.countWordChar();
         
          this.lexer.currentString=token;
@@ -1374,7 +1374,7 @@ public class PlaceContext extends SemanticContext {
                         }else{
                             this.lexer.currentString.ngramms.removeNString(stringRE);
              		this.lexer.currentString.tokenList.remove(0);
-             		Output.write(new RoleTreeNode(stringRE));
+             		this.output.write(new RoleTreeNode(stringRE));
                         }
              	}
               } 
@@ -1503,7 +1503,7 @@ public class PlaceContext extends SemanticContext {
          String newString=string.replaceAll("\\s+", " ");
        
          //tokenize the stirng
-         this.lexer.currentString=new TokenizedString(newString);
+         this.lexer.currentString=new TokenizedString(newString, this.lexer);
          
          for (int i=0; i<this.lexer.currentString.tokenList.size();i++){
              Token token=this.lexer.currentString.tokenList.get(i);
@@ -1716,7 +1716,7 @@ public class PlaceContext extends SemanticContext {
                    // System.out.println("he entrado por aqui en el case 1 "+word);
                    // System.out.println("ENTRO POR EL ELSE 1");
                     this.lexer.wbag.restart();
-                    Output.write(new RoleTreeNode(aux));
+                    this.output.write(new RoleTreeNode(aux));
                     this.lexer.numCh=this.lexer.numCh+aux.length();
                     //this.lexer.numWord++;
                 }
@@ -1746,7 +1746,7 @@ public class PlaceContext extends SemanticContext {
                   
                     if (info.gazetteer.contains("Geonames"))  {
                        this.lexer.wbag.restart();
-                        Output.write(new RoleTreeNode(aux));
+                        this.output.write(new RoleTreeNode(aux));
                         this.lexer.numCh=this.lexer.numCh+aux.length();
                         //this.lexer.numWord++;
                     }

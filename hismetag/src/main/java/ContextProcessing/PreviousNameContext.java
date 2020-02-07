@@ -15,12 +15,10 @@ import IOModule.Output;
 import MedievalTextLexer.Lexer;
 import Recognition.ElementsRecognition;
 import Recognition.InfoFound;
-import Recognition.NewTermsIdentification;
 import Recognition.Terms;
 import Recognition.TermsRecognition;
 import Recognition.TypesTerms;
 import Recognition.VerificationInfo;
-import StringInProcess.TokenizedString;
 import StringNgramms.NgrammsInfo;
 import WordProcessing.WordTransformations;
 
@@ -30,12 +28,12 @@ import WordProcessing.WordTransformations;
  * @author M Luisa Díez Platas
  */
 public class PreviousNameContext extends SemanticContext {
-    public PreviousNameContext(Lexer lexer){
-        super(lexer);
+    public PreviousNameContext(Lexer lexer, Output output){
+        super(lexer, output);
     }
 
-    public PreviousNameContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    public PreviousNameContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
   
     
@@ -87,7 +85,7 @@ public class PreviousNameContext extends SemanticContext {
           	  return this.lexer.context;
             }
             
-            if (this.lexer.getLastToken()!=""){ Output.write(new DataStructures.RoleTreeNode(this.lexer.getLastToken()));
+            if (this.lexer.getLastToken()!=""){ this.output.write(new DataStructures.RoleTreeNode(this.lexer.getLastToken()));
             
             this.lexer.setLastToken("");
             }
@@ -96,7 +94,7 @@ public class PreviousNameContext extends SemanticContext {
           	  return this.lexer.context.changeContext(ContextualList.INITIAL, null, " "," ");
             }
             
-            Output.write(new DataStructures.RoleTreeNode(word));
+            this.output.write(new DataStructures.RoleTreeNode(word));
              return this.lexer.context.changeContext(ContextualList.INITIAL, null, " "," ");
         }catch(Exception e){return this.lexer.context;}
       }

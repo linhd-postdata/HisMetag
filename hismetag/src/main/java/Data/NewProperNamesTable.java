@@ -5,7 +5,6 @@
  */
 package Data;
 
-import static Data.MedievalPlaceNamesTable.medievaltable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

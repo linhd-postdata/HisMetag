@@ -36,11 +36,11 @@ public void insertSuc(RoleTreeNode node, BagData info)
 
 }
 
-public String inOrden() throws java.io.IOException,java.io.FileNotFoundException{ 
+public String inOrden(Output output) throws java.io.IOException,java.io.FileNotFoundException{
     
     
   
-    return tree.inOrden();
+    return tree.inOrden(output);
   }
 
 

@@ -6,8 +6,8 @@
 package MedievalTextLexer;
 
 import ContextProcessing.ContextualList;
-import static Data.FreelingPlaceNamesTable.path;
-import static Data.NewProperNamesTable.tPR;
+import Data.FreelingPlaceNamesTable;
+import Data.NewProperNamesTable;
 import Data.ProperName;
 import IOModule.Input;
 import IOModule.Output;
@@ -193,12 +193,13 @@ public class Main {
              */
              
           Output output = new Output();
+
              
       /*        BufferedReader buffer = new BufferedReader(stream);
            //System.out.println("el texto leido es "+buffer);*/
             /*String porra="Toledo\n";
              java.io.Reader pru=new java.io.StringReader(porra);*/
-             Lexer lexer= new Lexer(inputfile);
+             Lexer lexer= new Lexer(inputfile, output);
            
              
          // Output.writeHeader(); 
@@ -214,13 +215,13 @@ public class Main {
 
             }
             
-        IOModule.JsonClass objeto=new IOModule.JsonClass("dolores","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
-           IOModule.JsonClass objeto1=new IOModule.JsonClass("tela","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
-           ArrayList<IOModule.JsonClass> JsonList=new ArrayList<IOModule.JsonClass>();
+        //IOModule.JsonClass objeto=new IOModule.JsonClass("dolores","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
+          // IOModule.JsonClass objeto1=new IOModule.JsonClass("tela","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
+           //ArrayList<IOModule.JsonClass> JsonList=new ArrayList<IOModule.JsonClass>();
                    
         //   ArrayList<IOModule.JsonClass> JsonList=Output.JsonList;       
            //Output.JsonList.add(objeto);
-           JsonList.add(objeto1);
+           //JsonList.add(objeto1);
            
             
             
@@ -277,10 +278,10 @@ public class Main {
 			System.exit(0);
 
 }*/  
-            wordList.updateJsonList(Output.JsonList);
-            String fileXml=TextCleaning.XMLClean.cleaning(Output.output);
+            wordList.updateJsonList(output.getJsonList());
+            String fileXml=TextCleaning.XMLClean.cleaning(output.getOutput());
             
-            String salida=GenerateJson.finalJSON(Output.JsonList, fileXml);
+            String salida=GenerateJson.finalJSON(output.getJsonList(), fileXml);
 
 
             return salida;

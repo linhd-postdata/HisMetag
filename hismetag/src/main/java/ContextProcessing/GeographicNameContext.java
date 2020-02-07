@@ -27,8 +27,8 @@ import WordProcessing.WordTransformations;
  */
 public class GeographicNameContext extends SemanticContext {
     
-    public GeographicNameContext(SemanticContext previous, Lexer lexer){
-        super(previous, lexer);
+    public GeographicNameContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
     }
    
     public ContextualList getContext(){
@@ -179,7 +179,7 @@ public class GeographicNameContext extends SemanticContext {
          String newString=string.replaceAll("\\s+", " ");
        
          //tokenize the stirng
-         this.lexer.currentString=new TokenizedString(newString);
+         this.lexer.currentString=new TokenizedString(newString, this.lexer);
          
          for (int i=0; i<this.lexer.currentString.tokenList.size();i++){
              Token token=this.lexer.currentString.tokenList.get(i);
@@ -354,8 +354,8 @@ public class GeographicNameContext extends SemanticContext {
                 if (resultado.charAt(2)=='1') {
                    // System.out.println("he entrado por aqui en el case 1 "+word);
                    // System.out.println("ENTRO POR EL ELSE 1");
-                    Output.write(aux);
-                    Output.write(new RoleTreeNode(aux));
+                    this.output.write(aux);
+                    this.output.write(new RoleTreeNode(aux));
                     this.lexer.numCh=this.lexer.numCh+aux.length();
                     //this.lexer.numWord++;
                 }
@@ -384,8 +384,8 @@ public class GeographicNameContext extends SemanticContext {
                 if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                   
                     if (info.gazetteer.contains("Geonames"))  {
-                        Output.write(aux);
-                        Output.write(new RoleTreeNode(aux));
+                        this.output.write(aux);
+                        this.output.write(new RoleTreeNode(aux));
                         this.lexer.numCh=this.lexer.numCh+aux.length();
                         //this.lexer.numWord++;
                     }

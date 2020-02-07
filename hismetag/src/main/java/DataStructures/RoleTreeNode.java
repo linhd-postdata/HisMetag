@@ -11,7 +11,6 @@ import Recognition.InfoFound;
 import Recognition.Terms;
 import Recognition.TermsRecognition;
 import WordProcessing.WordTransformations;
-
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -68,7 +67,7 @@ public class RoleTreeNode {
 		return null;
 	}
 
-	public String inOrden() throws java.io.IOException, java.io.FileNotFoundException {
+	public String inOrden(Output output) throws java.io.IOException, java.io.FileNotFoundException {
 		String initTag = "";
 		String endTag = "";
 		String salida = "";
@@ -85,22 +84,22 @@ public class RoleTreeNode {
                 
 		// System.out.println("Entro por aqui "+this.root.string);
 		if (root.type == Terms.Y)
-			Output.write(root.string);
+			output.write(root.string);
 		if (root.type.toString().contains("PLN")) {
 			//System.out.println(root.string+"CCACCCACCCACCCCACCCCA");
-			Output.writePlaceData(this);
+			output.writePlaceData(this);
 
 		}
 
 		if (root.type.toString().contains("RN")) {
-			Output.writeRoleName(this);
+			output.writeRoleName(this);
 		}
 		if (root.type.toString().contains("ON")) {
-			Output.writeOrgData(this);
+			output.writeOrgData(this);
 		}
                 
 		if (root.type.toString().contains("PN")) {
-			Output.writeProperData(this);
+			output.writeProperData(this);
 		}
                 
 		// System.out.println ("llegohats quie"+root.string);
@@ -214,7 +213,7 @@ public class RoleTreeNode {
 		for (int i = 0; i < pred.size(); i++) {
 			// System.out.println ("DE VERDAD QUE ESTOY PINTANDO "+root.type);
 			// System.out.println ("pinto los predecesores "+pred.get(i).root.string);
-			salida += pred.get(i).inOrden();
+			salida += pred.get(i).inOrden(output);
 			// System.out.println("en la salida estas los predecseorss ");
 
 		}
@@ -233,7 +232,7 @@ public class RoleTreeNode {
 
 			// System.out.println("quienes son sus sucesores al pintar
 			// "+suc.get(i).root.string);
-			salida += suc.get(i).inOrden();
+			salida += suc.get(i).inOrden(output);
 
 		}
 
@@ -481,13 +480,14 @@ public class RoleTreeNode {
 
 	}
 
-	public RoleTreeNode dependCopulativeOf(ListIterator<ItemRoles> it, BagItemRoles hword, WordBag wb, int i) {
+
+	public RoleTreeNode dependCopulativeOf(ListIterator<ItemRoles> it, BagItemRoles hword, WordBag wb, int i, Lexer lexer) {
 
 		// if (Lexer.verbsFlag!=null) System.out.println("el verbo previo
 		// copulativa"+Lexer.verbsFlag.current);
 		boolean previousSingularVerb = false;
-		if (Lexer.verbsFlag != null) {
-			previousSingularVerb = ElementsRecognition.isSingular(Lexer.verbsFlag.verb);
+		if (lexer.verbsFlag != null) {
+			previousSingularVerb = ElementsRecognition.isSingular(lexer.verbsFlag.verb);
 		}
 		// System.out.println("HE ENTRADO POR LA DEPENDENCIA DE LA COPULATIVA CON EL
 		// VERBO PREVIO "+Lexer.verbsFlag.verb+" ACTUAL "+this.root.string+" TIPO
@@ -559,7 +559,7 @@ public class RoleTreeNode {
 			if (this.father == null) {
 				return null;
 			} else {
-				return this.dependCopulativeOf(it, hword, wb, i);
+				return this.dependCopulativeOf(it, hword, wb, i, lexer);
 			}
 		}
 		// System.out.println("la busuqeda copulativa 6");
