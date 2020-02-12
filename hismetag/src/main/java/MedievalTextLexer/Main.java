@@ -48,7 +48,7 @@ public class Main {
      *
      */
 	
-	private String run_program( String name){
+	private String run_program( String name, boolean tei){
 		 try{
                 String inputfile=name;
 		
@@ -84,7 +84,7 @@ public class Main {
              
       
             // Data.MedievalNewPlaceNamesTable.createTable(resources);
-            archivo = new File (this.getClass().getResource( "/pleiades-data.txt" ).toURI()); 
+            archivo = new File (this.getClass().getResource( "/pleiades-data.txt" ).toURI());
             Data.PleiadesPlaceNamesTable.createTable(archivo);
 
             String prueba=String.valueOf(Data.PleiadesPlaceNamesTable.pletable.size());
@@ -279,23 +279,27 @@ public class Main {
 
 }*/  
             wordList.updateJsonList(output.getJsonList());
-            String fileXml=TextCleaning.XMLClean.cleaning(output.getOutput());
-            
-            String salida=GenerateJson.finalJSON(output.getJsonList(), fileXml);
 
+            String salida;
+            if (tei) {
+                salida=TextCleaning.XMLClean.cleaning(output.getOutput());
+            }
+            else {
+                salida=GenerateJson.finalOnlyJSON(output.getJsonList());
+            }
 
             return salida;
 
 		}
 		catch (Exception e){
 		//System.out.println ("la excepcion"+e.toString());
-		System.exit(0);
-                return "";
-	}
+		    System.exit(0);
+            return "";
+	    }
         }
 		
 	
-   public static String ejecutar(String args) {
+   public static String ejecutar(String args, boolean tei) {
         // TODO code application logic here
     /*	if(args.length<4){
     		System.out.println("Faltan argumentos. ");
@@ -307,7 +311,7 @@ public class Main {
     	}
     	else{*/
     		Main m=new Main();
-            System.out.println("Entra main");
+    		String salida = m.run_program(args, tei);
     		String salida = m.run_program(args);
     		System.out.println("Sale main");
     		return 	salida;
