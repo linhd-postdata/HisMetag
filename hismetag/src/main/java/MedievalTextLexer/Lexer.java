@@ -1367,27 +1367,27 @@ public class Lexer {
 
   /* user code: */
   // place any extra class members here
-  public SemanticContext context; //
-  private Stack<SemanticContext> previousContextStack; //
-  public StringInProcess.TokenizedString currentString; //
-  private String lastToken; //
-  public int numCh; //
-  public int numWord; //
-  private String firstToken; //
-  private boolean theFirst; //
-  private ContextProcessing.PreviousProcess previousProcess; //
-  private String wordBag; //revisar si hay en algun sitio
+  public SemanticContext context;
+  private Stack<SemanticContext> previousContextStack;
+  public StringInProcess.TokenizedString currentString;
+  private String lastToken;
+  public int numCh;
+  public int numWord;
+  private String firstToken;
+  private boolean theFirst;
+  private ContextProcessing.PreviousProcess previousProcess;
+  private String wordBag;
   private String currentWord;
-  private ArrayList<String> headList;//
-  private ArrayList<String> wordList;//
-  private String properNameFlag;//
-  public String articleFlag;//
-  public String prepositionFlag;//
-  public Data.Verbs verbsFlag;//
-  private boolean fin; //
-  public DataStructures.WordBag wbag;//
-  private DataStructures.BagData root;//
-  private DataStructures.WordBag wordinbag; //
+  private ArrayList<String> headList;
+  private ArrayList<String> wordList;
+  private String properNameFlag;
+  public String articleFlag;
+  public String prepositionFlag;
+  public Data.Verbs verbsFlag;
+  private boolean fin;
+  public DataStructures.WordBag wbag;
+  private DataStructures.BagData root;
+  private DataStructures.WordBag wordinbag;
   private Output output;
 
 
