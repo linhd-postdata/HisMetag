@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-//import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 //import org.apache.commons.io.IOUtils;
 //import org.jboss.resteasy.plugins.providers.multipart.InputPart;
@@ -69,17 +69,16 @@ public class FileRestService {
     //    return null;
     //}
 //
-    //@GET
-    //@Path("/download")
-    //@Produces(MediaType.APPLICATION_OCTET_STREAM)
-    //public Response downloadFile(@QueryParam("file") String file) {
-//
-    //    String path = System.getProperty("user.home") + File.separator + "uploads";
-    //    File fileDownload = new File(path + File.separator + file);
-    //    ResponseBuilder response = Response.ok((Object) file);
-    //    response.header("Content-Disposition", "attachment;filename=" + file);
-    //    return response.build();
-    //}
+    @GET
+    @Path("/{file}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadFile(@PathParam("file") String file) {
+
+        File fileDownload = new File(getClass().getClassLoader().getResource(file).getFile());
+        ResponseBuilder response = Response.ok((Object) fileDownload);
+        response.header("Content-Disposition", "attachment;filename=" + file);
+        return response.build();
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
