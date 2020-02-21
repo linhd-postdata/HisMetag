@@ -59,7 +59,7 @@ public class GenerateJson {
 
         return jsonFinal;
     }
-        
+
     public static String finalOnlyJSON(ArrayList<JsonClass> jsonlist){
         Gson gson = new Gson();
 

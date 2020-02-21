@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.FormParam;
 
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
@@ -44,7 +45,6 @@ public class FileRestService {
         response.header("Content-Disposition", "attachment;filename=" + file);
         return response.build();
     }
-
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -90,7 +90,6 @@ public class FileRestService {
 
     }
 
-
     @PUT
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response updateFile(MultipartFormDataInput input) {
@@ -135,7 +134,27 @@ public class FileRestService {
                 .entity(reponse + fileName).build();
     }
 
+    @DELETE
+    @Path("/{file}")
+    public Response deleteFile(@PathParam("file") String file) {
+        Boolean delete = false;
+        File f;
+        try {
+            f = new File(getClass().getClassLoader().getResource(".").getFile());
+            String path = f.getAbsolutePath() + "/" + file;
 
+            f = new File(path);
+            delete = f.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(delete){
+            return Response.status(200).entity("File deleted").build();
+        } else {
+            return Response.status(300).entity("File cannot be deleted").build();
+        }
+    }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String fileList() {
@@ -152,7 +171,6 @@ public class FileRestService {
         String json = new Gson().toJson(pathnames);
         return json;
     }
-
 
     private String getFileName(MultivaluedMap<String, String> header) {
 

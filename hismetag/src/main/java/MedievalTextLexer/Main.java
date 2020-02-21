@@ -312,7 +312,6 @@ public class Main {
     	else{*/
     		Main m=new Main();
     		String salida = m.run_program(args, tei);
-    		String salida = m.run_program(args);
     		System.out.println("Sale main");
     		return 	salida;
     		

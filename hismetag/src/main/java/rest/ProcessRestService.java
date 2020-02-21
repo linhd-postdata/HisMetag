@@ -29,29 +29,29 @@ import java.util.List;
 
 @Path("/process")
 public class ProcessRestService {
- 
 
-    
 
- @POST
-@Path("/processpost")
+
+
+    @POST
+    @Path("/processpost")
 //@Produces("text/txt")
-@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-public String processTextPost(@FormParam("texto") String name, @HeaderParam("Accept") List <String> accept) {
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public String processTextPost(@FormParam("texto") String name, @HeaderParam("Accept") List <String> accept) {
 
-    boolean tei=false;
-     for (String s : accept) {
-         if (s.contains("application/tei+xml")) {
-             tei = true;
-             break;
-         }
-     }
+        boolean tei=false;
+        for (String s : accept) {
+            if (s.contains("application/tei+xml")) {
+                tei = true;
+                break;
+            }
+        }
          System.out.println(tei);
          String finalRes = MedievalTextLexer.Main.ejecutar(name, tei);
 
- name="";
-return finalRes;
-}
+         name="";
+         return finalRes;
+    }
 
 }
 
