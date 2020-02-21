@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import com.google.gson.Gson;
@@ -22,53 +23,17 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-//import org.apache.commons.io.IOUtils;
-//import org.jboss.resteasy.plugins.providers.multipart.InputPart;
-//import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-//
-//
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
+
+import org.jboss.resteasy.plugins.providers.multipart.InputPart;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+import org.apache.commons.io.IOUtils;
+
 @Path("/file")
 public class FileRestService {
 
 
-    //@POST
-    //@Consumes(MediaType.MULTIPART_FORM_DATA)
-    //public Response uploadFile(MultipartFormDataInput input) throws IOException {
-//
-    //    Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-//
-    //    // Get file data to save
-    //    List<InputPart> inputParts = uploadForm.get("attachment");
-//
-    //    for (InputPart inputPart : inputParts) {
-    //        try {
-//
-    //            MultivaluedMap<String, String> header = inputPart.getHeaders();
-    //            String fileName = getFileName(header);
-//
-    //            // convert the uploaded file to inputstream
-    //            InputStream inputStream = inputPart.getBody(InputStream.class, null);
-//
-    //            byte[] bytes = IOUtils.toByteArray(inputStream);
-//
-    //            String path = System.getProperty("user.home") + File.separator + "uploads";
-    //            File customDir = new File(path);
-//
-    //            if (!customDir.exists()) {
-    //                customDir.mkdir();
-    //            }
-    //            fileName = customDir.getCanonicalPath() + File.separator + fileName;
-    //            writeFile(bytes, fileName);
-//
-    //            return Response.status(200).entity("Uploaded file name : " + fileName).build();
-//
-    //        } catch (Exception e) {
-    //            e.printStackTrace();
-    //        }
-    //    }
-    //    return null;
-    //}
-//
     @GET
     @Path("/{file}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
@@ -80,6 +45,97 @@ public class FileRestService {
         return response.build();
     }
 
+
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadFile(MultipartFormDataInput input) {
+
+        String fileName = "";
+
+        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+        List<InputPart> inputParts = uploadForm.get("file");
+
+        for (InputPart inputPart : inputParts) {
+
+            try {
+                MultivaluedMap<String, String> header = inputPart.getHeaders();
+                fileName = getFileName(header);
+                File f = new File(getClass().getClassLoader().getResource(".").getFile());
+                String path = f.getAbsolutePath() + "/" + fileName;
+
+                File temp = new File(path);
+                System.out.println(temp);
+                if(temp.exists())
+                   return Response.status(303).entity("File already exists").build();
+
+                //convert the uploaded file to inputstream
+                InputStream inputStream = inputPart.getBody(InputStream.class,null);
+
+                byte [] bytes = IOUtils.toByteArray(inputStream);
+
+                //constructs upload file path
+
+                writeFile(bytes,path);
+
+                System.out.println("Done");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return Response.status(200)
+                .entity("Uploaded the file named:  " + fileName).build();
+
+    }
+
+
+    @PUT
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response updateFile(MultipartFormDataInput input) {
+
+        String fileName = "";
+        String reponse = "Upload the file named: ";
+
+        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+        List<InputPart> inputParts = uploadForm.get("file");
+
+        for (InputPart inputPart : inputParts) {
+
+            try {
+                MultivaluedMap<String, String> header = inputPart.getHeaders();
+                fileName = getFileName(header);
+                File f = new File(getClass().getClassLoader().getResource(".").getFile());
+                String path = f.getAbsolutePath() + "/" + fileName;
+
+                File temp = new File(path);
+                System.out.println(temp);
+                if(temp.exists())
+                    reponse = "Updated the file named: ";
+
+                //convert the uploaded file to inputstream
+                InputStream inputStream = inputPart.getBody(InputStream.class,null);
+
+                byte [] bytes = IOUtils.toByteArray(inputStream);
+
+                //constructs upload file path
+
+                writeFile(bytes,path);
+
+                System.out.println("Done");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return Response.status(200)
+                .entity(reponse + fileName).build();
+    }
+
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String fileList() {
@@ -88,24 +144,21 @@ public class FileRestService {
 
         // Creates a new File instance by converting the given pathname string
         // into an abstract pathname
-        File f = new File(
-                getClass().getClassLoader().getResource(".").getFile()
-        );
+        File f = new File(getClass().getClassLoader().getResource(".").getFile());
 
         // Populates the array with names of files and directories
         pathnames = f.list();
 
         String json = new Gson().toJson(pathnames);
-
         return json;
     }
+
 
     private String getFileName(MultivaluedMap<String, String> header) {
 
         String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
 
         for (String filename : contentDisposition) {
-
             if ((filename.trim().startsWith("filename"))) {
 
                 String[] name = filename.split("=");
@@ -117,17 +170,19 @@ public class FileRestService {
         return "unknown";
     }
 
-    // Utility method
     private void writeFile(byte[] content, String filename) throws IOException {
+
         File file = new File(filename);
 
         if (!file.exists()) {
             file.createNewFile();
         }
+
         FileOutputStream fop = new FileOutputStream(file);
+
         fop.write(content);
         fop.flush();
         fop.close();
-        System.out.println("Written: " + filename);
+
     }
 }
