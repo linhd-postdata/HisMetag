@@ -24,9 +24,6 @@ import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.FormParam;
 
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
-
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.apache.commons.io.IOUtils;
@@ -154,7 +151,7 @@ public class FileRestService {
             return Response.status(300).entity("File cannot be deleted").build();
         }
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String fileList() {
