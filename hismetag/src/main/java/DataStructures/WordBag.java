@@ -102,7 +102,7 @@ public void borrar(Terms tt,int pos){
              }
          
     if (wbag.size()>0)     {
-     RolesTree tree=DataAlgorithms.DataAlgorithms.roleAlgorithm(this);
+     RolesTree tree=DataAlgorithms.DataAlgorithms.roleAlgorithm(this, lexer);
      
      this.output.write(tree.tree);
     }

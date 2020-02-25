@@ -19,7 +19,7 @@ import java.io.PrintWriter;
  *
  * @author mluisadiez
  */
-
+/**
 @WebServlet(name = "postText", urlPatterns = {"/uploadtext"})
 public class postText extends HttpServlet{
      private static final long serialVersionUID = 1L;
@@ -66,3 +66,4 @@ public class postText extends HttpServlet{
             return null;
         }
 }
+*/
