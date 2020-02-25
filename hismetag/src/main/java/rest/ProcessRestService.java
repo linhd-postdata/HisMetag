@@ -7,7 +7,7 @@ package rest;
  
 /**
 *
-* @author mluisadiez
+* @author alfonsocuesta
 */
 
 import com.google.gson.Gson;
@@ -55,7 +55,6 @@ public class ProcessRestService {
          System.out.println(tei);
          String finalRes = MedievalTextLexer.Main.ejecutar(name, tei);
 
-         name="";
          return finalRes;
     }
 
@@ -100,8 +99,6 @@ public class ProcessRestService {
 
         return finalRes;
     }
-
-
 
 }
 

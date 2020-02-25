@@ -7,7 +7,7 @@ package rest;
 
 /**
  *
- * @author mluisadiez
+ * @author alfonsocuesta
  */
 
 import java.io.File;
