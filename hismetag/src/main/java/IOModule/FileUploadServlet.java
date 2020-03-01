@@ -29,8 +29,9 @@ import javax.servlet.http.Part;
 /**
  * File upload servlet example
  */
-@WebServlet(name = "FileUploadServlet", urlPatterns = {"/upload"})
-@MultipartConfig
+
+//@WebServlet(name = "FileUploadServlet", urlPatterns = {"/upload"})
+//@MultipartConfig
 public class FileUploadServlet extends HttpServlet {
 
     private final static Logger LOGGER =

@@ -21,7 +21,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.Collection;
 
-    @WebServlet(name = "UploadServlet", urlPatterns = {"/uploadnew"})
+    //@WebServlet(name = "UploadServlet", urlPatterns = {"/uploadnew"})
     //@MultipartConfig(location="/uploads")
     public class UploadServlet extends HttpServlet {
         private static final long serialVersionUID = 1L;
