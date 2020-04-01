@@ -24,14 +24,14 @@
     
     </head>
     <body>
-        <div style="width:100%; borde:1px solid #e0922e;padding-top: 25px"><img src="/ServicioWebRest-1.0-SNAPSHOT/images/logodos.png" width="150"/></div>
+        <div style="width:100%; borde:1px solid #e0922e;padding-top: 25px"><img src="/api/images/logodos.png" width="150"/></div>
         <span style="text-align: center">
             <h1>HisMetag</h1>
         <form method="post" action="rest/process/text"  id="form">
         <fieldset>
             <legend>Insert text</legend>
             <textarea  id="texto" name="texto" cols="200" rows="20" style="resize: both;"></textarea>
-            <button type="submit" id=""subm">Submit</button>  
+            <button type="submit" id="subm">Submit</button>
             <input type="button" value="Clear" onclick="clearContent()"> 
         </fieldset>
     </form></span>
