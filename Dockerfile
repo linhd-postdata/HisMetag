@@ -7,4 +7,4 @@ RUN mvn package
 
 
 FROM tomcat:8.0
-COPY --from=builder /app/target/ServicioWebRest-*.war /usr/local/tomcat/webapps/api.war
+COPY --from=builder /app/target/api.war /usr/local/tomcat/webapps/api.war
