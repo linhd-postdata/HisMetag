@@ -1,7 +1,7 @@
 FROM maven:3.6 AS builder
 RUN mkdir -p /app
 EXPOSE 8080
-COPY Hismetag /app
+COPY hismetag /app
 WORKDIR /app
 RUN mvn package
 
