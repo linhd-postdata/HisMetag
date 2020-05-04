@@ -28,33 +28,32 @@ import DataStructures.*;
 public class TokenizedString {
     public ArrayList<Token> tokenList=new ArrayList<Token>();
     public String stringInProcess;
+    private Lexer lexer;
     
     public Ngramms ngramms=new Ngramms();
     
-    public TokenizedString(){
+    public TokenizedString(Lexer lexer){
     	 stringInProcess="";
+    	 this.lexer=lexer;
     }
    /* public TokenizedString(String p){
         stringInProcess="";
        
     }*/
     
-    public TokenizedString(String string){
+    public TokenizedString(String string, Lexer lexer){
         
-       
-        
-        
-       
+        this.lexer=lexer;
         String[] array=string.split(" ");
-        int position=Lexer.numCh;
-        int nw=Lexer.numWord;
+        int position=this.lexer.numCh;
+        int nw=this.lexer.numWord;
         
         for (int i=0; i<array.length; i++){
-          //  System.out.println("la palara que estoy tokenizando es"+array[i]+"num"+Lexer.numCh);
-            tokenList.add(new Token(array[i],null,null,null,false,Lexer.numCh,Lexer.numWord,VerificationInfo.UNIDENTIFIED));
+          //  System.out.println("la palara que estoy tokenizando es"+array[i]+"num"+this.lexer.numCh);
+            tokenList.add(new Token(array[i],null,null,null,false,this.lexer.numCh,this.lexer.numWord,VerificationInfo.UNIDENTIFIED));
            
-           Lexer.numCh+=array[i].length()+1;
-           //Lexer.numWord++;
+           this.lexer.numCh+=array[i].length()+1;
+           //this.lexer.numWord++;
           
             
         }
@@ -162,7 +161,7 @@ public class TokenizedString {
      // System.out.println("CAAAAAAAAAA"+ngramms);
        
         for (int i=ngramms.ngramms.size()-1; i>=0; i--){
-            NgrammsInfo ng=Lexer.currentString.ngramms.ngramms.get(i);
+            NgrammsInfo ng=this.lexer.currentString.ngramms.ngramms.get(i);
            
         //   System.out.println("DAAAAAAAAAA"+i);
           
@@ -175,8 +174,8 @@ public class TokenizedString {
                 int j=0;
                 //System.out.println("no se loq ue vemos"+ng.ngramms+tokenList.get(3).word);
                 /*while (j<tokenList.size()){
-                    System.out.println("ellle"+Lexer.currentString.tokenList.get(j).info+ " "+tokenList.get(j).word);
-                    if ( ((Lexer.currentString.tokenList.get(j).info)!=null) || !(ng.ngramms.equals(tokenList.get(j).word))) {
+                    System.out.println("ellle"+this.lexer.currentString.tokenList.get(j).info+ " "+tokenList.get(j).word);
+                    if ( ((this.lexer.currentString.tokenList.get(j).info)!=null) || !(ng.ngramms.equals(tokenList.get(j).word))) {
                         System.out.println("SALI DE AQUI")
 ;                        break;
                     }
@@ -414,35 +413,35 @@ public class TokenizedString {
          
       
        // System.out.println("LALLLALLLOTRA VEZ"+this.tokenList.get(0).word+this.tokenList.size());
-          //System.out.println("la bolsa tiene los "+Lexer.wbag.tam());
+          //System.out.println("la bolsa tiene los "+this.lexer.wbag.tam());
          for (int i=0;i<this.tokenList.size();i++){
          //  System.out.println("EL BAGADTA"+this.tokenList.get(i).word);
             BagData bgd=this.tokenList.get(i).bdata;
             
          //System.out.println("POR DONDE VOY");
-            if (Lexer.wbag.tam()>0){
+            if (this.lexer.wbag.tam()>0){
                 
-            if (bgd.type==Terms.DE && Lexer.wbag.getLast().type==Terms.NPLN){
-                Lexer.wbag.getLast().string+=" "+bgd.string;
+            if (bgd.type==Terms.DE && this.lexer.wbag.getLast().type==Terms.NPLN){
+                this.lexer.wbag.getLast().string+=" "+bgd.string;
             }else{
            //     System.out.println("entro por este caso 2"+tokenList.get(i));
-             Lexer.wbag.put(tokenList.get(i).bdata);
+             this.lexer.wbag.put(tokenList.get(i).bdata);
             }
            //  System.out.println("cuale es la bolsa ");
-           //  Lexer.wbag.escribir();
+           //  this.lexer.wbag.escribir();
             } else{
                 
            //     System.out.println("entro por este caso "+tokenList.get(i));
-                Lexer.wbag.put(tokenList.get(i).bdata);
+                this.lexer.wbag.put(tokenList.get(i).bdata);
             }
              
          }
-                   //System.out.println("la bolsa tiene los "+Lexer.wbag.tam()+Lexer.wbag.get(4).string);
+                   //System.out.println("la bolsa tiene los "+this.lexer.wbag.tam()+this.lexer.wbag.get(4).string);
 
-        /* if (Lexer.context.getContext()==ContextualList.INITIAL){
-             if (Data.ContextPlaceNames.contains(Lexer.lastToken.toLowerCase())){
-                 Output.write("<placeName>"+Lexer.lastToken+" ");
-                 //Output.writeData(Lexer.lastToken, String.valueOf(Lexer.numCh), String.valueOf(Lexer.numWord),Terms.PLN.toString(),TypesTerms.FT.toString(), " ", " ", "no", " ", " "," "," ",VerificationInfo.FOUND.toString());
+        /* if (this.lexer.context.getContext()==ContextualList.INITIAL){
+             if (Data.ContextPlaceNames.contains(this.lexer.lastToken.toLowerCase())){
+                 Output.write("<placeName>"+this.lexer.lastToken+" ");
+                 //Output.writeData(this.lexer.lastToken, String.valueOf(this.lexer.numCh), String.valueOf(this.lexer.numWord),Terms.PLN.toString(),TypesTerms.FT.toString(), " ", " ", "no", " ", " "," "," ",VerificationInfo.FOUND.toString());
 
              }
              
@@ -454,7 +453,7 @@ public class TokenizedString {
              Token token=tokenList.get(i);
              token.write();
              System.out.println("he entrado por send "+tokenList.size());
-            // if (token.type==Terms.PPN)Lexer.wbag.put(new ProperNameBagData(token.word,token.type.toString(),token.position,token.nWord,token.position+token.word.length(),token.info,Lexer.context.getContext()));
+            // if (token.type==Terms.PPN)this.lexer.wbag.put(new ProperNameBagData(token.word,token.type.toString(),token.position,token.nWord,token.position+token.word.length(),token.info,this.lexer.context.getContext()));
            //  System.out.println("los tokens se encunetran "+ token.word);
            //  System.out.println("en la cadena actual hay"+tokenList.size());
             if (token.ambiguous ){
@@ -464,11 +463,11 @@ public class TokenizedString {
 
                     Output.writeName(token.word, token.term, token.type,type);
                
-                Output.writeData(token.word, String.valueOf(token.position),String.valueOf(Lexer.numWord),token.term.toString(),token.type.toString(), "", "", "yes", Terms.APLN.toString(), "", "", "", token.verif.toString());
+                Output.writeData(token.word, String.valueOf(token.position),String.valueOf(this.lexer.numWord),token.term.toString(),token.type.toString(), "", "", "yes", Terms.APLN.toString(), "", "", "", token.verif.toString());
                 }else{
                 Output.writePlaceName(token.word, token.info.uri, token.term);
                
-                Output.writeData(token.word, String.valueOf(token.position), String.valueOf(Lexer.numWord),token.term.toString(),token.type.toString(), token.info.uri, token.info.current, "yes", Terms.PN.toString(), " ",token.info.description,token.info.gazetteer, token.verif.toString());
+                Output.writeData(token.word, String.valueOf(token.position), String.valueOf(this.lexer.numWord),token.term.toString(),token.type.toString(), token.info.uri, token.info.current, "yes", Terms.PN.toString(), " ",token.info.description,token.info.gazetteer, token.verif.toString());
                 
                 }
                 
@@ -488,23 +487,23 @@ public class TokenizedString {
                     
                         Output.writeName(token.word, token.term, token.type,type);
                         if (token.type==TypesTerms.GENT){
-                        Output.writeData(token.word, String.valueOf(token.position), String.valueOf(Lexer.numWord),token.term.toString(),token.type.toString(), token.info.current, "", "", "", "", "", "", token.verif.toString());
+                        Output.writeData(token.word, String.valueOf(token.position), String.valueOf(this.lexer.numWord),token.term.toString(),token.type.toString(), token.info.current, "", "", "", "", "", "", token.verif.toString());
                  
                         }else{
-                           Output.writeData(token.word, String.valueOf(token.position), String.valueOf(Lexer.numWord),token.term.toString(),token.type.toString(), "", "", "", "", "", "", "", token.verif.toString());
+                           Output.writeData(token.word, String.valueOf(token.position), String.valueOf(this.lexer.numWord),token.term.toString(),token.type.toString(), "", "", "", "", "", "", "", token.verif.toString());
                   
                         }
                  }else if (token.term==Terms.UN){
                      Output.writePlaceName(token.word,"", token.term);
                  Output.write(" ");
-                 Output.writeData(token.word, String.valueOf(token.position),String.valueOf(Lexer.numWord),token.term.toString(),token.type.toString(), "", "", "not", "", "", "", "", token.verif.toString());
+                 Output.writeData(token.word, String.valueOf(token.position),String.valueOf(this.lexer.numWord),token.term.toString(),token.type.toString(), "", "", "not", "", "", "", "", token.verif.toString());
                    
                  }else{
                      //System.out.println("Voy a escribir place "+token.word);
                    Output.writePlaceName(token.word,token.info.uri, token.term);
                  Output.write(" ");
-              //   System.out.println ("FLAG"+Lexer.numWord);
-                 Output.writeData(token.word, String.valueOf(token.position),String.valueOf(Lexer.numWord),token.term.toString(),token.type.toString(), token.info.uri, token.info.current, "not", "", "", token.info.description, token.info.gazetteer, token.verif.toString());
+              //   System.out.println ("FLAG"+this.lexer.numWord);
+                 Output.writeData(token.word, String.valueOf(token.position),String.valueOf(this.lexer.numWord),token.term.toString(),token.type.toString(), token.info.uri, token.info.current, "not", "", "", token.info.description, token.info.gazetteer, token.verif.toString());
               //     System.out.println("Salgo de aqui por el final");
                  }   
                      
@@ -514,8 +513,8 @@ public class TokenizedString {
             if (tokenList.size()>1 || i!=tokenList.size()-1) Output.write(" ");
          }*/
          
-        /* if (Lexer.context.getContext()==ContextualList.PLACE){
-             if (Data.ContextPlaceNames.contains(Lexer.lastToken.toLowerCase())){
+        /* if (this.lexer.context.getContext()==ContextualList.PLACE){
+             if (Data.ContextPlaceNames.contains(this.lexer.lastToken.toLowerCase())){
                  Output.write("</placeName>");
              }
              
@@ -562,8 +561,8 @@ public class TokenizedString {
   public void countWordChar(){
       for (int i=0; i<tokenList.size();i++){
           Token token=tokenList.get(i);
-          token.position=Lexer.numCh;
-          token.nWord=Lexer.numWord;
+          token.position=this.lexer.numCh;
+          token.nWord=this.lexer.numWord;
       }
   }
   

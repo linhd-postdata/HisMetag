@@ -6,8 +6,8 @@
 package MedievalTextLexer;
 
 import ContextProcessing.ContextualList;
-import static Data.FreelingPlaceNamesTable.path;
-import static Data.NewProperNamesTable.tPR;
+import Data.FreelingPlaceNamesTable;
+import Data.NewProperNamesTable;
 import Data.ProperName;
 import IOModule.Input;
 import IOModule.Output;
@@ -48,18 +48,16 @@ public class Main {
      *
      */
 	
-	private String run_program( String name){
+	private String run_program( String name, boolean tei){
 		 try{
-                     
                 String inputfile=name;
 		
 		
         String newString=inputfile.replaceAll("\\s+", " ");
                 WordList wordList=new WordList(inputfile);
                 System.out.println("la lista tiene "+wordList.wordList.size());
-         
-        
-              
+
+
         
          
 
@@ -86,7 +84,7 @@ public class Main {
              
       
             // Data.MedievalNewPlaceNamesTable.createTable(resources);
-            archivo = new File (this.getClass().getResource( "/pleiades-data.txt" ).toURI()); 
+            archivo = new File (this.getClass().getResource( "/pleiades-data.txt" ).toURI());
             Data.PleiadesPlaceNamesTable.createTable(archivo);
 
             String prueba=String.valueOf(Data.PleiadesPlaceNamesTable.pletable.size());
@@ -162,7 +160,6 @@ public class Main {
 
             archivo = new File (this.getClass().getResource( "/new-ambiguous-terms-found.txt" ).toURI());
             Data.AmbiguousTermsFoundTable.createTable(archivo);
-            
            
              //System.out.println("cuatro esta aqui"+inputfile);
             String newfile=inputfile.substring(0, inputfile.length()-3)+"xml";
@@ -195,13 +192,14 @@ public class Main {
             
              */
              
-          new Output(); 
+          Output output = new Output();
+
              
       /*        BufferedReader buffer = new BufferedReader(stream);
            //System.out.println("el texto leido es "+buffer);*/
             /*String porra="Toledo\n";
              java.io.Reader pru=new java.io.StringReader(porra);*/
-             Lexer lexer= new Lexer(inputfile);
+             Lexer lexer= new Lexer(inputfile, output);
            
              
          // Output.writeHeader(); 
@@ -211,39 +209,19 @@ public class Main {
              //System.out.println("la lematizacion"+WordTransformations.lemmVerbs("dizen"));  
             
         Token token;
-            
-         do{
-                
-                 
-             //   System.out.println("estOy por aqui");
-            //    System.out.println(Lexer.fin);
+        while(!lexer.isFin()) {
+            // Obtener el token analizado y mostrar su información
+            token = lexer.yylex();
 
-            		// Obtener el token analizado y mostrar su información
-            if (Lexer.fin) {//System.out.println("EL final");
-            
-            break;}
-                 else  {
-                
-                token = lexer.yylex();
             }
-                
-               
-              
-               
-            	
-            	if (Lexer.fin==true){
-                    
-            		break;
-                }
-            }while (true);
             
-            IOModule.JsonClass objeto=new IOModule.JsonClass("dolores","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
-           IOModule.JsonClass objeto1=new IOModule.JsonClass("tela","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
-           ArrayList<IOModule.JsonClass> JsonList=new ArrayList<IOModule.JsonClass>();
+        //IOModule.JsonClass objeto=new IOModule.JsonClass("dolores","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
+          // IOModule.JsonClass objeto1=new IOModule.JsonClass("tela","3","2",Terms.APN.toString(),TypesTerms.FT.toString(),"http://www.com.es","","","","","la desxcerioc","Freeling","False","1.2");
+           //ArrayList<IOModule.JsonClass> JsonList=new ArrayList<IOModule.JsonClass>();
                    
         //   ArrayList<IOModule.JsonClass> JsonList=Output.JsonList;       
            //Output.JsonList.add(objeto);
-           JsonList.add(objeto1);
+           //JsonList.add(objeto1);
            
             
             
@@ -251,7 +229,7 @@ public class Main {
 
            
           //  System.out.println("no se por qué no sale ");
-          Output.writeSalida();
+          output.writeSalida();
          //   for (int i=0; i<Output.salida.size(); i++)
           
            // System.out.println("EL OUTPUT  "+Output.salida.get(i).root.string+ " "+Output.salida.get(i).root.type);
@@ -300,23 +278,28 @@ public class Main {
 			System.exit(0);
 
 }*/  
-            wordList.updateJsonList(Output.JsonList);
-            String fileXml=TextCleaning.XMLClean.cleaning(Output.output);
-            
-                String salida=GenerateJson.finalJSON(Output.JsonList, fileXml);
-            
+            wordList.updateJsonList(output.getJsonList());
+
+            String salida;
+            if (tei) {
+                salida=TextCleaning.XMLClean.cleaning(output.getOutput());
+            }
+            else {
+                salida=GenerateJson.finalOnlyJSON(output.getJsonList());
+            }
+
             return salida;
 
 		}
 		catch (Exception e){
 		//System.out.println ("la excepcion"+e.toString());
-		System.exit(0);
-                return "";
-	}
+		    System.exit(0);
+            return "";
+	    }
         }
 		
 	
-   public static String ejecutar(String args) {
+   public static String ejecutar(String args, boolean tei) {
         // TODO code application logic here
     /*	if(args.length<4){
     		System.out.println("Faltan argumentos. ");
@@ -328,7 +311,9 @@ public class Main {
     	}
     	else{*/
     		Main m=new Main();
-    		return 	m.run_program(args);
+    		String salida = m.run_program(args, tei);
+    		System.out.println("Sale main");
+    		return 	salida;
     		
     	
         

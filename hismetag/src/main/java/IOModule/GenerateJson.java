@@ -46,7 +46,6 @@ public class GenerateJson {
         Gson gson = new Gson();
         
         return gson.toJson(jsonObj);
-       
     }
     
     public static String finalJSON(ArrayList<JsonClass> jsonlist,String xml)throws Exception{
@@ -57,17 +56,16 @@ public class GenerateJson {
         Gson gson = new Gson();
         
         String jsonFinal= gson.toJson(jsonobject);
-      
- 
-       
-    
-        
- 
-      
+
         return jsonFinal;
     }
-        
-    
+
+    public static String finalOnlyJSON(ArrayList<JsonClass> jsonlist){
+        Gson gson = new Gson();
+
+        String jsonFinal= gson.toJson(jsonlist);
+        return jsonFinal;
+    }
 }
        
 

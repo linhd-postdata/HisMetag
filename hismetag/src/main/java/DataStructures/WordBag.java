@@ -16,14 +16,18 @@ import java.util.*;
  */
 public class WordBag {
  public ArrayList<BagData> wbag; 
+ private Lexer lexer;
+ private Output output;
  
- public WordBag(){
+ public WordBag(Lexer lexer, Output output){
+     this.lexer=lexer;
+     this.output=output;
      wbag=new ArrayList<BagData>();
      
  }
  
  public void put(BagData bd){
-     //System.out.println("he entrado por el put de bag "+bd.string+Lexer.context.getContext()+bd.position);
+     //System.out.println("he entrado por el put de bag "+bd.string+this.lexer.context.getContext()+bd.position);
      if (bd.string!=" ")
      wbag.add(bd);
  }
@@ -52,7 +56,7 @@ public void borrar(Terms tt,int pos){
     BagData item=wbag.get(pos);
     if (pos>=0 && tt==Terms.ART){
         wbag.remove(pos);
-        Output.write(new RoleTreeNode (item));
+        this.output.write(new RoleTreeNode (item));
     }
    }catch (Exception e){;}
 }
@@ -93,27 +97,27 @@ public void borrar(Terms tt,int pos){
           //       System.out.println ("he entrado por el articulo de restart");
                  ultimo=wbag.get(wbag.size()-1).string;
                  wbag.remove(wbag.get(wbag.size()-1));
-          //       System.out.println ("he entrado por el articulo de restart"+Lexer.wbag.tam());
+          //       System.out.println ("he entrado por el articulo de restart"+this.lexer.wbag.tam());
                  
              }
          
     if (wbag.size()>0)     {
-     RolesTree tree=DataAlgorithms.DataAlgorithms.roleAlgorithm(this);
+     RolesTree tree=DataAlgorithms.DataAlgorithms.roleAlgorithm(this, lexer);
      
-     Output.write(tree.tree);
+     this.output.write(tree.tree);
     }
      for (int i=0;i<aux.size();i++){
-         Output.write(new RoleTreeNode(aux.get(i).string));
+         this.output.write(new RoleTreeNode(aux.get(i).string));
      }
-     if (ultimo!="") Output.write(new RoleTreeNode(ultimo));
+     if (ultimo!="") this.output.write(new RoleTreeNode(ultimo));
      }
      // System.out.println ("la bolsa 3");
      this.clean();
-     //Lexer.lastToken="";
-     Lexer.previousContextStack.clear();
+     //this.lexer.lastToken="";
+     this.lexer.clearPreviousContext();
      
     
-     //Lexer.context.changeContext(ContextualList.INITIAL,Lexer.context, "", "");
+     //this.lexer.context.changeContext(ContextualList.INITIAL,this.lexer.context, "", "");
     // System.out.println("LA WORDBAG NO ME LO PERMITE");
  }
  
@@ -134,38 +138,38 @@ public void borrar(Terms tt,int pos){
      if (this.contieneNP()) {
     //	 System.out.println("contiene NP");
          pn=true;
-         Output.write("<persName>");
+         this.output.write("<persName>");
      }
      for (int i=0;i<wbag.size();i++){
     //	  System.out.println("la i"+i);
          BagData data=wbag.get(i);
         // System.out.println("la bolsa es "+data.string);
          if (data.type==Terms.RNH){
-          Output.write("<roleName type='honorific' suptype='"+data.subtype+"'>"
+          this.output.write("<roleName type='honorific' suptype='"+data.subtype+"'>"
                   +data.string+"</roleName>");   
      } else if (data.type==Terms.RNA){
     	
-         Output.write("<roleName>"+data.string);
+         this.output.write("<roleName>"+data.string);
          
          while(i<wbag.size() || data.type!=Terms.RN  ){
         //	 System.out.println("la bolsa "+wbag.get(i)+" ");
         	 i++;
            //  System.out.println("la bolsa "+wbag.get(i)+" "+i);
              if (data.infoPlace.gazetteer!=" "){
-                 Output.write("<placeName><ptr ref="+'"'+data.infoPlace.uri+'"'+">"+data.string+"</ptr></placeName>");
+                 this.output.write("<placeName><ptr ref="+'"'+data.infoPlace.uri+'"'+">"+data.string+"</ptr></placeName>");
              }
-             else Output.write(data.string);
+             else this.output.write(data.string);
              
          }
          
                    
      }else if (data.type==Terms.RNF){
-         Output.write("<roleName type='famili'>"+data.string);
+         this.output.write("<roleName type='famili'>"+data.string);
          while(data.type!=Terms.RN || i<wbag.size()){
              i++;
              if (data.type!=Terms.UN){
-                 Output.write("<persName>"+data.string+"</persName>");
-             }else Output.write(data.string);
+                 this.output.write("<persName>"+data.string+"</persName>");
+             }else this.output.write(data.string);
          }
      }
      }

@@ -9,7 +9,6 @@ import WordProcessing.*;
 
 import Data.GeositesData;
 import Data.PleiadesData;
-import MedievalTextLexer.Lexer;
 import DataStructures.*;
 import Recognition.Terms;
 import Recognition.TypesTerms;
@@ -20,33 +19,34 @@ import java.util.*;
  * @author M Luisa Díez Platas
  */
 public class Output {
-    File file;
+    public File file;
     //static public BufferedWriter output;
-    static public String output="";
-    static public String outputCSV="";
-    static public ArrayList<JsonClass> JsonList= new ArrayList<JsonClass>();
-    static public JsonClass jsonobject;
-    File dataFile;
-    File dataFileP;
-    File dataFileM;
-    File dataFileR;
-    File dataFilePR;
-    File dataFileO;
-    static public String dataOut="";
-    static public FileWriter outputData;
-    static public FileWriter outputPlaces;
-    static public FileWriter outputRoles;
-    static public FileWriter outputPersNames;
-    static public FileWriter outputOrgs;
-    static public FileWriter outputMedieval;
+    private String output="";
+    private String outputCSV="";
+    private ArrayList<JsonClass> JsonList= new ArrayList<JsonClass>();
+    private JsonClass jsonobject;
+    private File dataFile;
+    private File dataFileP;
+    private File dataFileM;
+    private File dataFileR;
+    private File dataFilePR;
+    private File dataFileO;
+    private String dataOut="";
+    public FileWriter outputData;
+    public FileWriter outputPlaces;
+    public FileWriter outputRoles;
+    public FileWriter outputPersNames;
+    public FileWriter outputOrgs;
+    public FileWriter outputMedieval;
     
-    static public ArrayList<RoleTreeNode> salida=new ArrayList<RoleTreeNode>();
+    private ArrayList<RoleTreeNode> salida=new ArrayList<RoleTreeNode>();
     
     public Output(){
         JsonList= new ArrayList<JsonClass>();
         output="";
     }
-   public Output(String name, String data,String place,String rol, String pers, String org,String medieval) throws java.io.FileNotFoundException, java.io.IOException{
+
+    public Output(String name, String data,String place,String rol, String pers, String org,String medieval) throws java.io.FileNotFoundException, java.io.IOException{
       
        ArrayList<JsonClass> JsonList = new ArrayList<JsonClass>();
       // System.out.println("que pasa en los archivos despues "+name);
@@ -121,20 +121,33 @@ public class Output {
        
        
    } 
-   
-  public static void writeSalida() throws java.io.FileNotFoundException,java.io.IOException{
+
+    public void setOutput(String output){
+         this.output=output;
+    }
+
+    public String getOutput(){
+        return this.output;
+    }
+
+    public ArrayList<JsonClass> getJsonList() {
+        return JsonList;
+    }
+
+    public void writeSalida() throws java.io.FileNotFoundException,java.io.IOException{
 	
 	   
 	  for (int i=0;i<salida.size();i++){
            // System.out.println("salida "+salida.get(i).root.string);
          
 		// output.write(salida.get(i).inOrden());
-                 output+=salida.get(i).inOrden();
+                 output+=salida.get(i).inOrden(this);
                  
 	  }
 	 
   }
-   public static void writeHeader()throws java.io.FileNotFoundException,java.io.IOException{
+
+    public void writeHeader()throws java.io.FileNotFoundException,java.io.IOException{
 	
         //output.write(dataOut);
         // output+=dataOut;
@@ -150,7 +163,7 @@ public class Output {
        
    }
    
-    public static void writeTEIHeader()throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeTEIHeader()throws java.io.FileNotFoundException,java.io.IOException{
 	
         /*output.write("<TEI xmlns='http://www.tei-c.org/ns/1.0'>");
 	
@@ -163,7 +176,7 @@ public class Output {
        
    }
    
-        public static void writeTEIFooter()throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeTEIFooter()throws java.io.FileNotFoundException,java.io.IOException{
 	
 	
 	/*output.write("\n</p>\n"+"</div>\n"+"</body>\n"+"</text>\n"+"</TEI>");
@@ -173,9 +186,8 @@ public class Output {
            
        
    }
-    
-   
-    public static void writeFooter()throws java.io.FileNotFoundException,java.io.IOException{
+
+    public void writeFooter()throws java.io.FileNotFoundException,java.io.IOException{
 	
 	
 	//output.write("\n</p>\n"+"</div>\n"+"</body>\n"+"</text>\n"+"</TEI>");
@@ -184,7 +196,7 @@ public class Output {
        
    }
     
-    public static void writeDataHeader()throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeDataHeader()throws java.io.FileNotFoundException,java.io.IOException{
         outputData.write("TERM;POSITION;WORD;TYPE;MODE;URI;CURRENT_TERM;AMBIGUOUS;ANOTHER_MEANING;ANOTHER_MEANING_URI;DESCRIPTION;GAZETTEER;VERIFICATION;GEO\n");
         outputPlaces.write("TERM;POSITION;WORD;TYPE;MODE;URI;CURRENT_TERM;AMBIGUOUS;ANOTHER_MEANING;ANOTHER_MEANING_URI;DESCRIPTION;GAZETTEER;VERIFICATION;GEO\n");
         outputPersNames.write("TERM;POSITION;WORD;TYPE;MODE;URI;CURRENT_TERM;AMBIGUOUS;ANOTHER_MEANING;ANOTHER_MEANING_URI;DESCRIPTION;GAZETTEER;VERIFICATION;GEO\n");
@@ -192,16 +204,17 @@ public class Output {
     outputOrgs.write("TERM;POSITION;WORD;TYPE;MODE;URI;CURRENT_TERM;AMBIGUOUS;ANOTHER_MEANING;ANOTHER_MEANING_URI;DESCRIPTION;GAZETTEER;VERIFICATION;GEO\n");
     }
     
-    public static void writeDataOthersHeader() throws java.io.FileNotFoundException, java.io.IOException{
+    public void writeDataOthersHeader() throws java.io.FileNotFoundException, java.io.IOException{
       outputPlaces.write("TERM;POSITION;WORD;TYPE;MODE;URI;CURRENT_TERM;AMBIGUOUS;ANOTHER_MEANING;ANOTHER_MEANING_URI;DESCRIPTION;GAZETTEER;VERIFICATION;GEO\n");
       
     }
-    public static void writeMedievalHeader()throws java.io.FileNotFoundException,java.io.IOException{
+
+    public void writeMedievalHeader()throws java.io.FileNotFoundException,java.io.IOException{
         outputMedieval.write("TERM;CURRENT-NAME;PLEIADES-URI;GEONAMES-URI;DESCRIPTION;TYPE-TERM;DOCUMENT;GAZETTEER-PROVENNANCE\n");
             
     }
     
-    public static void writeName(String word, Recognition.Terms info,Recognition.TypesTerms type) throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeName(String word, Recognition.Terms info,Recognition.TypesTerms type) throws java.io.FileNotFoundException,java.io.IOException{
     	
        
         String tipo="found";
@@ -237,7 +250,7 @@ public class Output {
     	//Lexer.numWord++;
     }
     
-      public static void writeName(String word, Recognition.Terms info,Recognition.TypesTerms type, String nameType) throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeName(String word, Recognition.Terms info,Recognition.TypesTerms type, String nameType) throws java.io.FileNotFoundException,java.io.IOException{
     	if (nameType.equals("person")){
             //output.write("<persName >"+word+"</persName>");
             output+="<persName >"+word+"</persName>";
@@ -248,7 +261,7 @@ public class Output {
     	//Lexer.numWord++;
     }
     
-    public static void writePlaceName(String word,String info,Recognition.Terms type) throws java.io.FileNotFoundException,java.io.IOException{
+    public void writePlaceName(String word,String info,Recognition.Terms type) throws java.io.FileNotFoundException,java.io.IOException{
       	String tipo="found";
       	if(type.toString()=="PLN") tipo="found";
       	else if(type.toString()=="APLN") tipo="ambiguos";
@@ -291,7 +304,7 @@ public class Output {
         //Lexer.numWord++;
     }
     
-     public static void writeRoleName(String word,Recognition.Terms type, String rol) throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeRoleName(String word,Recognition.Terms type, String rol) throws java.io.FileNotFoundException,java.io.IOException{
       	if (rol.equals("H")){
              //output.write("<roleName  type='honorific'>"+word+"</roleName>");
             output+="<roleName  type='honorific'>"+word+"</roleName>";
@@ -305,7 +318,7 @@ public class Output {
         //Lexer.numWord++;
     }
      
-       public static void writeRoleName(RoleTreeNode rtn) throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeRoleName(RoleTreeNode rtn) throws java.io.FileNotFoundException,java.io.IOException{
         RoleTreeNode rnode=rtn;
         BagData bgd=rtn.root;
         String nueva=bgd.string.replace("\n", "");
@@ -317,20 +330,19 @@ public class Output {
        JsonList.add(new JsonClass(nueva,String.valueOf(bgd.position),String.valueOf(bgd.nword),bgd.type.toString(),bgd.subtype.toString()," "," "," "," "," "," "," "," "," "));
         //System.out.println("estoy escribienod en el
     }
-     
-     
-     public static void write(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException{
-    	salida.add(rtn);
-        
-        
-        System.out.println ("estamos vendo que se envía a la salida "+rtn.root.position+"RRR"+rtn.root.string+" "+rtn.root.nword+" "+Lexer.context);
-        
+
+    public void write(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException {
+        salida.add(rtn);
+
+
+        //System.out.println ("estamos vendo que se envía a la salida "+rtn.root.position+"RRR"+rtn.root.string+" "+rtn.root.nword+" "+Lexer.context);
+
         //System.out.println("otra vez");
-    	//output.write(dataOut);
+        //output.write(dataOut);
         //output.write(salida);
     }
     
-    public static void write(String string)throws java.io.FileNotFoundException,java.io.IOException{
+    public void write(String string)throws java.io.FileNotFoundException,java.io.IOException{
     	//System.out.println("lasalidadwelas clasese"+string+"d");
         //System.out.println("el tex "+string+"aaa"+Lexer.context);
         dataOut+=string;
@@ -344,10 +356,8 @@ public class Output {
     	//output.write(dataOut);
         //output.write(salida);
     }
-    
-   
-    
-    public static void write(String string, String info, String type ) throws java.io.FileNotFoundException,java.io.IOException{
+
+    public void write(String string, String info, String type ) throws java.io.FileNotFoundException,java.io.IOException{
         dataOut+=string;
        //System.out.println("hola    "+dataOut);
       //salida+=string;
@@ -360,9 +370,8 @@ public class Output {
       }
       //Lexer.numWord++;
     }
-    
-    
-    public static void writePlaceData(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException{
+
+    public void writePlaceData(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException{
         RoleTreeNode rnode=rtn;
         BagData bgd=rtn.root;
         //System.out.println("el bagdatatattta"+rtn.root.string+bgd.type);
@@ -409,7 +418,7 @@ public class Output {
         //System.out.println("estoy escribienod en el archivo de datos"+rtn.root.string); 
     }
   
-     public static void writeOrgData(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeOrgData(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException{
         RoleTreeNode rnode=rtn;
         BagData bgd=rtn.root;
        // System.out.println("el bagdatatattta"+rtn.root.string+bgd.type);
@@ -430,7 +439,7 @@ public class Output {
         //System.out.println("estoy escribienod en el archivo de datos"+rtn.root.string); 
     }
     
-    public static void writeProperData(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeProperData(RoleTreeNode rtn)throws java.io.FileNotFoundException,java.io.IOException{
         RoleTreeNode rnode=rtn;
         BagData bgd=rtn.root;
        // System.out.println("el bagdatatattta"+rtn.root.string+bgd.type);
@@ -452,7 +461,7 @@ public class Output {
         //System.out.println("estoy escribienod en el archivo de datos"+rtn.root.string); 
     }
   
-    public static void writeData(String string,String position,String w,String term,String type,String uri,String current,String ambi,String other,String other_uri,String other_desc,String gaz,String verif) throws java.io.FileNotFoundException,java.io.IOException{
+    public void writeData(String string,String position,String w,String term,String type,String uri,String current,String ambi,String other,String other_uri,String other_desc,String gaz,String verif) throws java.io.FileNotFoundException,java.io.IOException{
         
         
        /* outputData.write(string+";"+position+";"+w+";"+term+";"+type+";"+uri+";"+current+";"+ambi+";"+other+";"+other_uri+";"+other_desc+";"+gaz+";"+verif+"\n");
@@ -480,7 +489,7 @@ public class Output {
             }
     }
     
-    public static void close() throws java.io.FileNotFoundException,java.io.IOException{
+    public void close() throws java.io.FileNotFoundException,java.io.IOException{
        // output.close();
         outputData.close();
         outputPlaces.close();

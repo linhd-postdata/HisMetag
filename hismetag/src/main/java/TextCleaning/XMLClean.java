@@ -1,7 +1,6 @@
 package TextCleaning;
 
 import IOModule.Output;
-import static IOModule.Output.output;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,9 +20,11 @@ import java.io.*;
  *
  * @author krustirdiez
  */
+
+
 public class XMLClean {
 
-	public static void slugify(String input, String salida) throws IOException {
+	public static void slugify(String input, Output output) throws IOException {
 		// BufferedWriter output= new BufferedWriter(new
 		// FileWriter("salida/Poema_del_Mio_Cid.xml"));
 		//System.out.println("esto en slugify"+input+" "+salida);
@@ -111,7 +112,7 @@ public class XMLClean {
                 
                 
 		// System.out.println ("la entrada que lee java"+texto);
-                output=texto;
+                output.setOutput(texto);
 		//output.write(texto);
 
 		//output.close();

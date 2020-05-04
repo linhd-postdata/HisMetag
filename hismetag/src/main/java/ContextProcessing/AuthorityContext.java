@@ -8,10 +8,8 @@ package ContextProcessing;
 import Data.*;
 import IOModule.Input;
 import IOModule.Output;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import MedievalTextLexer.Lexer;
 import Recognition.ElementsRecognition;
 import Recognition.InfoFound;
@@ -32,78 +30,70 @@ import DataStructures.*;
  * @author M Luisa Díez Platas
  */
 public class AuthorityContext extends SemanticContext {
-    
-      
-    public AuthorityContext(){
-    	
+
+    public AuthorityContext(Lexer lexer, Output output){
+        super(lexer, output);
     }	
-    
-    
-    public AuthorityContext(SemanticContext previous){
-        super(previous);
-       
-        
-        }
+
+    public AuthorityContext(SemanticContext previous, Lexer lexer, Output output){
+        super(previous, lexer, output);
+    }
+
     public ContextualList getContext(){
         return ContextualList.AUTHORITY;
     }
-    
- 
-    
+
     public SemanticContext checkLowerCaseWord(String wordProcess){
       try{
           //System.out.println("PROQUE NO VA EL LOWWR"+wordProcess);
-         // Lexer.wbag.escribir();
+         // this.lexer.wbag.escribir();
           String word=WordProcessing.WordTransformations.replaceGuion(wordProcess);
            BagData ultimo=new BagData();
-          if (Lexer.wbag.tam()>0){
-              ultimo=Lexer.wbag.get(Lexer.wbag.tam()-1);
+          if (this.lexer.wbag.tam()>0){
+              ultimo=this.lexer.wbag.get(this.lexer.wbag.tam()-1);
           } 
-       // System.out.println("LA BOLSA ANTES DE NETRAR EN MINUSCULAS authority "+Lexer.wbag.tam()+wordProcess);
-         // Lexer.wbag.escribir();
+       // System.out.println("LA BOLSA ANTES DE NETRAR EN MINUSCULAS authority "+this.lexer.wbag.tam()+wordProcess);
+         // this.lexer.wbag.escribir();
           
       
         ContextualList context=determineContext(word,null);
         Verbs elVerb;
         if (context!=ContextualList.SAME)
         if (context!=ContextualList.AUTHORITY) {
-            Lexer.isTheFirst=false;
-           	Lexer.context.changeContext(context, Lexer.context," ", word);
-            return Lexer.context;
-        } else return Lexer.context;
+            this.lexer.setTheFirst(false);
+           	this.lexer.context.changeContext(context, this.lexer.context," ", word);
+            return this.lexer.context;
+        } else return this.lexer.context;
        // System.out.println("estoy en NOUUUUUUU"+wordProcess);
         if (Data.AppositionPrepositionsTable.contains(word)){
-              if (Lexer.wbag.tam()>0) Lexer.wbag.put(new DeBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh,new InfoFound(),Lexer.context.getContext()));
-           return Lexer.context;
+              if (this.lexer.wbag.tam()>0) this.lexer.wbag.put(new DeBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh,new InfoFound(),this.lexer.context.getContext()));
+           return this.lexer.context;
         }
      
         if (checkVerb(word)){
-            Lexer.context.changeContext(ContextualList.INITIAL, Lexer.context," ", word);
-            return Lexer.context;
+            this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
+            return this.lexer.context;
         }
         
-       if (check(word)){
-           if (Recognition.ElementsRecognition.isCopulativeConjunction(word.toLowerCase()).size()>0)
-               return Lexer.context;
-           Lexer.context.changeContext(ContextualList.INITIAL, Lexer.context," ", word);
+        if (check(word)){
+            if (Recognition.ElementsRecognition.isCopulativeConjunction(word.toLowerCase()).size()>0)
+                return this.lexer.context;
+            this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
             
-           return Lexer.context;}
-        
-        
-        
-        
-       InfoFound info=TermsRecognition.existMedievalPlaceName(WordProcessing.WordTransformations.capitalize(word));
+            return this.lexer.context;}
+
+        InfoFound info=TermsRecognition.existMedievalPlaceName(WordProcessing.WordTransformations.capitalize(word));
        
         boolean isProperName=TermsRecognition.isProperName(word.toLowerCase());
         boolean isCommonName=TermsRecognition.isCommonName(word.toLowerCase());
         String resultado="";
         int res=0;
-       
+
         if (info!=null){resultado+="1";res++;} else resultado+="0";
         if (isProperName){resultado+="1";res++;} else resultado+="0";
         if (isCommonName){resultado+="1";res++;} else resultado+="0";
-        
-        
+
+
         if (Data.NickNamesTable.contains(word)){
            
             if (ultimo.type==Terms.PSS){
@@ -112,8 +102,8 @@ public class AuthorityContext extends SemanticContext {
                 ultimo.type=Terms.NPN;
                 
                 }else{
-            Lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-            for (int i=0;i<Lexer.wbag.tam();i++){
+            this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+            for (int i=0;i<this.lexer.wbag.tam();i++){
                   }
             }
         } 
@@ -126,50 +116,50 @@ public class AuthorityContext extends SemanticContext {
                 
                 if (infoAprox!=null){
                     
-                    if (infoAprox.uri=="proper") Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                else if (infoAprox.uri=="nick") Lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                    if (infoAprox.uri=="proper") this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                else if (infoAprox.uri=="nick") this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 else {
                    String ultimoTerm=null;
-                    if (Lexer.wbag.get(Lexer.wbag.tam()-1).type==Terms.DE){
-                          Lexer.wbag.wbag.remove(Lexer.wbag.tam()-1);
-                          ultimoTerm=Lexer.wbag.get(Lexer.wbag.tam()-1).string;
+                    if (this.lexer.wbag.get(this.lexer.wbag.tam()-1).type==Terms.DE){
+                          this.lexer.wbag.wbag.remove(this.lexer.wbag.tam()-1);
+                          ultimoTerm=this.lexer.wbag.get(this.lexer.wbag.tam()-1).string;
                     }
-                        Lexer.wbag.restart();
-                       if (ultimoTerm!=null) Output.write(new RoleTreeNode(ultimoTerm));
+                        this.lexer.wbag.restart();
+                       if (ultimoTerm!=null) this.output.write(new RoleTreeNode(ultimoTerm));
                       
-                	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));}
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));}
                 } else {
                     
-                    if (Lexer.wbag.tam()>0 && Lexer.wbag.get(Lexer.wbag.tam()-1).type==Terms.DE){
-                        Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                    if (this.lexer.wbag.tam()>0 && this.lexer.wbag.get(this.lexer.wbag.tam()-1).type==Terms.DE){
+                        this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
             
                     }else{
-                    ContextProcessing.SemanticContext previous=Lexer.previousContextStack.pop();
+                    ContextProcessing.SemanticContext previous=this.lexer.getPreviousContext();
                     
-                          Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                    	Lexer.context.changeContext(ContextualList.INITIAL, Lexer.context," ", word);
-                    return Lexer.context;
+                          this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                    	this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context," ", word);
+                    return this.lexer.context;
                     }
                  
                 }
             }/* buscar una variante */;
             break;
             case 1: {
-               if (resultado.charAt(0)=='1') Lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),info,Lexer.context.getContext(),false));
+               if (resultado.charAt(0)=='1') this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),false));
                
-                if (resultado.charAt(1)=='1') Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                if (resultado.charAt(1)=='1') this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 if (resultado.charAt(2)=='1') {
-                    Lexer.context.changeContext(ContextualList.INITIAL, this, "", word);
+                    this.lexer.context.changeContext(ContextualList.INITIAL, this, "", word);
                      String ultimoTerm=null;
-                    if (Lexer.wbag.get(Lexer.wbag.tam()-1).type==Terms.DE){
-                        ultimoTerm=Lexer.wbag.get(Lexer.wbag.tam()-1).string;
-                          Lexer.wbag.wbag.remove(Lexer.wbag.tam()-1);
+                    if (this.lexer.wbag.get(this.lexer.wbag.tam()-1).type==Terms.DE){
+                        ultimoTerm=this.lexer.wbag.get(this.lexer.wbag.tam()-1).string;
+                          this.lexer.wbag.wbag.remove(this.lexer.wbag.tam()-1);
                           
                     }
-                        Lexer.wbag.restart();
-                       if (ultimoTerm!=null) Output.write(new RoleTreeNode(ultimoTerm));
+                        this.lexer.wbag.restart();
+                       if (ultimoTerm!=null) this.output.write(new RoleTreeNode(ultimoTerm));
                       
-                	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                  
                     
                 }
@@ -177,37 +167,37 @@ public class AuthorityContext extends SemanticContext {
             }
             case 2:{
                 if (resultado.charAt(0)=='1' && resultado.charAt(1)=='1') {
-                    if (info.gazetteer.contains("Geonames"))  Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                    else Lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),info,Lexer.context.getContext(),true));
+                    if (info.gazetteer.contains("Geonames"))  this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                    else this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),true));
                
                 }
                 if (resultado.charAt(1)=='1' && resultado.charAt(2)=='1') {
                      String ultimoTerm=null;
-                    if (Lexer.wbag.get(Lexer.wbag.tam()-1).type==Terms.DE){
-                        ultimoTerm=Lexer.wbag.get(Lexer.wbag.tam()-1).string;  
-                        Lexer.wbag.wbag.remove(Lexer.wbag.tam()-1);
+                    if (this.lexer.wbag.get(this.lexer.wbag.tam()-1).type==Terms.DE){
+                        ultimoTerm=this.lexer.wbag.get(this.lexer.wbag.tam()-1).string;  
+                        this.lexer.wbag.wbag.remove(this.lexer.wbag.tam()-1);
                           
                     }
-                        Lexer.wbag.restart();
-                       if (ultimoTerm!=null) Output.write(new RoleTreeNode(ultimoTerm));
+                        this.lexer.wbag.restart();
+                       if (ultimoTerm!=null) this.output.write(new RoleTreeNode(ultimoTerm));
                       
-                	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));}
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));}
                break;
             }
             case 3:{
                 
-                     Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                     this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                     
             break;
             }
         }
         }
-        ContextProcessing.SemanticContext previous=Lexer.previousContextStack.pop();
-       Lexer.context.changeContext(previous.getContext(),previous," ", " ");
+        ContextProcessing.SemanticContext previous=this.lexer.getPreviousContext();
+       this.lexer.context.changeContext(previous.getContext(),previous," ", " ");
         
      
-           return Lexer.context;
-      }catch(Exception e){return Lexer.context;}
+           return this.lexer.context;
+      }catch(Exception e){return this.lexer.context;}
     }
     
     public ContextualList checkCapitalLettersWord(String word){
@@ -215,8 +205,8 @@ public class AuthorityContext extends SemanticContext {
           
         //System.out.println("LA BOLSA ANTES DE NETRAR EN MAYUSCULAS authority"+word+"aaa");
          BagData ultimo=new BagData();
-          if (Lexer.wbag.tam()>0){
-              ultimo=Lexer.wbag.get(Lexer.wbag.tam()-1);
+          if (this.lexer.wbag.tam()>0){
+              ultimo=this.lexer.wbag.get(this.lexer.wbag.tam()-1);
           }
            boolean IsTheFirst=false;
            word=word.replaceAll("\\s+", " ");
@@ -224,17 +214,17 @@ public class AuthorityContext extends SemanticContext {
      
            if (context!=ContextualList.SAME)
           if (context!=ContextualList.AUTHORITY) {
-        	  Lexer.isTheFirst=false;
-             	Lexer.context.changeContext(context, Lexer.context," ", word);
+        	  this.lexer.setTheFirst(false);
+             	this.lexer.context.changeContext(context, this.lexer.context," ", word);
               return context;
         } else {
-              Lexer.wbag.put(new AuthorityBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-              return Lexer.context.getContext();}
+              this.lexer.wbag.put(new AuthorityBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+              return this.lexer.context.getContext();}
           if (checkVerb(word)){
-            return Lexer.context.getContext();
+            return this.lexer.context.getContext();
             }
           if (check(word)){
-        	  Lexer.context.changeContext(Lexer.previousContextStack.pop().getContext(), Lexer.context," ", word);
+        	  this.lexer.context.changeContext(this.lexer.getPreviousContext().getContext(), this.lexer.context," ", word);
         	  return context;
           }
          
@@ -258,12 +248,12 @@ public class AuthorityContext extends SemanticContext {
                 ultimo.type=Terms.NPN;
                 
              }else{
-            Lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,Lexer.wbag.tam(),Lexer.numCh,Lexer.numWord,new InfoFound(),Lexer.context.getContext()));
-            for (int i=0;i<Lexer.wbag.tam();i++){
+            this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.FT,this.lexer.wbag.tam(),this.lexer.numCh,this.lexer.numWord,new InfoFound(),this.lexer.context.getContext()));
+            for (int i=0;i<this.lexer.wbag.tam();i++){
              }
             }
         } else if (Data.DeityTable.contains(word.toLowerCase())){
-         Lexer.wbag.put(new DeityBagData(word,TypesTerms.FT,Lexer.wbag.tam(),Lexer.numCh,Lexer.numWord,new InfoFound(),Lexer.context.getContext()));
+         this.lexer.wbag.put(new DeityBagData(word,TypesTerms.FT,this.lexer.wbag.tam(),this.lexer.numCh,this.lexer.numWord,new InfoFound(),this.lexer.context.getContext()));
  
         }
         else {
@@ -273,50 +263,50 @@ public class AuthorityContext extends SemanticContext {
                 InfoFound infoAprox=NewTermsIdentification.getAproximation(word.toLowerCase());
                 
                 if (infoAprox!=null){
-                    if (infoAprox.uri=="proper") Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
-                else if (infoAprox.uri=="nick") Lexer.wbag.put(new NickNameBagData(word,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                    if (infoAprox.uri=="proper") this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
+                else if (infoAprox.uri=="nick") this.lexer.wbag.put(new NickNameBagData(word,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 else{
-                	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
+                	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
                 }
                
                 } else {
                     
-                    Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                    this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                     Data.NewProperNamesTable.newName(word, Input.name);
                 }
             }/* buscar una variante */;
             case 1: {
                  if (resultado.charAt(0)=='1')
-                    Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                    this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 
                
-                if (resultado.charAt(1)=='1') Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                if (resultado.charAt(1)=='1') this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                 if (resultado.charAt(2)=='1') {
-                   	Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord));
-                    Output.write(word);
+                   	this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord));
+                    this.output.write(word);
                 }
             break;
             }
             case 2:{
                 if (resultado.charAt(0)=='1' && resultado.charAt(1)=='1') {
                     if (info.gazetteer.contains("Geonames")) {
-                        Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                        this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                      }
-                    else Lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),info,Lexer.context.getContext(),true));
+                    else this.lexer.wbag.put(new PlaceNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),info,this.lexer.context.getContext(),true));
                
                     
                     
                 }
                 if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
-                    Lexer.wbag.restart();
-                    Output.write(new RoleTreeNode(word,Lexer.numCh,Lexer.numWord)); 
+                    this.lexer.wbag.restart();
+                    this.output.write(new RoleTreeNode(word,this.lexer.numCh,this.lexer.numWord)); 
                 	
                 }
                 break;
             }
             case 3:{
                 
-                    Lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+word.length(),new InfoFound(),Lexer.context.getContext()));
+                    this.lexer.wbag.put(new ProperNameBagData(word,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+word.length(),new InfoFound(),this.lexer.context.getContext()));
                     
             break;
             }
@@ -333,8 +323,8 @@ public class AuthorityContext extends SemanticContext {
     public ContextualList wordListProcessing(String string){
       try{
            BagData ultimo=new BagData();
-          if (Lexer.wbag.tam()>0){
-              ultimo=Lexer.wbag.get(Lexer.wbag.tam()-1);
+          if (this.lexer.wbag.tam()>0){
+              ultimo=this.lexer.wbag.get(this.lexer.wbag.tam()-1);
           }
         
           
@@ -344,12 +334,12 @@ public class AuthorityContext extends SemanticContext {
          
          //tokenize the string
          
-         TokenizedString token=new TokenizedString(newString);
+         TokenizedString token=new TokenizedString(newString, this.lexer);
          //token.countWordChar();
         
-         Lexer.currentString=token;
+         this.lexer.currentString=token;
         
-         String firstWord=new String(Lexer.currentString.tokenList.get(0).word);
+         String firstWord=new String(this.lexer.currentString.tokenList.get(0).word);
          String stringInProcess=newString;
          ContextualList recognizedContext=ContextualList.INITIAL;
            
@@ -358,25 +348,25 @@ public class AuthorityContext extends SemanticContext {
          if (newContext!=ContextualList.SAME)
         if (newContext!=ContextualList.AUTHORITY){
             stringInProcess=newString.substring(firstWord.length()+1);
-             Lexer.context=changeContext(newContext,Lexer.context,stringInProcess,firstWord);
-             Lexer.currentString.tokenList.remove(0);
+             this.lexer.context=changeContext(newContext,this.lexer.context,stringInProcess,firstWord);
+             this.lexer.currentString.tokenList.remove(0);
              if (token.tokenList.size()>1)
-             return Lexer.context.wordListProcessing(stringInProcess);
-             else return Lexer.context.checkCapitalLettersWord(stringInProcess);
+             return this.lexer.context.wordListProcessing(stringInProcess);
+             else return this.lexer.context.checkCapitalLettersWord(stringInProcess);
        
-        } else return Lexer.context.getContext();
+        } else return this.lexer.context.getContext();
         if (checkVerb(firstWord)){
             stringInProcess=newString.substring(firstWord.length()+1);
-            Lexer.currentString.tokenList.remove(0);
-        	 if (Lexer.currentString.tokenList.size()>1) return Lexer.context.wordListProcessing(stringInProcess);
-                else return Lexer.context.checkCapitalLettersWord(stringInProcess);
+            this.lexer.currentString.tokenList.remove(0);
+        	 if (this.lexer.currentString.tokenList.size()>1) return this.lexer.context.wordListProcessing(stringInProcess);
+                else return this.lexer.context.checkCapitalLettersWord(stringInProcess);
         
         }
         if (check(firstWord)){
         	stringInProcess=newString.substring(firstWord.length()+1);
-        	Lexer.currentString.tokenList.remove(0);
-        	 if (Lexer.currentString.tokenList.size()>1) return Lexer.context.wordListProcessing(stringInProcess);
-                else return Lexer.context.checkCapitalLettersWord(stringInProcess);
+        	this.lexer.currentString.tokenList.remove(0);
+        	 if (this.lexer.currentString.tokenList.size()>1) return this.lexer.context.wordListProcessing(stringInProcess);
+                else return this.lexer.context.checkCapitalLettersWord(stringInProcess);
         }
         
         
@@ -384,10 +374,10 @@ public class AuthorityContext extends SemanticContext {
              boolean hasAuTr=false;
              
              
-         stringInProcess=Lexer.currentString.processingArticles(stringInProcess);
+         stringInProcess=this.lexer.currentString.processingArticles(stringInProcess);
          
            //check if the string has copulative conjunctions and separates it in the parts according to the conjunction
-         String[] subs=Lexer.currentString.processingCopulativeConjunctions(stringInProcess);
+         String[] subs=this.lexer.currentString.processingCopulativeConjunctions(stringInProcess);
         
       if (subs.length>1){
          
@@ -395,13 +385,13 @@ public class AuthorityContext extends SemanticContext {
             // divide the substrings according to the spaces
             String [] newS=subs[i].split(" ");
        
-            Lexer.currentString.buildNgramms(newS);
+            this.lexer.currentString.buildNgramms(newS);
             }
             
-         for (int i=0; i<Lexer.currentString.tokenList.size(); i++){
-             if (TermsRecognition.isAuthorityOrTreatement(Lexer.currentString.tokenList.get(i).word)){
+         for (int i=0; i<this.lexer.currentString.tokenList.size(); i++){
+             if (TermsRecognition.isAuthorityOrTreatement(this.lexer.currentString.tokenList.get(i).word)){
                  hasAuTr=true;
-                Lexer.currentString.ngramms.removeNgrammWithWord(Lexer.currentString.tokenList.get(i).word);
+                this.lexer.currentString.ngramms.removeNgrammWithWord(this.lexer.currentString.tokenList.get(i).word);
              }
          }
   
@@ -410,11 +400,11 @@ public class AuthorityContext extends SemanticContext {
           for (int i=0;i<subs.length;i++){
             // divide the substrings according to the spaces
             String [] newS=subs[i].split(" ");
-            Lexer.currentString.buildNgramms(newS);
+            this.lexer.currentString.buildNgramms(newS);
             
          }
          }
-         Ngramms ngramms=Lexer.currentString.ngramms.getNgramms();
+         Ngramms ngramms=this.lexer.currentString.ngramms.getNgramms();
          
          for (int i=ngramms.tam()-1;i>=0;i--){
              
@@ -427,7 +417,7 @@ public class AuthorityContext extends SemanticContext {
              
              
              
-             NgrammsInfo NI=Lexer.currentString.ngramms.ngramms.get(i);
+             NgrammsInfo NI=this.lexer.currentString.ngramms.ngramms.get(i);
           InfoFound info=TermsRecognition.findPlaceName(NI.ngramms);
              
         boolean isProperName=TermsRecognition.isProperName(NI.ngramms.toLowerCase());
@@ -442,34 +432,34 @@ public class AuthorityContext extends SemanticContext {
             if (ultimo.type==Terms.PSS){
                 ultimo.string+=" "+NI.ngramms;
                 ultimo.type=Terms.NPN;
-                BagData bgd=new NickNameBagData(ultimo.string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+ultimo.string.length(), new InfoFound(),Lexer.context.getContext());
-                Lexer.numCh=Lexer.numCh+ultimo.string.length();
-                Lexer.numWord+=2;
+                BagData bgd=new NickNameBagData(ultimo.string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+ultimo.string.length(), new InfoFound(),this.lexer.context.getContext());
+                this.lexer.numCh=this.lexer.numCh+ultimo.string.length();
+                this.lexer.numWord+=2;
                 ngramms.ngramms.set(i,new NgrammsInfo(ultimo.string,VerificationInfo.FOUND,false,bgd));
-                int index=Lexer.currentString.getIndex(NI.ngramms);
-                Lexer.currentString.tokenList.get(index).word=ultimo.string;
-                Lexer.wbag.wbag.remove(Lexer.wbag.tam()-1);
+                int index=this.lexer.currentString.getIndex(NI.ngramms);
+                this.lexer.currentString.tokenList.get(index).word=ultimo.string;
+                this.lexer.wbag.wbag.remove(this.lexer.wbag.tam()-1);
                   }else{
                
-               BagData bgd=new NickNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(), new InfoFound(),Lexer.context.getContext());
+               BagData bgd=new NickNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(), new InfoFound(),this.lexer.context.getContext());
                
-               Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                //Lexer.numWord++;
+               this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                //this.lexer.numWord++;
                 
                 ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                 }
         }else if (Data.AuthorityNamesTable.tID.containsKey(NI.ngramms.toLowerCase())){
-            BagData bgd=new AuthorityBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(),new InfoFound(),Lexer.context.getContext());
-           Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                //Lexer.numWord++;
+            BagData bgd=new AuthorityBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(),new InfoFound(),this.lexer.context.getContext());
+           this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                //this.lexer.numWord++;
                 
                 ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
         }else if (Data.PosessiveTable.contains(NI.ngramms)){
         	
-            BagData bgd=new PossesiveBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(), new InfoFound(),Lexer.context.getContext());
+            BagData bgd=new PossesiveBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(), new InfoFound(),this.lexer.context.getContext());
             
-            Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-             //Lexer.numWord++;
+            this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+             //this.lexer.numWord++;
              
              ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                  }else {
@@ -484,9 +474,9 @@ public class AuthorityContext extends SemanticContext {
             case 1: {
                 if (resultado.charAt(0)=='1') {
                   if (!(info.gazetteer.contains("Geonames"))){
-                    BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(), info,Lexer.context.getContext(),false);
-                    Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                    BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(), info,this.lexer.context.getContext(),false);
+                    this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                     ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                      }else{
                       ngramms.ngramms.get(i).bgdata=new BagData();
@@ -494,19 +484,19 @@ public class AuthorityContext extends SemanticContext {
                 }
            
                 if (resultado.charAt(1)=='1'){
-                    BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(), new InfoFound(),Lexer.context.getContext());
-                    Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                    BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(), new InfoFound(),this.lexer.context.getContext());
+                    this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                     ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                     }
            
                 if (resultado.charAt(2)=='1') {
-                    BagData bgd=new BagData(NI.ngramms,TypesTerms.AT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(), new InfoFound(),Lexer.context.getContext());
+                    BagData bgd=new BagData(NI.ngramms,TypesTerms.AT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(), new InfoFound(),this.lexer.context.getContext());
                     bgd.type=Terms.UN;
                     
                     
-                    Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                    this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                 }
             break;
             }
@@ -515,18 +505,18 @@ public class AuthorityContext extends SemanticContext {
                     
                    if (info.gazetteer.contains("Geonames")){
                     	
-                BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(), new InfoFound(),Lexer.context.getContext());
+                BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(), new InfoFound(),this.lexer.context.getContext());
                      
-                        Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                        this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                     
                         ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                         
                     }
                      else {
-                       BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+ultimo.string.length(), info,Lexer.context.getContext(),true);
-                        Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                       BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+ultimo.string.length(), info,this.lexer.context.getContext(),true);
+                        this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                         ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                     }
            
@@ -534,15 +524,15 @@ public class AuthorityContext extends SemanticContext {
                 
                 if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                     if (info.gazetteer.contains("Geonames"))  {
-                        BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+ultimo.string.length(), info,Lexer.context.getContext(),true);
+                        BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+ultimo.string.length(), info,this.lexer.context.getContext(),true);
                         
-                        Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                        //Lexer.numWord++;
+                        this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                        //this.lexer.numWord++;
                     }
                     else {
-                       BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(), info,Lexer.context.getContext(),true);
-                       Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                       //Lexer.numWord++;
+                       BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(), info,this.lexer.context.getContext(),true);
+                       this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                       //this.lexer.numWord++;
                         ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                     }
            
@@ -552,15 +542,15 @@ public class AuthorityContext extends SemanticContext {
             case 3:{
                 
                     if (info.gazetteer.contains("Geonames")){
-                        BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+ultimo.string.length(), new InfoFound(),Lexer.context.getContext());
-                        Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                        BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+ultimo.string.length(), new InfoFound(),this.lexer.context.getContext());
+                        this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                         ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                     }
             else {
-                        BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+ultimo.string.length(), info,Lexer.context.getContext(),true);
-                        Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                        BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+ultimo.string.length(), info,this.lexer.context.getContext(),true);
+                        this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                         ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.FOUND,false,bgd));
                     }
            
@@ -581,25 +571,25 @@ public class AuthorityContext extends SemanticContext {
              
              
          
-         Lexer.currentString.updateTokenList();
+         this.lexer.currentString.updateTokenList();
                  
-        Lexer.currentString.ngramms.updateNgrammsList();
+        this.lexer.currentString.ngramms.updateNgrammsList();
          
-             for (int j=0;j<Lexer.currentString.tokenList.size();j++){
+             for (int j=0;j<this.lexer.currentString.tokenList.size();j++){
           
              }
-             if (Lexer.isTheFirst){
-            	if (Lexer.currentString.tokenList.get(0).term==null) {
-             		String stringRE=Lexer.currentString.tokenList.get(0).word;
-             		Lexer.currentString.ngramms.removeNString(stringRE);
-             		Lexer.currentString.tokenList.remove(0);
-             		Output.write(new RoleTreeNode(stringRE));
+             if (this.lexer.isTheFirst()){
+            	if (this.lexer.currentString.tokenList.get(0).term==null) {
+             		String stringRE=this.lexer.currentString.tokenList.get(0).word;
+             		this.lexer.currentString.ngramms.removeNString(stringRE);
+             		this.lexer.currentString.tokenList.remove(0);
+             		this.output.write(new RoleTreeNode(stringRE));
              	}
               } 
              boolean encontrado=false;
          for (int  i=ngramms.tam()-1;i>=0;i--){
              
-             NgrammsInfo NI=Lexer.currentString.ngramms.ngramms.get(i);
+             NgrammsInfo NI=this.lexer.currentString.ngramms.ngramms.get(i);
              if (NI.bgdata.type==Terms.VACIO){
                  
                  encontrado=true;
@@ -607,29 +597,29 @@ public class AuthorityContext extends SemanticContext {
                  if (infoAprox!=null){
                     
                     if (infoAprox.uri=="proper"){
-                        BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(),new InfoFound(),Lexer.context.getContext());
-                        Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                        //Lexer.numWord++;
+                        BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(),new InfoFound(),this.lexer.context.getContext());
+                        this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                        //this.lexer.numWord++;
                         ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.VALIDATE,false,bgd));
                     }
                 else if (infoAprox.uri=="nick"){
-                    BagData bgd=new NickNameBagData(NI.ngramms,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(),new InfoFound(),Lexer.context.getContext());
-                    Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                    BagData bgd=new NickNameBagData(NI.ngramms,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(),new InfoFound(),this.lexer.context.getContext());
+                    this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                     ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.VALIDATE,false,bgd));
                 }
                 else{
-                    BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(),infoAprox,Lexer.context.getContext(),false);
-                    Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                    BagData bgd=new PlaceNameBagData(NI.ngramms,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(),infoAprox,this.lexer.context.getContext(),false);
+                    this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                     ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.VALIDATE,false,bgd));
                 }
              
                 } else{
-                     BagData bgd=new BagData(NI.ngramms,TypesTerms.UNI,Lexer.numCh,Lexer.numWord,Lexer.numCh,new InfoFound(),Lexer.context.getContext());
+                     BagData bgd=new BagData(NI.ngramms,TypesTerms.UNI,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh,new InfoFound(),this.lexer.context.getContext());
                      bgd.type=Terms.UN;
-                     Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++;
+                     this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++;
                     ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.VALIDATE,false,bgd));
                 
                  }
@@ -638,20 +628,20 @@ public class AuthorityContext extends SemanticContext {
          
          
          if (encontrado){
-          Lexer.currentString.updateTokenList();
+          this.lexer.currentString.updateTokenList();
         
         
                  
-        Lexer.currentString.ngramms.updateNgrammsList();
+        this.lexer.currentString.ngramms.updateNgrammsList();
          }
            
          
           for (int  i=ngramms.tam()-1;i>=0;i--){
-             NgrammsInfo NI=Lexer.currentString.ngramms.ngramms.get(i);
+             NgrammsInfo NI=this.lexer.currentString.ngramms.ngramms.get(i);
              if (NI.bgdata.type==Terms.VACIO || NI.bgdata.type==Terms.UN){
-                  BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+NI.ngramms.length(),new InfoFound(),Lexer.context.getContext());
-                 Lexer.numCh=Lexer.numCh+NI.ngramms.length();
-                    //Lexer.numWord++; 
+                  BagData bgd=new ProperNameBagData(NI.ngramms,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+NI.ngramms.length(),new InfoFound(),this.lexer.context.getContext());
+                 this.lexer.numCh=this.lexer.numCh+NI.ngramms.length();
+                    //this.lexer.numWord++; 
                  ngramms.ngramms.set(i, new NgrammsInfo(NI.ngramms,VerificationInfo.VALIDATE,false,bgd));
              
                 } 
@@ -664,11 +654,11 @@ public class AuthorityContext extends SemanticContext {
                 
              
          
-        Lexer.currentString.sendOutInfo();
+        this.lexer.currentString.sendOutInfo();
        
        
-         Lexer.currentString.tokenList.clear();
-         Lexer.currentString.ngramms.ngramms.clear();
+         this.lexer.currentString.tokenList.clear();
+         this.lexer.currentString.ngramms.ngramms.clear();
         
          //}
          return ContextualList.INITIAL;
@@ -678,56 +668,56 @@ public class AuthorityContext extends SemanticContext {
     public ContextualList prepositionalSyntagmsListProcessing(String string){
          try{
              
-        	// System.out.println("AUTHORITY: Procesamiento con aposici�n ->"+string+Lexer.numCh);
+        	// System.out.println("AUTHORITY: Procesamiento con aposici�n ->"+string+this.lexer.numCh);
              
              BagData ultimo=new BagData();
-             if (Lexer.wbag.tam()>0){
-                 ultimo=Lexer.wbag.get(Lexer.wbag.tam()-1);
+             if (this.lexer.wbag.tam()>0){
+                 ultimo=this.lexer.wbag.get(this.lexer.wbag.tam()-1);
              }   
             String newString=string.replaceAll("\\s+", " ");
           
             //tokenize the stirng
-            Lexer.currentString=new TokenizedString(newString);
+            this.lexer.currentString=new TokenizedString(newString, this.lexer);
             
-            for (int i=0; i<Lexer.currentString.tokenList.size();i++){
-                Token token=Lexer.currentString.tokenList.get(i);
+            for (int i=0; i<this.lexer.currentString.tokenList.size();i++){
+                Token token=this.lexer.currentString.tokenList.get(i);
                 if (Recognition.ElementsRecognition.isDeterminantPrep(token.word)){
-                	token.bdata=new DeBagData(token.word,TypesTerms.FT,token.position,token.nWord,token.position+token.word.length(),token.info,Lexer.context.getContext());
+                	token.bdata=new DeBagData(token.word,TypesTerms.FT,token.position,token.nWord,token.position+token.word.length(),token.info,this.lexer.context.getContext());
                 }else
                 if (Recognition.ElementsRecognition.isCopulativeConjunction(token.word).size()>0){
                    
                     
-                    token.bdata=new CopulativeBagData(token.word,TypesTerms.FT,token.position,token.nWord,token.position+token.word.length(),token.info,Lexer.context.getContext());
+                    token.bdata=new CopulativeBagData(token.word,TypesTerms.FT,token.position,token.nWord,token.position+token.word.length(),token.info,this.lexer.context.getContext());
                
                 }
             }
         
             
-            newString=Lexer.currentString.processingArticles(newString);
+            newString=this.lexer.currentString.processingArticles(newString);
             
            
-            newString=Lexer.currentString.processingAppositionsPrepositions(newString);
+            newString=this.lexer.currentString.processingAppositionsPrepositions(newString);
                    
 
-            String[] newStrings=Lexer.currentString.processingCopulativeConjunctions(newString);
-            String firstWord=Lexer.currentString.tokenList.get(0).word;
+            String[] newStrings=this.lexer.currentString.processingCopulativeConjunctions(newString);
+            String firstWord=this.lexer.currentString.tokenList.get(0).word;
              
           
              
             for (int i=0; i<newStrings.length;i++){
                 String[] aux=newStrings[i].split(" ");
                 for (int j=0; j<aux.length;j++){
-                    BagData bgd=new BagData(aux[j],TypesTerms.UNI,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux[j].length(),new InfoFound(),Lexer.context.getContext());
-                    //Lexer.numWord++;
-                    Lexer.numCh+=aux[j].length();                 
-                   Lexer.currentString.ngramms.ngramms.add(new NgrammsInfo(aux[j],VerificationInfo.UNIDENTIFIED,false,bgd));
+                    BagData bgd=new BagData(aux[j],TypesTerms.UNI,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux[j].length(),new InfoFound(),this.lexer.context.getContext());
+                    //this.lexer.numWord++;
+                    this.lexer.numCh+=aux[j].length();                 
+                   this.lexer.currentString.ngramms.ngramms.add(new NgrammsInfo(aux[j],VerificationInfo.UNIDENTIFIED,false,bgd));
             }
             } 
             
             
-            Lexer.currentString.ngramms.write();
-            for (int i=0;i<Lexer.currentString.ngramms.ngramms.size();i++){
-                String aux=Lexer.currentString.ngramms.ngramms.get(i).ngramms;
+            this.lexer.currentString.ngramms.write();
+            for (int i=0;i<this.lexer.currentString.ngramms.ngramms.size();i++){
+                String aux=this.lexer.currentString.ngramms.ngramms.get(i).ngramms;
                 aux=aux.replaceAll("_", " ");
                 aux=WordTransformations.removeCleanPattern(Data.AppositionPrepositionsTable.regEx, aux);
                 
@@ -746,18 +736,18 @@ public class AuthorityContext extends SemanticContext {
                if (ultimo.type==Terms.PSS){
                     ultimo.string+=" "+aux;
                    ultimo.type=Terms.NPN;
-                   BagData bgd=new NickNameBagData(ultimo.string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+ultimo.string.length(), new InfoFound(),Lexer.context.getContext());
-                   Lexer.numCh=Lexer.numCh+ultimo.string.length();
-                   Lexer.numWord+=2;
-                   Lexer.currentString.ngramms.ngramms.set(i,new NgrammsInfo(ultimo.string,VerificationInfo.FOUND,false,bgd));
-                   int index=Lexer.currentString.getIndex(aux);
-                   Lexer.currentString.tokenList.get(index).word=ultimo.string;
-                   Lexer.wbag.wbag.remove(Lexer.wbag.tam()-1);
+                   BagData bgd=new NickNameBagData(ultimo.string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+ultimo.string.length(), new InfoFound(),this.lexer.context.getContext());
+                   this.lexer.numCh=this.lexer.numCh+ultimo.string.length();
+                   this.lexer.numWord+=2;
+                   this.lexer.currentString.ngramms.ngramms.set(i,new NgrammsInfo(ultimo.string,VerificationInfo.FOUND,false,bgd));
+                   int index=this.lexer.currentString.getIndex(aux);
+                   this.lexer.currentString.tokenList.get(index).word=ultimo.string;
+                   this.lexer.wbag.wbag.remove(this.lexer.wbag.tam()-1);
                     }else{
-                  BagData bgd=new NickNameBagData(ultimo.string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+ultimo.string.length(), new InfoFound(),Lexer.context.getContext());
-                  Lexer.numCh=Lexer.numCh+ultimo.string.length();
-                   //Lexer.numWord++;
-                   Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                  BagData bgd=new NickNameBagData(ultimo.string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+ultimo.string.length(), new InfoFound(),this.lexer.context.getContext());
+                  this.lexer.numCh=this.lexer.numCh+ultimo.string.length();
+                   //this.lexer.numWord++;
+                   this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
               
                }
            }else if (Recognition.ElementsRecognition.isDeterminantPrep(string)){
@@ -771,31 +761,31 @@ public class AuthorityContext extends SemanticContext {
                     if (infoAprox!=null){
                        
                        if (infoAprox.uri=="proper"){
-                           BagData bgd=new ProperNameBagData(aux,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(),new InfoFound(),Lexer.context.getContext());
-                           Lexer.numCh=Lexer.numCh+aux.length();
-                           //Lexer.numWord++;
-                           Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
+                           BagData bgd=new ProperNameBagData(aux,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(),new InfoFound(),this.lexer.context.getContext());
+                           this.lexer.numCh=this.lexer.numCh+aux.length();
+                           //this.lexer.numWord++;
+                           this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
                        }
                    else if (infoAprox.uri=="nick"){
-                       BagData bgd=new NickNameBagData(aux,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(),new InfoFound(),Lexer.context.getContext());
-                       Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                       Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
+                       BagData bgd=new NickNameBagData(aux,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(),new InfoFound(),this.lexer.context.getContext());
+                       this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                       this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
                    }
                    else{
-                       BagData bgd=new PlaceNameBagData(aux,TypesTerms.GENT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(),infoAprox,Lexer.context.getContext(),false);
-                       Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                       Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
+                       BagData bgd=new PlaceNameBagData(aux,TypesTerms.GENT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(),infoAprox,this.lexer.context.getContext(),false);
+                       this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                       this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
                    }
                 
                    } else{
                   
-                        BagData bgd=new PlaceNameBagData(aux,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh,new InfoFound(),Lexer.context.getContext(),false);
+                        BagData bgd=new PlaceNameBagData(aux,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh,new InfoFound(),this.lexer.context.getContext(),false);
                         
-                        Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                       Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
+                        this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                       this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
                    
                     }
                    
@@ -807,24 +797,24 @@ public class AuthorityContext extends SemanticContext {
                case 1: {
                  //  System.out.println("El caracter = es "+resultado.charAt(1));
                    if (resultado.charAt(0)=='1') {
-                      BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), info,Lexer.context.getContext(),false);
-                       Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                       Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                      BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), info,this.lexer.context.getContext(),false);
+                       this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                       this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
                    }
               
                    if (resultado.charAt(1)=='1'){
-                       BagData bgd=new ProperNameBagData(aux,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), new InfoFound(),Lexer.context.getContext());
-                       Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                       Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                       BagData bgd=new ProperNameBagData(aux,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), new InfoFound(),this.lexer.context.getContext());
+                       this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                       this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
                    }
               
                    if (resultado.charAt(2)=='1') {
-                       BagData bgd=new PlaceNameBagData(aux,TypesTerms.PPT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), new InfoFound(),Lexer.context.getContext(),false);
-                       Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                       Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
+                       BagData bgd=new PlaceNameBagData(aux,TypesTerms.PPT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), new InfoFound(),this.lexer.context.getContext(),false);
+                       this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                       this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.VALIDATE,false,bgd));
                   
                    }
                break;
@@ -833,33 +823,33 @@ public class AuthorityContext extends SemanticContext {
                    if (resultado.charAt(0)=='1' && resultado.charAt(1)=='1') {
                        
                       if (info.gazetteer.contains("Geonames")){
-                           BagData bgd=new ProperNameBagData(aux,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), new InfoFound(),Lexer.context.getContext());
-                           Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                           Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                           BagData bgd=new ProperNameBagData(aux,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), new InfoFound(),this.lexer.context.getContext());
+                           this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                           this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
                        }
                         else {
-                           BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), info,Lexer.context.getContext(),true);
-                           Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                           Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                           BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), info,this.lexer.context.getContext(),true);
+                           this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                           this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
                        }
               
                    }
                    if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1') {
                      
                        if (info.gazetteer.contains("Geonames"))  {
-                    	   Output.write(new RoleTreeNode(aux));
-                           Output.write(aux);
-                           Lexer.numCh=Lexer.numCh+aux.length();
-                           //Lexer.numWord++;
+                    	   this.output.write(new RoleTreeNode(aux));
+                           this.output.write(aux);
+                           this.lexer.numCh=this.lexer.numCh+aux.length();
+                           //this.lexer.numWord++;
                        }
                        else {
-                          BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), info,Lexer.context.getContext(),true);
-                          Lexer.numCh=Lexer.numCh+aux.length();
+                          BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), info,this.lexer.context.getContext(),true);
+                          this.lexer.numCh=this.lexer.numCh+aux.length();
                            
-                          //Lexer.numWord++;
-                           Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                          //this.lexer.numWord++;
+                           this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
                           
                        }
               
@@ -869,16 +859,16 @@ public class AuthorityContext extends SemanticContext {
                case 3:{
                    
                        if (info.gazetteer.contains("Geonames")){
-                           BagData bgd=new ProperNameBagData(aux,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), new InfoFound(),Lexer.context.getContext());
-                           Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                           Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                           BagData bgd=new ProperNameBagData(aux,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), new InfoFound(),this.lexer.context.getContext());
+                           this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                           this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
                        }
                else {
-                           BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+aux.length(), info,Lexer.context.getContext(),true);
-                           Lexer.numCh=Lexer.numCh+aux.length();
-                       //Lexer.numWord++;
-                           Lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
+                           BagData bgd=new PlaceNameBagData(aux,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+aux.length(), info,this.lexer.context.getContext(),true);
+                           this.lexer.numCh=this.lexer.numCh+aux.length();
+                       //this.lexer.numWord++;
+                           this.lexer.currentString.ngramms.ngramms.set(i, new NgrammsInfo(aux,VerificationInfo.FOUND,false,bgd));
                        }
               
                break;
@@ -888,19 +878,19 @@ public class AuthorityContext extends SemanticContext {
             
             }
            
-            Lexer.currentString.updateTokenList();
+            this.lexer.currentString.updateTokenList();
           
-           Lexer.currentString.sendOutInfo();
+           this.lexer.currentString.sendOutInfo();
       
            
-            Lexer.currentString.tokenList.clear();
-            Lexer.currentString.ngramms.ngramms.clear();
+            this.lexer.currentString.tokenList.clear();
+            this.lexer.currentString.ngramms.ngramms.clear();
           
         
          
-         Lexer.context=Lexer.previousContextStack.pop();
+         this.lexer.context=this.lexer.getPreviousContext();
         
-         return Lexer.context.changeContext(ContextualList.INITIAL, this, " "," ").getContext();
+         return this.lexer.context.changeContext(ContextualList.INITIAL, this, " "," ").getContext();
      
     
     }catch(Exception e){return ContextualList.INITIAL;}
@@ -911,10 +901,10 @@ public class AuthorityContext extends SemanticContext {
              //System.out.println("he entrado por NOUN phrase "+string);
              String newString=string.replaceAll("\\s+", " ");
              String stringInProcess="";
-         //   System.out.println("ha entrado ppor NOUNPORCES"+Lexer.context.getContext());
+         //   System.out.println("ha entrado ppor NOUNPORCES"+this.lexer.context.getContext());
             String de=TermsRecognition.findApposition(newString);
-            Lexer.currentString=new TokenizedString(newString);
-            String firstWord=Lexer.currentString.tokenList.get(0).word;
+            this.lexer.currentString=new TokenizedString(newString, this.lexer);
+            String firstWord=this.lexer.currentString.tokenList.get(0).word;
            
           
            
@@ -941,31 +931,31 @@ public class AuthorityContext extends SemanticContext {
                case 0: break;
                case 1:{
                    if (resultado.charAt(0)=='1') {
-                       BagData bgd=new PlaceNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),info,Lexer.context.getContext(),false);
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new PlaceNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),info,this.lexer.context.getContext(),false);
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                    if (resultado.charAt(1)=='1') {
-                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                    if (resultado.charAt(2)=='1') {
-                        BagData bgd=new SaintNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),info,Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                        BagData bgd=new SaintNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),info,this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                }
                case 2:{
                    if (resultado.charAt(0)=='1' && resultado.charAt(1)=='1'){
-                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),new InfoFound(),Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new ProperNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),new InfoFound(),this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                    if (resultado.charAt(0)=='1' && resultado.charAt(2)=='1'){
-                       BagData bgd=new SaintNameBagData(string,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh+string.length(),info,Lexer.context.getContext());
-                       Lexer.wbag.put(bgd);
-                       return Lexer.context.getContext();
+                       BagData bgd=new SaintNameBagData(string,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh+string.length(),info,this.lexer.context.getContext());
+                       this.lexer.wbag.put(bgd);
+                       return this.lexer.context.getContext();
                    }
                }
            }
@@ -978,41 +968,41 @@ public class AuthorityContext extends SemanticContext {
                String[] dcha=stringArray[1].split(" ");
                String recognized="";
                int encontrada=-1;
-              // System.out.println("NOUN NOUN NOUN "+izda[0]+Lexer.context);  
+              // System.out.println("NOUN NOUN NOUN "+izda[0]+this.lexer.context);  
                //System.out.println("NOUN NOUN NOUN "+dcha[0]);  
               /* for (int i=0; i<izda.length; i++){
                    context=determineContext(izda[i],this);
-                   //Lexer.wbag.clean();
+                   //this.lexer.wbag.clean();
                    recognized=izda[i]+" ";
              if (context!=ContextualList.AUTHORITY) {
-            	 Lexer.isTheFirst=false;
-                	Lexer.context.changeContext(context, Lexer.context," ", " ");
+            	 this.lexer.setTheFirst(false);
+                	this.lexer.context.changeContext(context, this.lexer.context," ", " ");
                 
                encontrada=i;
                break;
                }
               }*/
-               //System.out.println("NOUN NOUN NOUN "+izda[0]+Lexer.context);  
+               //System.out.println("NOUN NOUN NOUN "+izda[0]+this.lexer.context);  
             if (encontrada!=-1){
                    if (izda.length==1) {
                        stringInProcess=newString.substring(stringArray[0].length());
                        
-                      //System.out.println("el contexto es NOUN"+Lexer.context+"  "+stringInProcess);
-                       return Lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
+                      //System.out.println("el contexto es NOUN"+this.lexer.context+"  "+stringInProcess);
+                       return this.lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
                    }
                    if (izda.length==2){
                        if (encontrada==1){
                            stringInProcess=newString.substring(stringArray[0].length());
-                          Lexer.context.checkCapitalLettersWord(izda[0]);
+                          this.lexer.context.checkCapitalLettersWord(izda[0]);
                            
-                           Lexer.context.changeContext(context,Lexer.context,stringInProcess,izda[1]);
-                          return Lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
+                           this.lexer.context.changeContext(context,this.lexer.context,stringInProcess,izda[1]);
+                          return this.lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
                        }else {
                            stringInProcess=newString.substring(izda[0].length());
                            
-                           Lexer.context.changeContext(context, Lexer.context, stringInProcess,izda[0]);
+                           this.lexer.context.changeContext(context, this.lexer.context, stringInProcess,izda[0]);
                           
-                           return Lexer.context.nounPhraseProcessing(stringInProcess);
+                           return this.lexer.context.nounPhraseProcessing(stringInProcess);
                        }
                    }
                    if (izda.length>2){
@@ -1023,14 +1013,14 @@ public class AuthorityContext extends SemanticContext {
                            for (int j=1; j<izda.length-1; j++){
                                inicio+=" "+izda[j];
                            }
-                          // System.out.println("he entrado por la leng 4 "+inicio+" "+stringInProcess+" "+Lexer.context.getContext());
-                           Lexer.context.wordListProcessing(inicio);
-                          // System.out.println ("El tamaño de la bolsa es "+Lexer.wbag.tam());
-                           Lexer.context.changeContext(context, Lexer.context, stringInProcess,izda[izda.length-1]);
-                           for (int k=0;k<Lexer.wbag.tam();k++){
-                          // System.out.println ("la vida es "+Lexer.wbag.get(k).string);
+                          // System.out.println("he entrado por la leng 4 "+inicio+" "+stringInProcess+" "+this.lexer.context.getContext());
+                           this.lexer.context.wordListProcessing(inicio);
+                          // System.out.println ("El tamaño de la bolsa es "+this.lexer.wbag.tam());
+                           this.lexer.context.changeContext(context, this.lexer.context, stringInProcess,izda[izda.length-1]);
+                           for (int k=0;k<this.lexer.wbag.tam();k++){
+                          // System.out.println ("la vida es "+this.lexer.wbag.get(k).string);
                            }
-                           return Lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
+                           return this.lexer.context.prepositionalSyntagmsListProcessing(stringInProcess);
                        
                            
                        }else{
@@ -1041,16 +1031,16 @@ public class AuthorityContext extends SemanticContext {
                                inicio+=" "+izda[j];
                            }
                            stringInProcess=newString.substring(inicio.length()+1);
-                           Lexer.context.wordListProcessing(inicio);
-                          // System.out.println("he entrado por la leng 7"+inicio+"TTTT"+stringInProcess+" "+Lexer.context.getContext());
+                           this.lexer.context.wordListProcessing(inicio);
+                          // System.out.println("he entrado por la leng 7"+inicio+"TTTT"+stringInProcess+" "+this.lexer.context.getContext());
                            
-                          // System.out.println ("El tamaño de la bolsa es "+Lexer.wbag.tam());
-                           Lexer.context.changeContext(context, Lexer.context, stringInProcess,izda[izda.length-1]);
-                           for (int k=0;k<Lexer.wbag.tam();k++){
-                           //System.out.println ("la vida es "+Lexer.wbag.get(k).string);
+                          // System.out.println ("El tamaño de la bolsa es "+this.lexer.wbag.tam());
+                           this.lexer.context.changeContext(context, this.lexer.context, stringInProcess,izda[izda.length-1]);
+                           for (int k=0;k<this.lexer.wbag.tam();k++){
+                           //System.out.println ("la vida es "+this.lexer.wbag.get(k).string);
                            }
                            //System.out.println("la verdad"+izda.length);
-                           return Lexer.context.nounPhraseProcessing(stringInProcess);
+                           return this.lexer.context.nounPhraseProcessing(stringInProcess);
                        
                            
                            
@@ -1062,29 +1052,29 @@ public class AuthorityContext extends SemanticContext {
                
               
               if (izda.length>1){
-               Lexer.context.wordListProcessing(stringArray[0]); }
+               this.lexer.context.wordListProcessing(stringArray[0]); }
               else {
-                  //System.out.println("NUOOOOOOOOOOOO "+Lexer.context+stringArray[0]);
-                  Lexer.context.checkCapitalLettersWord(izda[0]);
+                  //System.out.println("NUOOOOOOOOOOOO "+this.lexer.context+stringArray[0]);
+                  this.lexer.context.checkCapitalLettersWord(izda[0]);
                   
               }
-              //System.out.println("despues de NOUUUUUUU izda"+Lexer.context);
-             // Lexer.wbag.escribir();
+              //System.out.println("despues de NOUUUUUUU izda"+this.lexer.context);
+             // this.lexer.wbag.escribir();
              
-              // System.out.println("LA BOSLA DE "+Lexer.wbag.tam());
-               Lexer.wbag.put(new DeBagData(de,TypesTerms.FT,Lexer.numCh,Lexer.numWord,Lexer.numCh,new InfoFound(),Lexer.context.getContext()));
-               Lexer.context.changeContext(ContextualList.INITIAL, Lexer.context, stringInProcess,dcha[0]);
+              // System.out.println("LA BOSLA DE "+this.lexer.wbag.tam());
+               this.lexer.wbag.put(new DeBagData(de,TypesTerms.FT,this.lexer.numCh,this.lexer.numWord,this.lexer.numCh,new InfoFound(),this.lexer.context.getContext()));
+               this.lexer.context.changeContext(ContextualList.INITIAL, this.lexer.context, stringInProcess,dcha[0]);
 
                if (dcha.length>1)
-               Lexer.context.wordListProcessing(dcha[0]);
+               this.lexer.context.wordListProcessing(dcha[0]);
                else{
                    
-               Lexer.context.checkCapitalLettersWord(dcha[0]);
+               this.lexer.context.checkCapitalLettersWord(dcha[0]);
                
                }
                
-                //System.out.println("despues de NOUUUUUUU dcha"+dcha[0]+" "+Lexer.context);
-             // Lexer.wbag.escribir();
+                //System.out.println("despues de NOUUUUUUU dcha"+dcha[0]+" "+this.lexer.context);
+             // this.lexer.wbag.escribir();
             return ContextualList.INITIAL;         
             
            

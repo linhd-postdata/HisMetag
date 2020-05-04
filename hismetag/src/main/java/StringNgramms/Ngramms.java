@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package StringNgramms;
-import IOModule.Output;
 
 import MedievalTextLexer.Lexer;
 import Recognition.InfoFound;

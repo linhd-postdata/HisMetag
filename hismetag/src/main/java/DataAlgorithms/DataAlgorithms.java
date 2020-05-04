@@ -5,9 +5,9 @@
 package DataAlgorithms;
 
 import DataStructures.*;
-import MedievalTextLexer.Lexer;
 import Recognition.ElementsRecognition;
 import Recognition.Terms;
+import MedievalTextLexer.Lexer;
 
 import java.util.*;
 
@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class DataAlgorithms {
 
-	public static RolesTree roleAlgorithm(WordBag wbag) throws java.io.IOException, java.io.FileNotFoundException {
+	public static RolesTree roleAlgorithm(WordBag wbag, Lexer lexer) throws java.io.IOException, java.io.FileNotFoundException {
 
 		BagItemRoles heads = new BagItemRoles();
 
@@ -75,7 +75,7 @@ public class DataAlgorithms {
 					if (ElementsRecognition.isCopulativeConjunction(actual.root.string).size() > 0) {
 						// System.out.println("LA ACTUAL ES COPULATIVA "+actual.root.string+" CON EL
 						// PREVIO "+aux.root.string);
-						if ((auxNew = aux.dependCopulativeOf(itw, heads, wbag, i)) != null) {
+						if ((auxNew = aux.dependCopulativeOf(itw, heads, wbag, i, lexer)) != null) {
 							// System.out.println("Estas son las primeras
 							// fraswes"+actual.root.string+"---"+auxNew.root.string);
 							actual.pred.add(auxNew);
