@@ -1,0 +1,29 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+persName;;Por la gracia de dius rey de aragon.de maillorgas et de ualen-tia.Conte de barçalonade urgel et seynnor de mo-ntpesler;14;135;7;no
+addName;_legitimacy;Por la gracia de dius;14;34;1;no
+roleName;;rey de aragon.de maillorgas et de ualen-tia;36;79;6;no
+placeName;;aragon;43;48;1;no
+placeName;;maillorgas;54;63;1;no
+placeName;;ualen-tia;71;79;1;no
+roleName;;Conte de barçalonade urgel;82;109;4;no
+placeName;;barçalona;91;100;1;no
+placeName;;urgel;105;109;1;no
+roleName;;seynnor de mo-ntpesler;114;135;1;no
+roleName;honorific;nuestraseynnoria;306;322;1;no
+name;;fueros d aragon;439;453;1;no
+name;;fue-rosde aragon;648;664;1;no
+placeName;;cuidat de hosqua;747;762;1;no
+persName;;thio don fferrando abatde Montaragon;847;883;5;no
+roleName;_family;thio;847;850;1;no
+roleName;honorific;don;852;854;1;no
+roleName;;abatde Montaragon;866;883;2;no
+placeName;;Montaragon;874;883;1;no
+persName;;don rodrigo obis-pode Çaragoça;901;933;3;no
+roleName;honorific;don;901;903;1;no
+roleName;;obis-pode Çaragoça;913;933;2;no
+placeName;;Çaragoça;924;933;1;no
+persName;;don vi-dalde canelasobispo dehuesqua;936;973;4;no
+roleName;honorific;don;936;938;1;no
+placeName;;canelas;950;956;1;no
+roleName;;obispo dehuesqua;957;973;2;no
+placeName;;huesqua;967;973;1;no
