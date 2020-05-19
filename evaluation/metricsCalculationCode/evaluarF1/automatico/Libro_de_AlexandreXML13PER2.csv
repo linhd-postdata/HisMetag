@@ -1,0 +1,191 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+roleName;honorific;Senores;21;27;1;no
+persName;_nickname_deity;criador;620;647;1;no
+roleName;;Rey;729;755;1;no
+persName;;alexandre;886;930;1;no
+persName;;Rey de grec'ia;915;956;2;no
+placeName;;grec'ia;922;1036;1;no
+roleName;;Reys;1001;947;1;no
+persName;;jnfante alexandre;1077;1120;2;no
+roleName;;jnfante;1077;1110;1;no
+roleName;_family;mugier;1199;1225;1;no
+geogName;;tierra de;1614;1668;1;no
+persName;;alexandre;1745;1805;1;no
+roleName;_family;fijos;1814;28741;1;no
+persName;;Felippo;2224;2296;1;no
+persName;;infante magar;2316;2396;2;no
+placeName;;leon;2440;2464;1;no
+roleName;;infante;2511;2390;1;no
+roleName;;criado;2576;2602;1;no
+persName;;hercules;2618;2705;1;no
+roleName;_family;padre;2654;2743;1;no
+roleName;;maestros;2700;28741;1;no
+placeName;;grec'ia;2766;28741;1;no
+roleName;;maestros;2971;28741;1;no
+persName;;maestre natanao;3216;3331;2;no
+roleName;;maestre;3216;3323;1;no
+roleName;_family;fijo;3264;28741;1;no
+roleName;;infante;3338;3449;1;no
+roleName;_family;ffijo;3453;28741;1;no
+roleName;_family;padre;3467;28741;1;no
+persName;_deity;dios;3474;3589;1;no
+roleName;_family;avuelos;3636;28741;1;no
+persName;;reys de grec'ia;3679;3812;2;no
+roleName;;reys de;3687;3804;1;no
+persName;;Rey de babilon;3742;3877;2;no
+roleName;;Rey de;3749;3869;1;no
+persName;;infante alexandre;3845;3986;2;no
+roleName;;infante;3845;3976;1;no
+persName;;Rey alexandre;4476;4635;2;no
+roleName;;Rey;4476;4625;1;no
+roleName;;infante;4524;4677;1;no
+placeName;;leon;4707;4731;1;no
+roleName;;infante;4833;4860;1;no
+placeName;;leon;4896;4920;1;no
+orgName;_collective;medos;4986;5148;1;no
+persName;;Maestre aristotil;5040;5217;2;no
+roleName;;Maestre;5040;5207;1;no
+roleName;;criado;5212;5238;1;no
+persName;;don aristotil;5260;5441;2;no
+roleName;honorific;don;5260;5431;1;no
+roleName;;criado;5427;5453;1;no
+roleName;;maestro;5573;28741;1;no
+roleName;;discipulo;5585;28741;1;no
+roleName;;maestro;5623;28741;1;no
+roleName;;maestro;5746;28741;1;no
+roleName;;discipulo;5758;28741;1;no
+roleName;_family;ffijo;5781;28741;1;no
+persName;;Pero;5856;5880;1;no
+roleName;;infante;5922;6119;1;no
+roleName;;maestro;5933;28741;1;no
+roleName;;maestro;6061;28741;1;no
+roleName;;Maestro;6090;28741;1;no
+roleName;_family;padre;6204;28741;1;no
+roleName;;mestros;6250;28741;1;no
+roleName;;actores;6561;28741;1;no
+roleName;;maestro;6984;28741;1;no
+roleName;;Rey;7169;7406;1;no
+persName;;don aristotil;7327;7580;2;no
+roleName;honorific;don;7327;7570;1;no
+roleName;;infante;7417;7668;1;no
+roleName;;infante;7497;7750;1;no
+roleName;;doctor;7555;28741;1;no
+persName;_deity;criador;7635;7895;1;no
+persName;_nickname_deity;criador;7635;28741;1;no
+roleName;;maestro;7701;28741;1;no
+persName;;don aristotil;7836;8109;2;no
+roleName;;don;7836;8099;1;no
+roleName;_family;ffijo;8005;28741;1;no
+roleName;;rey;8019;8286;1;no
+persName;_deity;dios;8492;8776;1;no
+persName;_deity;dios;8721;9011;1;no
+roleName;_family;ffijo;9087;28741;1;no
+roleName;;vassallos;9099;28741;1;no
+roleName;_family;ffijo;9256;28741;1;no
+persName;;Ector;9982;10314;1;no
+persName;;diomedes;9990;10325;1;no
+persName;;achilles;10079;10416;1;no
+roleName;;messaiero;10396;28741;1;no
+roleName;;fidalgo;10419;28741;1;no
+roleName;;cauallero;10491;28741;1;no
+persName;_deity;dios;11125;11489;1;no
+persName;_deity;dios;11365;11738;1;no
+persName;_deity;dios;12227;12627;1;no
+persName;_deity;dios;12608;13019;1;no
+roleName;;infante;12969;13397;1;no
+placeName;;dario;13168;13601;1;no
+geogName;;tierra de;13340;13790;1;no
+placeName;;India;13359;28741;1;no
+placeName;;egipto;13367;28741;1;no
+geogName;;tierra de;13378;13836;1;no
+placeName;;Affrica;13394;28741;1;no
+placeName;;marruecos;13404;28741;1;no
+persName;;Rey carlos;13451;13915;2;no
+roleName;;Rey;13451;13908;1;no
+roleName;;infante;13570;14037;1;no
+persName;;don mars;13593;14073;2;no
+roleName;honorific;don;13593;14068;1;no
+persName;;Janero;13956;13982;1;no
+roleName;_family;madre;14227;14713;1;no
+persName;;Rey felipo;14250;14742;2;no
+roleName;;Rey;14250;14735;1;no
+persName;;alexandre;14636;15141;1;no
+placeName;;leon;15413;15437;1;no
+roleName;;emperador;16139;16705;1;no
+persName;;Rey philippo;16159;16727;2;no
+roleName;;Rey;16159;16718;1;no
+roleName;;Rey;17150;17652;1;no
+roleName;_family;madre;17267;17745;1;no
+roleName;_family;padre;17308;17866;1;no
+roleName;;Rey;17353;17951;1;no
+roleName;;Rey;17682;18292;1;no
+roleName;;emperador;18167;18801;1;no
+placeName;;castiella;18348;18987;1;no
+roleName;;infante;18364;19000;1;no
+roleName;;infante;18535;19176;1;no
+persName;_deity;dios;18636;19277;1;no
+placeName;;grec'ia;19017;28741;1;no
+roleName;;infante;19058;19717;1;no
+placeName;;grec'ia;19183;28741;1;no
+roleName;;infante del;19237;19907;1;no
+persName;_nckname_deity;criador;19521;20198;1;no
+roleName;;caualleros;19824;20514;1;no
+roleName;;caualleros;20000;20696;1;no
+roleName;;Rey;20102;20796;1;no
+roleName;;Rey;20188;20886;1;no
+persName;;alexandre;20439;21151;1;no
+persName;;Felippo;20450;21161;1;no
+persName;;Rey de grec'ia;20461;21179;2;no
+roleName;;Rey de;20468;21171;1;no
+roleName;_family;padre;20488;20492;1;no
+roleName;;Reyna;20507;21218;1;no
+persName;;alexandre;20811;21536;1;no
+roleName;;infante;21448;22194;1;no
+persName;;Nicholao;21591;22344;1;no
+roleName;;infante;21806;22564;1;no
+persName;;alexandre;21816;21845;1;no
+roleName;honorific;don;21889;21891;1;no
+roleName;;infante;22051;22817;1;no
+persName;;infante c'ierto;22167;22202;2;no
+roleName;_family;padre;22330;28741;1;no
+roleName;;infante;22451;23238;1;no
+persName;;philippo;22547;23337;1;no
+roleName;_family;fijo;22557;28741;1;no
+roleName;;Reyna;22567;23355;1;no
+roleName;_family;fijo;22633;28741;1;no
+placeName;;dario;22853;23650;1;no
+placeName;;yndia;22898;28741;1;no
+placeName;;dario;23046;23849;1;no
+roleName;;infante;23066;23872;1;no
+roleName;;Rey;23205;24011;1;no
+roleName;;infante;23371;24187;1;no
+roleName;;escudero;23447;28741;1;no
+roleName;;cauallero;23537;28741;1;no
+roleName;;cauallero;23676;28741;1;no
+persName;_deity;dios;24245;25088;1;no
+persName;;alexandre;24566;25424;1;no
+roleName;_family;padre;24581;25435;1;no
+persName;_deity;dios;24624;25479;1;no
+roleName;_family;padre;24695;28741;1;no
+persName;_deity;dios;24702;25561;1;no
+placeName;;leon;24720;24744;1;no
+persName;_deity;dios;24778;25638;1;no
+persName;;Pero;24992;25016;1;no
+roleName;;infante;25025;25901;1;no
+roleName;;infante;25365;26251;1;no
+roleName;;Reyna;25577;26467;1;no
+persName;_deity;dios;25708;26601;1;no
+persName;;Phelippo;25737;26635;1;no
+persName;;philippo;25866;26769;1;no
+persName;;Rey felipo;26096;27009;2;no
+roleName;;Rey;26096;27002;1;no
+persName;;Rey filipo;26471;27397;2;no
+roleName;;Rey;26471;27390;1;no
+roleName;;rey;26645;27567;1;no
+roleName;;infante;26950;27888;1;no
+roleName;;infante;27102;28048;1;no
+roleName;;infante;27277;28227;1;no
+roleName;;infante;27465;28422;1;no
+persName;;alexandre;27649;28615;1;no
+roleName;;infante;27774;28741;1;no
+persName;;Pero;27969;27993;1;no

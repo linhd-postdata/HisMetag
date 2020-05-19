@@ -1,0 +1,117 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+persName;;infante don Alfonso fiio del Rey don Ferrando;6;50;5;no
+roleName;;infante;6;12;1;no
+roleName;honorific;don;14;16;1;no
+roleName;_family;fiio;26;50;2;no
+persName;;Rey don Ferrando;35;50;4;no
+roleName;;Rey;35;37;1;no
+roleName;honorific;don;39;41;1;no
+persName;;don Nunno Guzman;54;69;2;no
+roleName;honorific;don;54;56;1;no
+persName;;Peidro Guzman;75;87;1;no
+placeName;;Chinchiella;107;117;1;no
+placeName;;Chinchiella;248;258;1;no
+placeName;;Toletum;588;594;1;no
+roleName;;infante;596;602;1;no
+persName;;Jnfante don Alfonso fiio del rey don Ferrando heredero de Castiella e de Toledo de Leon e de Galliciade Cordoua e de Murcia;709;832;7;no
+roleName;;Jnfante;709;715;1;no
+roleName;honorific;don;717;719;1;no
+roleName;_family;fiio del rey don Ferrando;729;753;2;no
+persName;;rey don Ferrando;738;753;4;no
+roleName;;rey;738;740;1;no
+roleName;honorific;don;742;744;1;no
+roleName;;heredero de Castiella e de Toledo de Leon e de Galliciade Cordoua e de Murcia;755;832;12;no
+placeName;;Castiella;767;775;1;no
+placeName;;Toledo;782;787;1;no
+placeName;;Leon;792;795;1;no
+placeName;;Gallicia;802;809;1;no
+placeName;;Cordoua;814;820;1;no
+placeName;;Murcia;827;832;1;no
+persName;;don Guillem el Aleman;851;871;3;no
+roleName;honorific;don;851;853;1;no
+addName;;el Aleman;863;871;1;no
+roleName;;Rey;906;908;1;no
+roleName;_family;padre;914;918;1;no
+persName;;Reyna donna Berenguella;928;950;4;no
+roleName;;Reyna;928;932;1;no
+roleName;honorific;donna;934;938;1;no
+placeName;;Ella;1017;1020;1;no
+placeName;;Ella;1186;1189;1;no
+orgName;_collective;moros;1204;1208;1;no
+roleName;_family;fiios;1253;1257;1;no
+roleName;_family;nietos;1265;1270;1;no
+persName;;don Guillem el aleman;1393;1413;3;no
+roleName;honorific;don;1393;1395;1;no
+addName;;el aleman;1405;1413;1;no
+roleName;_family;fiios;1421;1425;1;no
+roleName;_family;nietos;1433;1438;1;no
+roleName;;rey;1522;1524;1;no
+roleName;_family;padre;1530;1534;1;no
+persName;;don Guillem;1612;1622;2;no
+roleName;honorific;don;1612;1614;1;no
+roleName;_family;fiio;1629;1632;1;no
+roleName;_family;nieto;1639;1643;1;no
+persName;;don Guillem;1981;1991;2;no
+roleName;honorific;don;1981;1983;1;no
+roleName;_family;fiios;2004;2008;1;no
+roleName;_family;nietos;2021;2026;1;no
+roleName;_family;padre;2155;2159;1;no
+roleName;;Rey;2223;2225;1;no
+persName;;don Guillem;2324;2334;2;no
+roleName;honorific;don;2324;2326;1;no
+roleName;;herederos;2567;2575;1;no
+orgName;_collective;moros;2681;2685;1;no
+persName;;Don Alfonso por la gracia de Dios rey deCastiella de Toledo de Leon de Gallizia de Seuilla de Cordoua de Murcia e de Jaen;3051;3172;3;no
+roleName;honorific;Don;3051;3053;1;no
+persName;;Dios;3080;3083;1;no
+placeName;;Castiella;3092;3100;1;no
+placeName;;Toledo;3105;3110;1;no
+placeName;;Leon;3115;3118;1;no
+placeName;;Gallizia;3123;3130;1;no
+placeName;;Seuilla;3135;3141;1;no
+placeName;;Cordoua;3146;3152;1;no
+placeName;;Murcia;3157;3162;1;no
+placeName;;Jaen;3169;3172;1;no
+persName;;don frey Pedro obispo de Cartagena;3191;3224;5;no
+roleName;honorific;don;3191;3193;1;no
+roleName;;frey;3195;3198;1;no
+roleName;;obispo de Cartagena;3206;3224;2;no
+placeName;;Cartagena;3216;3224;1;no
+placeName;;collacion de Sant Julian;3255;3278;1;no
+placeName;;Seuilla;3283;3289;1;no
+name;;Coxo;3377;3380;1;no
+persName;;PedroBlasco;3414;3425;1;no
+persName;;Pascual Domingo;3459;3473;1;no
+persName;;Maria Johan;3507;3517;1;no
+persName;;Pedro Garcia almocaden;3551;3572;2;no
+roleName;;almocaden;3564;3572;1;no
+persName;;don Tome;3606;3613;2;no
+roleName;;don;3606;3608;1;no
+persName;;DomingoSancho;3647;3660;1;no
+roleName;;Rey;3692;3694;1;no
+placeName;;Seuilla;4370;4376;1;no
+roleName;;rey;4394;4396;1;no
+persName;;Aluar Garcia de Fromesta;4482;4505;2;no
+placeName;;Fromesta;4498;4505;1;no
+persName;;don Alfonso por la gracia de Dios rey de Castiella de Toledo de Leon de Gallizia de Seuillia de Cordouade Murcia e de Jaen;4588;4710;3;no
+roleName;honorific;don;4588;4590;1;no
+persName;;Dios;4617;4620;1;no
+placeName;;Castiella;4629;4637;1;no
+placeName;;Toledo;4642;4647;1;no
+placeName;;Leon;4652;4655;1;no
+placeName;;Gallizia;4660;4667;1;no
+placeName;;Seuillia;4672;4679;1;no
+placeName;;Cordoua;4684;4690;1;no
+placeName;;Murcia;4695;4700;1;no
+placeName;;Jaen;4707;4710;1;no
+persName;;reyna donna Yolant;4726;4743;4;no
+roleName;;reyna;4726;4730;1;no
+roleName;honorific;donna;4732;4736;1;no
+roleName;_family;mugier;4748;4753;1;no
+persName;;don frey Pedro;4773;4786;4;no
+roleName;honorific;don;4773;4775;1;no
+roleName;honorific;frey;4777;4780;1;no
+roleName;;obispo;4788;4793;1;no
+placeName;;Carthagena;4808;4817;1;no
+orgName;_collective;moros;4857;4861;1;no
+placeName;;Geluferiz;4863;4871;1;no

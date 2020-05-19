@@ -1,0 +1,73 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+persName;;rrey pelayo;100;110;2;no
+roleName;;rrey;100;103;1;no
+persName;;rreypelayo;117;127;2;no
+roleName;;rrey;117;120;1;no
+roleName;_family;fija;138;141;1;no
+persName;;conde don suero de casso;176;199;4;no
+roleName;;conde;176;180;1;no
+roleName;honorific;don;182;184;1;no
+persName;;conde don suero;221;235;4;no
+roleName;;conde;221;225;1;no
+roleName;honorific;don;227;229;1;no
+roleName;_family;fijo;239;242;1;no
+persName;;don alfonso;257;267;2;no
+roleName;honorific;don;257;259;1;no
+persName;;don alfon;279;287;2;no
+roleName;honorific;don;279;281;1;no
+roleName;;rreyde leon;298;309;2;no
+placeName;;leon;306;309;1;no
+orgName;_collective;castellanos;318;328;1;no
+placeName;;nauarra;367;373;1;no
+placeName;;aragon;381;386;1;no
+placeName;;sant esteuande gormaz;408;429;1;no
+placeName;;leon;434;437;1;no
+placeName;;sepulveda;442;450;1;no
+placeName;;olmedo;459;464;1;no
+orgName;_collective;moros;469;473;1;no
+placeName;;castilla;518;525;1;no
+placeName;;bilforado;528;536;1;no
+placeName;;gran~on;539;545;1;no
+placeName;;nauarra;571;577;1;no
+placeName;;leon;591;594;1;no
+placeName;;carrion;600;606;1;no
+placeName;;saldan~a;611;618;1;no
+orgName;_collective;castellanos;636;646;1;no
+persName;;rrey dede leon;665;679;3;no
+roleName;;rrey;665;668;1;no
+placeName;;leon;676;679;1;no
+roleName;_family;fijas;685;689;1;no
+roleName;_family;mugieres;691;698;1;no
+placeName;;castilla;727;734;1;no
+roleName;;alcaldes;740;747;1;no
+roleName;;alcaldes;838;845;1;no
+persName;;nun~o Rassura;859;871;1;no
+persName;;layn caluo;884;893;1;no
+persName;;nun~o rrassura;915;928;1;no
+placeName;;castilla;960;967;1;no
+persName;;santiago;1005;1012;1;no
+orgName;_collective;moros;1041;1045;1;no
+roleName;;conde;1053;1057;1;no
+persName;;nun~o Rassura;1071;1083;1;no
+placeName;_facility;sant pe-drode arlanc'a;1089;1111;1;no
+persName;;nun~orasura;1121;1132;1;no
+roleName;_family;fijo;1142;1145;1;no
+persName;;gonc'alo nun~ez;1161;1175;1;no
+roleName;;rrey;1249;1252;1;no
+persName;;guiben Senor de madrid;1259;1280;2;no
+roleName;;Senor de madrid;1266;1280;2;no
+placeName;;madrid;1275;1280;1;no
+persName;;don~a aldara sanchez. fija del rey donsancho Ramjrez de navarra;1298;1361;3;no
+roleName;honorific;don~a;1298;1302;1;no
+roleName;_family;fija del rey donsancho Ramjrez de navarra;1320;1361;2;no
+persName;;rey donsancho Ramjrez de navarra;1329;1361;5;no
+roleName;;rey;1329;1331;1;no
+roleName;honorific;don;1333;1335;1;no
+placeName;;navarra;1355;1361;1;no
+roleName;_family;mugier;1415;1420;1;no
+placeName;;castilla;1474;1481;1;no
+roleName;_family;fijos;1503;1507;1;no
+persName;;conde ferrnadgonc'alez;1560;1582;2;no
+roleName;;conde;1560;1564;1;no
+placeName;;castilla;1598;1605;1;no
+geogName;;arlanc'a;1136;1185;1;no

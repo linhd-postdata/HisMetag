@@ -1,0 +1,103 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+orgName;_collective;griegos;201;208;1;no
+orgName;_collective;Troyanos;217;226;1;no
+persName;;Jncidentalment;250;398;1;no
+persName;;Jason;394;417;2;no
+roleName;_family;fillo deheson;404;417;1;no
+persName;;heson;413;431;1;no
+persName;;heson;427;508;1;no
+placeName;;Regnode Thesalia;491;516;1;no
+persName;;peleosu hermano;512;527;1;no
+roleName;_family;hermano;521;542;1;no
+persName;;peleo;537;558;1;no
+persName;;Jasonsu sobrino;554;569;1;no
+roleName;_family;sobrino;563;827;1;no
+persName;;Jason;823;1105;1;no
+persName;;Jason;1101;1255;1;no
+persName;;Peleo;1250;1285;1;no
+persName;;Jason;1281;1413;1;no
+persName;;Peleo;1409;1464;1;no
+placeName;;ciudat de Thesalia;1447;1522;1;no
+roleName;;caualleros;1512;1555;2;no
+persName;;Rey peleo;1547;1549;1;no
+roleName;;Rey;1547;1580;1;no
+persName;;Jason;1576;1617;1;no
+roleName;;nobles;1612;1698;2;no
+persName;;Rey Peleo;1690;1692;1;no
+roleName;;Rey;1690;1713;1;no
+persName;;Jason;1708;1753;1;no
+persName;;Nepot;1749;1808;1;no
+placeName;;Regno de tesalia;1793;1910;1;no
+placeName;;Regnode Thesalia;2002;2019;1;no
+placeName;;Regnode thesalia;2233;2249;1;no
+persName;;Rey Oethes;2660;2670;2;no
+roleName;;Rey;2660;2662;1;no
+roleName;;mayor;3351;3815;1;no
+roleName;_family;heredero;3726;3905;1;no
+placeName;;Regno de thesalia;3798;3962;1;no
+persName;;Jason;3901;3969;1;no
+roleName;;Rey;3960;4021;1;no
+roleName;_family;tio;3967;4041;1;no
+persName;;naue;3929;4130;1;no
+roleName;;nobles;4015;4157;1;no
+placeName;;thesalia;4034;4205;1;no
+placeName;;Regnode troya;4143;4226;1;no
+persName;;laomedon;4219;4254;2;no
+roleName;;Rey de Troya;4243;4254;1;no
+placeName;;Troya;4250;4315;1;no
+persName;;Jason;4415;4419;1;no
+persName;;Laomedon;4488;4495;1;no
+persName;;Jason Turbado;5082;4503;1;no
+persName;;laomedon;5269;5086;1;no
+placeName;;grecia;5564;5277;1;no
+orgName;_collective;griegos;5624;5284;1;no
+persName;;Jason;5967;5569;1;no
+roleName;;Rey;6148;5630;1;no
+geogName;;tierra de;6256;5971;1;no
+roleName;;Rey;6336;6150;1;no
+persName;;Jniuria;6308;6209;1;no
+roleName;;Rey;6577;6338;1;no
+persName;;hercules;6847;6424;1;no
+persName;;Jason;6948;6579;1;no
+roleName;;Rey;7041;6854;1;no
+persName;;Jniuriosa;7435;6952;1;no
+roleName;;Rey;7565;7043;1;no
+persName;;Jason;7580;7567;1;no
+persName;;Ercules;7596;7585;1;no
+roleName;;Rey;7761;7602;1;no
+orgName;_collective;griegos;8189;7642;1;no
+roleName;;Rey;8230;7763;1;no
+persName;;Jason;8258;8147;1;no
+persName;;Oethes;8290;8195;1;no
+roleName;;Rey;8389;8232;1;no
+persName;;Jason;8402;8262;1;no
+roleName;;Rey;8460;8295;1;no
+placeName;_facility;palacio fau-lando fau-lando;8410;8391;1;no
+persName;;Jason;8549;8406;1;no
+persName;;Ercules;8562;8462;1;no
+roleName;_family;filla;8587;8554;1;no
+persName;;Jason;8674;8568;1;no
+persName;;ercules;8687;8597;2;no
+persName;;Jason de;8764;8591;1;no
+roleName;;Rey;8884;8678;1;no
+persName;;ercules;8929;8693;1;no
+persName;;Jason;8968;8768;1;no
+persName;;medea;8977;8886;1;no
+persName;;Medea;9086;8935;1;no
+persName;;Jason;9108;8972;1;no
+persName;;Jason;9136;8981;1;no
+persName;;Juuenil;9523;9090;1;no
+persName;;Onde;9745;9112;1;no
+placeName;;cora;10041;9140;1;no
+persName;;Jason;10239;9399;1;no
+persName;;Medea;10304;9464;1;no
+persName;;medea;10788;9482;1;no
+persName;;Jason;10821;9544;1;no
+persName;;Jason;10834;9570;1;no
+persName;;filla Medea;8587;8597;2;no
+roleName;;noble;9395;9399;1;no
+roleName;;noble;9460;9464;1;no
+roleName;;no-ble;9477;9482;1;no
+roleName;;noble;9540;9544;1;no
+roleName;;noble;9566;9570;1;no
+roleName;;no-ble;7637;7642;1;no

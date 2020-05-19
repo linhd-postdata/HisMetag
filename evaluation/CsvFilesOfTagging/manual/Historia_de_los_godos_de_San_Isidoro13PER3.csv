@@ -1,0 +1,102 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+orgName;_collective;Go-dos;111;116;1;no
+orgName;_collective;godos;253;257;1;no
+persName;;Magog fil-lode Jafet;302;322;2;no
+roleName;_family;fil-lode Jafet;308;322;2;no
+persName;;Jafet;318;322;1;no
+persName;;propheta ezechiel;349;365;2;no
+roleName;;propheta;349;356;1;no
+orgName;_collective;Getas;431;435;1;no
+persName;;Gog;443;445;1;no
+persName;;magog;451;455;1;no
+placeName;;tierra de Judea;533;547;1;no
+orgName;;imperio romano;740;753;1;no
+persName;;alexandre;800;808;1;no
+persName;;Pirus;845;849;1;no
+persName;;Cesar;866;870;1;no
+roleName;;du-ques;946;952;1;no
+roleName;;reys;977;980;1;no
+persName;;Con-sulpompeyo;1192;1206;2;no
+roleName;;Con-sul;1192;1198;1;no
+persName;;Guayo Julio cesar;1210;1226;1;no
+orgName;_collective;Godos;1265;1269;1;no
+placeName;;thesalia;1293;1300;1;no
+persName;;Pom-peo;1314;1320;1;no
+persName;;cesar;1329;1333;1;no
+persName;;Pompeo;1381;1386;1;no
+persName;;Ju-liocesar;1498;1509;1;no
+persName;;cesar;1577;1581;1;no
+persName;;ce-sar;1709;1714;1;no
+persName;;pompeo;1725;1730;1;no
+persName;;cesar;1760;1764;1;no
+persName;;Pompeo;1797;1802;1;no
+persName;;cesar;1858;1862;1;no
+persName;;Va-leriano;1946;1955;1;no
+persName;;Gualieno;1962;1969;1;no
+orgName;_collective;Godos;1987;1991;1;no
+placeName;;Gallia;2028;2033;1;no
+geogName;;alpes;2046;2050;1;no
+placeName;;grecia;2089;2094;1;no
+placeName;;macedonja;2097;2105;1;no
+placeName;;Asia;2114;2117;1;no
+placeName;;illirico;2123;2130;1;no
+placeName;;Jllirico;2144;2151;1;no
+placeName;;ma-cedonja;2157;2166;1;no
+persName;;claudio imperador;2208;2224;2;no
+roleName;;imperador;2216;2224;1;no
+orgName;_collective;romanos;2272;2278;1;no
+persName;;clau-dioaugusto;2293;2308;1;no
+placeName;_facility;plací¤a del mer-cadode;2427;2448;1;no
+persName;;claudio;2462;2468;1;no
+placeName;_facility;capitolio;2515;2523;1;no
+persName;;Cons-tantjno;2576;2587;1;no
+orgName;_collective;godos;2593;2597;1;no
+orgName;;legionsarmathar;2612;2627;1;no
+orgName;_collective;Romanos;2690;2696;1;no
+persName;;cons-tantjno;2815;2826;1;no
+geogName;;Danubio;2920;2926;1;no
+orgName;_collective;godos;3041;3045;1;no
+orgName;_collective;Roma;3069;3072;1;no
+persName;;Valent;3240;3245;1;no
+orgName;_collective;godos;3304;3308;1;no
+persName;;Atanarico;3314;3322;1;no
+persName;;valient;3354;3360;1;no
+orgName;_collective;godos;3430;3434;1;no
+roleName;;martires;3526;3533;1;no
+placeName;;pro-ujnciaromana;3679;3695;1;no
+persName;;Valent;3756;3761;1;no
+orgName;_collective;godos;3767;3771;1;no
+roleName;;reys;3801;3804;1;no
+persName;;Athanarico;3806;3815;1;no
+persName;;fridigenno;3821;3830;1;no
+persName;;Atana-rico;3891;3900;1;no
+persName;;Valent emperador;3915;3930;2;no
+roleName;;emperador;3922;3930;1;no
+persName;;Fridigenno;3939;3948;1;no
+persName;;Athanarico;3973;3982;1;no
+roleName;;Legados;3990;3996;1;no
+roleName;;emperador;4022;4030;1;no
+roleName;;doctores;4062;4069;1;no
+persName;;Valent;4128;4133;1;no
+name;;fe catholica;4168;4179;1;no
+name;;arriana;4214;4220;1;no
+orgName;_collective;Godos;4243;4247;1;no
+roleName;;sacerdotes;4249;4258;1;no
+orgName;_collective;arrja-nos;4260;4268;1;no
+persName;;Gulphilas bispo;4427;4441;2;no
+roleName;;bispo;4437;4441;1;no
+orgName;_collective;Godos;4580;4584;1;no
+roleName;_family;padre;4718;4722;1;no
+roleName;_family;fillo;4779;4783;1;no
+persName;;spiritu;4793;4799;1;no
+persName;_deity;dios;4813;4816;1;no
+roleName;_family;fi-lio;4882;4887;1;no
+roleName;_family;padre;4913;4917;1;no
+roleName;_family;filio;4929;4933;1;no
+orgName;;ethiops;1370;4933;1;no
+orgName;;persanos;1390;4933;1;no
+orgName;;medos;1401;4933;1;no
+orgName;;Griegos;1411;4933;1;no
+orgName;;Scitos;1421;4933;1;no
+orgName;;Romanos;3062;4933;1;no
+orgName;;xristianos;3440;4933;1;no

@@ -1,0 +1,13 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild;Padre;ContenidoPadre
+roleName;;rey;36;38;1;no;null;
+placeName;;aragon;43;48;1;no;null;
+placeName;;maillorgas;54;63;1;no;null;
+placeName;;ualen-tia;71;79;1;no;null;
+geogName;;mar orien-tal;215;227;1;no;null;
+placeName;;aragon;453;458;1;no;null;
+placeName;;aragon;663;668;1;no;null;
+persName;;Montaragon;874;883;1;no;null;
+persName;;don rodrigo;901;911;2;no;null;
+roleName;honorific;don;901;903;1;no;persName;don rodrigo
+persName;;obispo de huesqua;957;973;2;no;null;
+roleName;;obispo de;957;965;1;no;persName;obispo de

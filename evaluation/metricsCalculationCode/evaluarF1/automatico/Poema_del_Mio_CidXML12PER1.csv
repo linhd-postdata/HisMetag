@@ -1,0 +1,282 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+persName;nickName;myo c'id;232;240;1;no
+persName;nickName;myo c'id;279;287;1;no
+persName;_nickName_deity;sennor padre;319;331;2;no
+roleName;;sennor;300;306;1;no
+placeName;;exida de biuar;451;465;1;no
+placeName;;burgos;497;503;1;no
+persName;nickName;myo c'id;532;540;1;no
+persName;;albarffanez;582;593;1;no
+persName;;Myo c'id Ruy diaz;621;638;1;no
+placeName;;burgos;643;649;1;no
+persName;_deity;Dios;857;861;1;no
+roleName;;vassalo;871;878;1;no
+persName;;Rey don alfonsso;952;968;2;no
+roleName;;Rey don;952;959;2;no
+roleName;honorific;don;956;940;1;no
+placeName;;burgos;1015;1021;1;no
+persName;;myo c'id Ruy diaz;1090;1107;2;no
+addName;nickName;myo c'id;1090;1098;1;no
+persName;nickName;myo c'id;1323;1331;1;no
+persName;nickName;El campeador;1355;1367;1;no
+persName;;Rey alfonsso;1449;1461;2;no
+roleName;;Rey;1449;1452;1;no
+persName;nickName;myo c'id;1557;1569;1;no
+persName;nickName;myo c'id;1639;1647;1;no
+persName;nickName;campeador;1798;1807;1;no
+roleName;;Rey;1842;1845;1;no
+persName;nickName;C'id;2047;2051;1;no
+persName;_nickname_deity;criador;2097;2104;1;no
+persName;_deity;santas Esto;2118;2129;2;no
+roleName;;santas;2118;2124;1;no
+persName;nickName;el c'id;2198;2205;1;no
+roleName;;Rey;2211;2214;1;no
+placeName;;burgos;2256;2262;1;no
+placeName;;santa Maria Maria;2279;2296;1;no
+geogName;;arlanc'on;2410;2419;1;no
+persName;;Myo c'id Ruy diaz;2501;2518;2;no
+addName;;Myo c'id;2501;2509;1;no
+persName;nickName;myo c'id;2642;2650;1;no
+placeName;;burgos;2707;2713;1;no
+persName;;Martin antolinez;2799;2815;1;no
+addName;nickName;myo c'id;2839;2847;1;no
+persName;nickName;myo c'id;2981;2989;1;no
+addName;nickName;el campeador;2990;3002;1;no
+persName;;martin atolinez;3045;3060;1;no
+persName;nickName;canpeador;3087;3096;1;no
+persName;;Rey alffonsso;3242;3255;2;no
+roleName;;Rey;3242;3245;1;no
+roleName;;Rey;3326;3329;1;no
+persName;nickName;myo c'id;3400;3408;1;no
+persName;;Martin antolinez;3442;3458;1;no
+persName;;Rachel;3848;3854;1;no
+persName;;vidas;3857;3862;1;no
+placeName;;burgos;3892;3898;1;no
+roleName;;Rey;3922;3925;1;no
+orgName;_collective;xristianos;4059;4069;1;no
+persName;_nickname_deity;criador;4079;4086;1;no
+persName;_deity;santos Yo;4085;4094;2;no
+roleName;;santos;4105;4111;1;no
+persName;;Martin antolinez;4146;4162;1;no
+persName;;Rachel;4182;4188;1;no
+persName;;vidas;4191;4196;1;no
+placeName;;burgos;4226;4232;1;no
+persName;;Rachel;4258;4264;1;no
+persName;;vidas;4267;4272;1;no
+persName;;Rachel;4292;4298;1;no
+persName;;vidas;4301;4306;1;no
+persName;;martin atolinez;4380;4395;1;no
+persName;;Rachel;4425;4431;1;no
+persName;;vidas;4434;4439;1;no
+persName;;Rachel;4538;4544;1;no
+persName;;vidas;4547;4552;1;no
+orgName;_collective;moros;4600;4605;1;no
+orgName;_collective;xristianos;4612;4622;1;no
+persName;nickName;El campeador;4656;4668;1;no
+roleName;;Rey;4893;4896;1;no
+persName;nickName;El campeador;5000;5012;1;no
+persName;;Rachel;5206;5212;1;no
+persName;;vidas;5215;5220;1;no
+geogName;;tierra de;5305;5314;1;no
+persName;nickName;c'id;5506;5510;1;no
+persName;;martin antolinez;5585;5601;1;no
+persName;nickName;Myo c'id;5622;5630;1;no
+persName;;Rachel;5783;5789;1;no
+persName;;vidas;5792;5797;1;no
+persName;nickName;el c'id;5847;5854;1;no
+persName;;Rachel;5910;5916;1;no
+persName;;vidas;5919;5924;1;no
+persName;;martin antolinez;6000;6016;1;no
+persName;nickName;campeador;6053;6062;1;no
+orgName;_collective;moros;6181;6186;1;no
+orgName;_collective;xristianos;6191;6201;1;no
+persName;;Rachel;6207;6213;1;no
+persName;;vidas;6216;6221;1;no
+persName;;Martin antolinez;6293;6309;1;no
+persName;;Rachel;6330;6336;1;no
+persName;;vidas;6339;6344;1;no
+placeName;;burgos;6440;6446;1;no
+persName;nickName;campeador;6483;6492;1;no
+persName;nickName;c'id;6524;6528;1;no
+persName;nickName;myo c'id;6560;6568;1;no
+persName;;don Rachel;6591;6601;2;no
+roleName;;don;6591;6594;1;no
+persName;;vidas;6604;6609;1;no
+roleName;;Rey;6657;6660;1;no
+persName;;Don Rachel;6753;6763;2;no
+roleName;;Don;6756;6759;1;no
+persName;;vidas;6766;6771;1;no
+persName;nickName;myo c'id;6774;6782;1;no
+persName;;Martin antolinez;6804;6820;1;no
+persName;nickName;myo c'id;7048;7056;1;no
+persName;;martin antolinez;7092;7108;1;no
+persName;;Rachel;7144;7150;1;no
+persName;;vidas;7153;7158;1;no
+persName;nickName;myo c'id;7239;7247;1;no
+persName;;Rachel;7377;7383;1;no
+persName;;vidas;7386;7391;1;no
+persName;;Rachel;7459;7465;1;no
+persName;nickName;myo c'id;7468;7476;1;no
+persName;nickName;campeador;7498;7507;1;no
+placeName;;castiella;7542;7551;1;no
+persName;nickName;C'id;7677;7681;1;no
+persName;nickName;el c'id;7733;7740;1;no
+persName;;blanca;7900;7906;1;no
+persName;;don martino;7967;7978;2;no
+roleName;honorificc;don;7971;7974;1;no
+persName;;don martino;8061;8072;2;no
+roleName;honorific;don;8061;8064;1;no
+persName;;don Rachel;8141;8151;2;no
+roleName;honorific;don;8141;8144;1;no
+persName;;vidas;8154;8159;1;no
+persName;;Rachel;8241;8247;1;no
+persName;;vidas;8250;8255;1;no
+persName;;Martin antolinez;8318;8334;1;no
+persName;;don martino;8580;8591;2;no
+roleName;honorific;don;8580;8583;1;no
+placeName;;burgos;8668;8674;1;no
+geogName;;arlanc'on;8677;8686;1;no
+persName;nickName;el c'id;8754;8761;1;no
+persName;;martin antolinez;8796;8812;1;no
+roleName;;vassalo;8825;8832;1;no
+persName;nickName;campeador;8881;8890;1;no
+placeName;;san pero;8988;8996;1;no
+placeName;;cardena;9005;9012;1;no
+roleName;_family;mugier;9045;9051;1;no
+addName;nickName;Myo c'id;9201;9209;1;no
+placeName;;santa Maria;9272;9283;1;no
+placeName;;aria;9289;9293;1;no
+placeName;;Alc'o;9295;9300;1;no
+persName;_deity;dios;9348;9352;1;no
+persName;_deity;santa mariaDaqui;9410;9426;2;no
+roleName;;santa;9410;9415;1;no
+placeName;;castiella;9434;9443;1;no
+roleName;;Rey;9456;9459;1;no
+persName;;martin antolinez;9841;9857;1;no
+roleName;_family;mugier;9873;9879;1;no
+roleName;;Rey;9931;9934;1;no
+persName;;martin antolinez;10026;10042;1;no
+placeName;;burgos;10045;10051;1;no
+persName;nickName;myo c'id;10054;10062;1;no
+placeName;;san pero;10078;10086;1;no
+placeName;;cardena;10096;10103;1;no
+persName;;caualleros quel;10137;10152;2;no
+roleName;;caualleros;10131;10141;1;no
+placeName;;san pero;10233;10241;1;no
+persName;;campeador abbat don sancho;10250;10276;4;no
+addName;nickName;campeador;10250;10268;1;no
+roleName;;abbat don;10263;10272;2;no
+roleName;honorific;don;10269;10272;1;no
+persName;_deity;criador;10294;10301;1;no
+persName;;donna ximena;10352;10364;2;no
+roleName;;donna;10352;10357;1;no
+persName;_deity;san pero;10400;10408;2;no
+roleName;;san;10400;10403;1;no
+persName;_deity;criador;10414;10421;1;no
+persName;nickName;myo c'id;10448;10456;1;no
+persName;nickName;el campeador;10457;10469;1;no
+persName;_deity;Dios;10511;10515;1;no
+persName;;abbat don Sancho ;10534;10551;3;no
+roleName;;abbat don;10544;10553;2;no
+roleName;honorific;don;10540;10543;1;no
+persName;_deity;dios;10668;10672;1;no
+persName;nickName;myo c'id;10673;10681;1;no
+persName;;abbat don sancho;10690;10706;2;no
+roleName;;abbat don;10694;10703;2;no
+roleName;honorific;don;10696;10699;1;no
+persName;nickName;el c'id;10760;10767;1;no
+roleName;;don abbat;10774;10783;2;no
+roleName;honorific;don;10774;10777;1;no
+geogName;;tierra douos;10879;10891;1;no
+geogName;;marchos;10896;10903;1;no
+persName;;donna ximena;11014;11026;2;no
+roleName;honorific;donna;11014;11019;1;no
+roleName;_family;fijas;11059;11064;1;no
+roleName;_family;fijas;11107;11112;1;no
+persName;;abbat don sancho;11182;11198;2;no
+roleName;;abbat don;11188;11197;2;no
+roleName;honorific;don;11194;11197;1;no
+roleName;_family;mugier;11214;11220;1;no
+roleName;;abbat de;11415;11423;1;no
+persName;;donna ximena;11437;11449;2;no
+roleName;;donna;11437;11442;1;no
+roleName;_family;fijas;11458;11463;1;no
+persName;;campeador donna ximena;11537;11559;4;no
+addName;nickName;campeador;11530;11539;1;no
+roleName;;donna;11540;11545;1;no
+persName;nickName;campeador;11624;11633;1;no
+persName;nickName;c'id;11715;11719;1;no
+roleName;_family;ffijas;11767;11773;1;no
+roleName;;ynffantes;11781;11790;1;no
+persName;_deity;santa mariaEnclino;11952;11970;2;no
+roleName;;santa;11952;11957;1;no
+roleName;_family;fijas;12013;12018;1;no
+persName;;donna ximena;12127;12139;2;no
+roleName;honorific;donna;12127;12132;1;no
+roleName;_family;mugier;12146;12152;1;no
+roleName;_family;fijas;12289;12294;1;no
+persName;_deity;dios;12303;12307;1;no
+placeName;;santa maria;12312;12323;1;no
+roleName;_family;mugier;12400;12406;1;no
+persName;nickName;campeador;12467;12476;1;no
+persName;_deity;san pero;12500;12508;2;no
+roleName;;san;12503;12506;1;no
+placeName;;castiella;12522;12531;1;no
+persName;nickName;c'id;12586;12590;1;no
+persName;nickName;el campeador;12587;12599;1;no
+placeName;;aques;12639;12644;1;no
+geogName;;arlac'on;12666;12674;1;no
+roleName;;caualleros;12685;12695;1;no
+persName;;mio myo c'id el campeador Martin antolinez;12734;12776;4;no
+addName;nickName;mio myo c'id;12733;12745;1;no
+addName;nickName;el campeador;12743;12755;1;no
+placeName;;san pero;12801;12809;1;no
+persName;nickName;myo c'id;12861;12873;1;no
+placeName;;biuar;12876;12881;1;no
+placeName;;sonrisar;12975;12983;1;no
+persName;nickName;myo myo c'id;13016;13028;1;no
+persName;_deity;dios;13053;13057;1;no
+persName;_deity;padre spirital;13063;13077;1;no
+persName;nickName;myo c'id;13212;13224;1;no
+roleName;;Rey;13388;13391;1;no
+persName;nickName;myo c'id;13394;13406;1;no
+roleName;;caualleros;13553;13563;1;no
+placeName;;san pero;13776;13784;1;no
+roleName;;abbat;13810;13815;1;no
+persName;_deity;santa trinidadLa missa;13847;13869;2;no
+roleName;;santa;13869;13874;1;no
+persName;nickName;myo c'id;13963;13975;1;no
+addName;nickName;myo c'id;14116;14128;1;no
+roleName;_family;mugier;14130;14136;1;no
+persName;;donna ximena;14159;14171;2;no
+roleName;honorific;donna;14159;14164;1;no
+persName;_deity;criador;14212;14219;1;no
+persName;nickName;myo c'id;14249;14261;1;no
+addName;nickName;el campeador;14258;14270;1;no
+persName;_deity;dios;14275;14279;1;no
+roleName;_family;padre;14453;14458;1;no
+geogName;;tierra el terc'ero el mar;14392;14417;1;no
+persName;_deity;santa maria madre;14456;14473;3;no
+roleName;;santa;14491;14496;1;no
+roleName;_family;madre;14468;14473;1;no
+placeName;;belleem;14477;14484;1;no
+roleName;;Reyes de arabia;14570;14585;2;no
+placeName;;arabia;14615;14621;1;no
+persName;;Melchior;14605;14613;1;no
+persName;;gaspar;14616;14622;1;no
+persName;;baltasar;14625;14633;1;no
+persName;;ionas;14701;14706;1;no
+persName;;daniel;14739;14745;1;no
+placeName;;Roma;14798;14802;1;no
+persName;;sennor san sabastianSaluest;14806;14833;4;no
+roleName;honorific;sennor;14806;14812;1;no
+roleName;;san;14812;14815;1;no
+placeName;;santa susanna;14836;14849;1;no
+geogName;;tierra andidiste;14910;14926;1;no
+persName;_deity;spirital;14948;14956;1;no
+persName;;lazaro;15022;15028;1;no
+orgName;_collective;iudios;15053;15059;1;no
+geogName;;monte caluarie;15088;15102;1;no
+geogName;;golgota;15137;15144;1;no
+placeName;;parayso;15242;15249;1;no
+persName;;Longinos;15319;15327;1;no
