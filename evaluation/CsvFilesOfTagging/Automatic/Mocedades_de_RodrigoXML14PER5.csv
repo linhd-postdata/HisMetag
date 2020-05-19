@@ -1,0 +1,51 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+persName;;rrey pelayo;100;111;2;no
+roleName;;rrey;100;104;1;no
+persName;;rrey pelayo;117;128;2;no
+roleName;;rrey;117;121;1;no
+roleName;;conde don;176;185;2;no
+roleName;honorific;don;182;179;1;no
+roleName;;conde don;221;230;2;no
+roleName;honorific;don;227;224;1;no
+persName;;don alfonso;257;268;2;no
+roleName;honorific;don;257;260;1;no
+roleName;;rreyde;298;304;1;no
+placeName;;nauarra;367;374;1;no
+placeName;;aragon;381;387;1;no
+orgName;_collective;moros;403;408;1;no
+placeName;;sant esteuande gormaz;408;429;3;no
+roleName;;sant;412;416;1;no
+persName;;gormaz;428;434;1;no
+placeName;;leon;434;438;1;no
+orgName;_collective;moros;469;474;1;no
+geogName;;tierra frontera;507;522;1;no
+placeName;;castilla;518;526;1;no
+placeName;;nauarra;571;578;1;no
+placeName;;leon;591;595;1;no
+placeName;;carrion;600;607;1;no
+roleName;;rrey dede;665;674;1;no
+roleName;_family;fijas;685;690;1;no
+placeName;;castilla;727;735;1;no
+roleName;;alcaldes;740;748;1;no
+roleName;;alcaldes;838;846;1;no
+placeName;;castilla;960;968;1;no
+placeName;;santiago;1005;1013;1;no
+orgName;_collective;moros;1041;1046;1;no
+roleName;;conde;1053;1058;1;no
+persName;_deity;sant pe-drode arlanc'a;1089;1111;3;no
+roleName;;sant;1121;1125;1;no
+geogName;;arlanc'a;1136;1144;1;no
+roleName;;rrey;1249;1253;1;no
+placeName;;madrid;1275;1281;1;no
+roleName;honorific;don~a;1298;1303;2;no
+persName;;sanchez;1354;1361;1;no
+persName;;rey don sancho de;1329;1346;2;no
+roleName;;rey don;1381;1388;2;no
+roleName;;don;1385;1388;1;no
+orgName;_collective;moros;1440;1445;1;no
+roleName;_family;mugier;1415;1421;1;no
+placeName;;castilla;1474;1482;1;no
+persName;;conde ferrnad;1560;1573;2;no
+roleName;;conde;1560;1565;1;no
+placeName;;castilla;1598;1606;1;no
+roleName;_family;fijos;1503;1508;1;no

@@ -1,0 +1,62 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild;Padre;ContenidoPadre
+persName;;Lazarillo deTormes;204;222;2;no;null;
+geogName;;Tormes;217;222;1;no;persName;Lazarillo de Tormes
+placeName;;Alcala de Henares;352;368;1;no;null;
+persName;;Salzedo Librero;382;396;2;no;null;
+roleName;;Librero;390;396;1;no;persName;Salzedo Librero
+persName;;Plinio;723;728;1;no;null;
+persName;;Tullio;1400;1405;1;no;null;
+roleName;;soldado;1452;1458;1;no;null;
+roleName;honorific;su merced;1762;1770;1;no;null;
+persName;;sen~or donfulano;1878;1894;2;no;null;
+roleName;honorific;sen~or don;1878;1887;1;no;persName;sen~or don fulano
+roleName;honorific;Uuestra Merced;2322;2335;1;no;null;
+roleName;honorific;Uuestra Merced;2444;2457;1;no;null;
+persName;;fortuna;2708;2714;1;no;null;
+persName;;Lazaro;2909;2914;1;no;null;
+roleName;honorific;Uuestra Merced;2952;2965;1;no;null;
+persName;;Lazaro de Tormes hijo deThome Gonc'ales, y de Antona Perez;3000;3058;4;no;null;
+geogName;;Tormes;3010;3015;1;no;persName;Lazaro de Tormes hijo de  Thome Gonc'ales, y de Antona Perez
+roleName;_family;hijo deThome Gonc'ales, y de Antona Perez;3017;3058;4;no;persName;Lazaro de Tormes hijo de Thome Gonc'ales, y de Antona Perez
+persName;;Thome Gonc'ales;3025;3039;1;no;roleName;hijo de  Thome Gonc'ales, y de Antona Perez
+persName;;Antona Perez;3047;3058;1;no;roleName;hijo de  Thome Gonc'ales, y de Antona Perez
+placeName;;Tejares;3073;3079;1;no;null;
+placeName;;Salamanca;3091;3099;1;no;null;
+geogName;;rio Tormes;3132;3141;1;no;null;
+roleName;_family;padre;3206;3210;1;no;null;
+persName;_deity;Dios;3216;3219;1;no;null;
+roleName;;molinero;3324;3331;1;no;null;
+roleName;_family;madre;3367;3371;1;no;null;
+roleName;_family;padre;3554;3558;1;no;null;
+persName;_deity;Dios;3725;3728;1;no;null;
+name;;Euangelio;3761;3769;1;no;null;
+orgName;_collective;moros;3842;3846;1;no;null;
+roleName;_family;padre;3873;3877;1;no;null;
+roleName;;azemilero;3951;3959;1;no;null;
+roleName;;cauallero;3967;3975;1;no;null;
+roleName;;sen~or;4000;4005;1;no;null;
+roleName;;criado;4017;4022;1;no;null;
+roleName;_family;madre;4087;4091;1;no;null;
+roleName;_family;marido;4102;4107;1;no;null;
+roleName;;estudiantes;4275;4285;1;no;null;
+roleName;;moc'os de cauallos;4315;4332;1;no;null;
+roleName;;Comendador dela Magdalena;4338;4362;2;no;null;
+placeName;;Magdalena;4354;4362;1;no;roleName;Comendador dela Magdalena
+roleName;_family;madre;4977;4981;1;no;null;
+roleName;_family;padrastro;5102;5110;1;no;null;
+roleName;_family;madre;5163;5167;1;no;null;
+roleName;_family;madre;5257;5261;1;no;null;
+roleName;_family;Madre;5295;5299;1;no;null;
+roleName;;mayordomo;5591;5599;1;no;null;
+roleName;_family;hermanico;5898;5906;1;no;null;
+roleName;;clerigo;5935;5941;1;no;null;
+roleName;;frayle;5953;5958;1;no;null;
+roleName;;esclauo;6075;6081;1;no;null;
+roleName;_family;madre;6293;6297;1;no;null;
+roleName;_family;padrastro;6335;6343;1;no;null;
+roleName;_family;madre;6375;6379;1;no;null;
+roleName;;Comendador;6501;6510;1;no;null;
+roleName;_family;madre;7083;7087;1;no;null;
+roleName;_family;hijo;7136;7139;1;no;null;
+name;;Gelues;7212;7217;1;no;null;
+persName;_deity;Dios;7243;7246;1;no;null;

@@ -1,0 +1,76 @@
+Tag;Attribute;Value;Offset;EndChar;NumChilds;IsaChild
+persName;;mi infante don Alfonso fiio;6;30;4;no
+roleName;;infante don;6;17;2;no
+roleName;honorific;don;14;17;1;no
+roleName;_family;fiio;26;30;1;no
+persName;;don Ferrando;32;43;2;no
+roleName;honorific;don;39;34;1;no
+persName;;don Nunno Guzman;54;60;2;no
+roleName;honorific;don;54;47;1;no
+placeName;;Chinchiella;107;100;1;no
+placeName;;Chinchiella;248;242;1;no
+placeName;;Toletum;588;579;1;no
+persName;;infante exprimente;553;598;2;no
+roleName;;infante;596;587;1;no
+persName;;Jnfante don Alfonso fiio del rey don Ferrando heredero;709;749;3;no
+roleName;;Jnfante don;709;705;2;no
+roleName;honorific;don;717;705;1;no
+roleName;_family;fiio del rey don Ferrando heredero;729;749;2;no
+persName;;rey don Ferrando heredero;738;749;3;no
+roleName;;rey don;739;730;2;no
+roleName;honorific;don;742;730;1;no
+roleName;_family;heredero;755;749;1;no
+persName;;don Guillem;851;778;2;no
+roleName;honorific;don;851;770;1;no
+roleName;_family;padre;914;823;1;no
+persName;;Rey mio Reyna donna Berenguella  dol;831;867;6;no
+roleName;;Rey;906;833;1;no
+roleName;;Reyna donna;928;849;2;no
+roleName;;donna;845;849;1;no
+placeName;_facility;castillo de Ella;924;939;1;no
+orgName;_collective;moros;1204;1127;1;no
+persName;;don Guillem;1393;1325;2;no
+roleName;honorific;don;1393;1317;1;no
+roleName;;rey;1522;1446;1;no
+roleName;_family;padre;1530;1456;1;no
+persName;;don Guillem;1612;1545;2;no
+roleName;honorific;don;1612;1537;1;no
+roleName;_family;fiio;1629;1555;1;no
+persName;;don Guillem;1981;1915;2;no
+roleName;honorific;don;1981;1907;1;no
+roleName;;Rey;2223;2149;1;no
+roleName;_family;padre;2155;2159;1;no
+persName;;don Guillem;2324;2259;2;no
+roleName;honorific;don;2324;2251;1;no
+placeName;;uez;2338;2340;1;no
+placeName;;quantos;2350;2356;1;no
+orgName;_collective;moros;2681;2611;1;no
+roleName;;Infante;2855;2861;1;no
+persName;;don Alfonso;3051;2990;2;no
+roleName;;don;3051;2982;1;no
+roleName;;rey de;3014;3020;1;no
+persName;;Pedro obispo de Cartagena;3191;3083;2;no
+roleName;;obispo de Cartagena;3206;3083;2;no
+placeName;;Cartagena;3216;3083;1;no
+placeName;;Sant Julian de Seuilla de;3255;3151;3;no
+roleName;;Sant;3127;3130;1;no
+placeName;;Seuilla de;3283;3151;1;no
+persName;;Coxo;3377;3236;1;no
+persName;;Pedro;3414;3283;1;no
+persName;;Pascual;3459;3331;1;no
+persName;;Pedro;3551;3404;1;no
+persName;;Sancho;3647;3499;1;no
+roleName;;Rey;3692;3536;1;no
+placeName;;Seuilla;4370;4222;1;no
+roleName;;rey;4394;4242;1;no
+persName;;don Alfonso;4588;4428;2;no
+roleName;honorific;don;4588;4420;1;no
+persName;;reyna donna Yolant mi mugier;4726;4493;3;no
+roleName;;reyna donna;4466;4476;2;no
+roleName;honorific;donna;4732;4476;1;no
+roleName;_family;mugier;4748;4493;1;no
+persName;;Pedro obispo;4522;4533;2;no
+roleName;;obispo;4788;4533;1;no
+placeName;;Carthagena;4808;4557;1;no
+orgName;_collective;moros;4857;4607;1;no
+persName;;Geluferiz;4863;4617;1;no
